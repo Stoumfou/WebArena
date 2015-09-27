@@ -32,9 +32,12 @@ class ArenasController extends AppController
 	
 	public function sight(){
 		
-        $this->set('raw',$this->Fighter->find('all'));
-		if ($this->request->is('post'))pr($this->request->data);
-		$this->Fighter->doMove(1, $this->request->data['Fightermove']['direction']);
+		if ($this->request->is('post')){
+			if(array_key_exists('FighterMove',$this->request->data))$this->Fighter->doMove(1, $this->request->data['FighterMove']['direction']);
+			else if(array_key_exists('FighterAttack',$this->request->data))$this->Fighter->doAttack(1, $this->request->data['FighterAttack']['direction']);
+			pr($this->request->data);
+		}
+		$this->set('raw',$this->Fighter->find('all'));
 	}
 	
 	public function diary(){

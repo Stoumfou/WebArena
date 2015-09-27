@@ -45,14 +45,14 @@ class Fighter extends AppModel {
 		$result = -1;
 		
 		if((($player['Fighter']['coordinate_x']+$vector['x'])>0)&&
-		(($player['Fighter']['coordinate_x']+$vector['x'])<MAPLIMIT)&&
+		(($player['Fighter']['coordinate_x']+$vector['x'])<=MAPLIMIT)&&
 		(($player['Fighter']['coordinate_y']+$vector['y'])>0)&&
-		(($player['Fighter']['coordinate_y']+$vector['y'])<MAPLIMIT)){
+		(($player['Fighter']['coordinate_y']+$vector['y'])<=MAPLIMIT)){
 			$target = $this->find('all',array('conditions'=>array('coordinate_x'=>($player['Fighter']['coordinate_x']+$vector['x']),'coordinate_y'=>($player['Fighter']['coordinate_y']+$vector['y']))));
-		}else $result = -1;
+		}else $result = -2;
 		
-		if(count($target) == 0)$result = 0;
-		else $result= $target;
+		if(count($target) == 0)$result++;
+		else $result= $target[0];
 	   
 	   //var_dump($result);
 	   return $result;
@@ -74,15 +74,23 @@ class Fighter extends AppModel {
 	}
 	
 	public function doAttack($fighterId, $direction){
-		$result = false;
+		$result = -1;
 		
 		$player = $this->find('first', array('condition'=>array('id'=>$fighterId)));
 		$vector = $this->vector($direction);
 		$defenser = $this->isThere($fighterId, $vector);
+		var_dump($defenser);
 		
 		if(is_array($defenser)){
 			$result = true;
-			$defenser->set('current_health',($defenser['Fighter']['current_health'] - $player['Fighter']['skill_strength']));
+			$rand = rand(1,20);
+			echo $rand;
+			
+			if($rand>(10+$defenser['Fighter']['level']-$player['Fighter']['level'])){
+				$datas = array('Fighter'=>array('id'=>$defenser['Fighter']['id'],'current_health'=>($defenser['Fighter']['current_health'] - $player['Fighter']['skill_strength'])));
+				$this->save($datas);
+				$result = 1;
+			}else $result = 0;
 		}
 		return $result;
 	}
