@@ -14,31 +14,36 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-$cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
+$cakeDescription = __d('cake_dev', 'WebArena le site de jeu de combat d\'arène multijoueurs');
 $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<?php echo $this->Html->charset(); ?>
-	<title>
-		<?php echo $cakeDescription ?>:
-		<?php echo $this->fetch('title'); ?>
-	</title>
 	<?php
-		echo $this->Html->meta('icon');
 
-		echo $this->Html->css('cake.generic');
-
-		echo $this->fetch('meta');
+    echo $this->Html->charset();
+    echo $this->fetch('meta');
+    echo $this->Html->meta('icon');?>
+    <meta name="author" content="Alexis Pambourg Nicolas Bouvet Paul Cabellan">
+    <title>
+        <?php
+            echo $cakeDescription;
+            echo $this->fetch('title'); ?>
+    </title>
+    <?php
+		/*Décommenter et supprimer cake.generic pour passez au CSS Bootstrap
+		 * echo $this->Html->css(array('bootstrap.min', 'font-awesome.min'));*/
+        echo $this->Html->css('cake.generic');
+        echo $this->Html->script(array('bootstrap.min','jquery-1.11.3.min'));
 		echo $this->fetch('css');
-		echo $this->fetch('script');
+
 	?>
 </head>
 <body>
 	<div id="container">
 		<div id="header">
-			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
+			<h1><?php echo $cakeDescription; ?></h1>
 		</div>
 		<div id="content">
 
@@ -59,5 +64,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		</div>
 	</div>
 	<?php echo $this->element('sql_dump'); ?>
+    <?php echo $this->fetch('script');?>
 </body>
 </html>

@@ -1,3 +1,6 @@
+<?php
+    $this->Html->meta('description','Connexion/Inscription', array('inline' => false));
+?>
 <h1>Connexion/Inscription</h1>
 <a href="index">Accueil</a>
 

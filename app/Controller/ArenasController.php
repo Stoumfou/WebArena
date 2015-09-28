@@ -17,12 +17,12 @@ class ArenasController extends AppController
      */
     public function index()
     {
-        $this->set('myname', "Nicolas Bouvet");
+        $this->set('myname', "Toi petit troll");
     }
 	
 	public function login(){
 		
-        $this->set('myname', "Nicolas Bouvet");
+        $this->set('myname', "Toi petit troll");
 	}
 	
 	public function fighter(){
