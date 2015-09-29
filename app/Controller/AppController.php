@@ -31,5 +31,29 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+	
+	public function beforeFilter() {
+        parent::beforeFilter();
+		$this->Auth->authenticate = array(AuthComponent::ALL => array('userModel' => 'User'),'Basic','Form');
+        $this->Auth->allow('index','register', 'login');
+    }
+	
+	public $components = array(
+        'Flash',
+        'Auth' => array(
+			'controller' => 'users',
+            'action' => 'login',
+			'plugin' => 'users',
+			'loginRedirect'=>'../Arenas/index'
+			'authenticate' => array(
+				'Form' => array(
+					'fields' => array(
+						'username' => 'email', // 'username' par défaut
+						'password' => 'password'  // 'password' par défaut
+					)
+				)
+			)
+        )
+    );
 }
 ?>

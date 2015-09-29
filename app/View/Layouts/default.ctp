@@ -32,8 +32,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
             echo $this->fetch('title'); ?>
     </title>
     <?php
-		/*Décommenter et supprimer cake.generic pour passez au CSS Bootstrap
-		 * echo $this->Html->css(array('bootstrap.min', 'font-awesome.min'));*/
+		//Décommenter et supprimer cake.generic pour passez au CSS Bootstrap
+		echo $this->Html->css(array('bootstrap.min', 'font-awesome.min'));
         echo $this->Html->css('cake.generic');
         echo $this->Html->script(array('bootstrap.min','jquery-1.11.3.min'));
 		echo $this->fetch('css');

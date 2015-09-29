@@ -17,13 +17,11 @@ class ArenasController extends AppController
      */
     public function index()
     {
-        $this->set('myname', "Toi petit troll");
+		echo($this->Auth->loggedIn());
+        if($this->Auth->loggedIn())$this->set('myname', strtok($this->Auth->user('id')->name,'@'));
+		else $this->set('myname', "toi petit troll");
     }
 	
-	public function login(){
-		
-        $this->set('myname', "Toi petit troll");
-	}
 	
 	public function fighter(){
 		
