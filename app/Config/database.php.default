@@ -74,7 +74,7 @@ class DATABASE_CONFIG {
 		'host' => 'localhost',
 		'login' => 'root',
 		'password' => '',
-		'database' => 'webarenas',
+		'database' => 'ece_webarena',
 		'prefix' => '',
 		//'encoding' => 'utf8',
 	);
