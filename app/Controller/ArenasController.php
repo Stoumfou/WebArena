@@ -23,29 +23,30 @@ class ArenasController extends AppController
 	
 	
 	public function fighter(){
-		pr($this->Auth->user('id'));
-        $this->set('raw',$this->Fighter->find('first',array('condition'=>array('player_id'=>$this->Auth->user('id')))));
+		$this->set('fighters',$this->Fighter->getFighterNameByUser($this->Auth->user('id')));
+		if ($this->request->is('post'))$this->set('raw',$this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterChoose']['Combattant']));
+			
 	}
 	
 	public function sight(){
 		
-		$this->set('fighters',$this->Fighter->choose($this->Auth->user('id')));
+		$this->set('fighters',$this->Fighter->getFighterNameByUser($this->Auth->user('id')));
 		
 		if ($this->request->is('post')){
 			if(array_key_exists('FighterMove',$this->request->data))
 				$this->Fighter->doMove(
-										$this->Fighter->getFighterByUserId($this->Auth->user('id'))['Fighter']['id'],
+										$this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterMove']['Combattant'])['Fighter']['id'],
 										$this->request->data['FighterMove']['direction']
 									);
 			else if(array_key_exists('FighterAttack',$this->request->data))
 					$this->Fighter->doAttack(
-												$this->Fighter->getFighterByUserId($this->Auth->user('id'))['Fighter']['id'],
+												$this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterAttack']['Combattant'])['Fighter']['id'],
 												$this->request->data['FighterAttack']['direction']
 											);
 			pr($this->request->data);
 		}
-		$this->set('name',$this->Fighter->getFighterByUserId($this->Auth->user('id'))['Fighter']['name']);
-		pr($this->Auth->user('id'));
+		 // $this->set('raw',$this->Fighter->getFightersByUser($this->Auth->user('id')));
+		 // pr($this->Fighter->getFightersByUser($this->Auth->user('id')));
 	}
 	
 	public function diary(){

@@ -20,13 +20,21 @@ class Fighter extends AppModel {
 
    );
    
-   public function getFighterByUserId($user_id){
-		return $this->findByPlayer_id('first',array('condition'=>array('player_id'=>$user_id)));
+   public function getFightersByUser($user_id){
+		return $this->find('all',array('conditions'=>array('player_id'=>$user_id)));
    }
    
-   public function choose($user_id){
+   public function getFighterByUserAndName($user_id,$name){
+	   return $this->find('first',array('conditions'=>array('player_id'=>$user_id,'Fighter.name'=>$name)));
+   }
+   
+   public function getFighterByName($name){
+	   return $this->findByName($name);
+   }
+   
+   public function getFighterNameByUser($user_id){
 	   $result = array();
-	   $fighters = $this->find('all',array('condition'=>array('player_id'=>$user_id)));
+	   $fighters = $this->find('all',array('conditions'=>array('player_id'=>$user_id)));
 	   
 	   foreach($fighters as $fighter){
 		   $result = array_merge($result,array($fighter['Fighter']['name']=>$fighter['Fighter']['name']));
@@ -54,7 +62,7 @@ class Fighter extends AppModel {
 	
    
    public function isThere($fighterId, $vector){
-		$player = $this->find('first', array('condition'=>array('id'=>$fighterId)));
+		$player = $this->find('first', array('conditions'=>array('Fighter.id'=>$fighterId)));
 		$target = array();
 		$result = -1;
 		
@@ -68,12 +76,11 @@ class Fighter extends AppModel {
 		if(count($target) == 0)$result++;
 		else $result= $target[0];
 	   
-	   //var_dump($result);
 	   return $result;
    }
    
    public function doMove($fighterId, $direction){
-		$player = $this->find('first', array('condition'=>array('id'=>$fighterId)));
+		$player = $this->find('first', array('conditions'=>array('Fighter.id'=>$fighterId)));
 		$vector = $this->vector($direction);
 		
 		$result = false;
@@ -90,10 +97,9 @@ class Fighter extends AppModel {
 	public function doAttack($fighterId, $direction){
 		$result = -1;
 		
-		$player = $this->find('first', array('condition'=>array('id'=>$fighterId)));
+		$player = $this->find('first', array('conditions'=>array('Fighter.id'=>$fighterId)));
 		$vector = $this->vector($direction);
 		$defenser = $this->isThere($fighterId, $vector);
-		var_dump($defenser);
 		
 		if(is_array($defenser)){
 			$result = true;
@@ -106,6 +112,7 @@ class Fighter extends AppModel {
 				$result = 1;
 			}else $result = 0;
 		}
+		// var_dump($defenser);
 		return $result;
 	}
 }
