@@ -9,33 +9,43 @@ App::uses('AppController', 'Controller');
  */
 class ArenasController extends AppController
 {
-	public $uses = array('Player', 'Fighter', 'Event');
+	public $uses = array('User', 'Fighter', 'Event');
     /**
      * index method : first page
      *
      * @return void
      */
     public function index()
-    {
-		echo($this->Auth->loggedIn());
-        if($this->Auth->loggedIn())$this->set('myname', strtok($this->Auth->user('id')->name,'@'));
+    {	
+        if($this->Auth->loggedIn())$this->set('myname', strtok($this->User->findById($this->Auth->user('id'))['User']['email'],'@'));
 		else $this->set('myname', "toi petit troll");
     }
 	
 	
 	public function fighter(){
-		
-        $this->set('raw',$this->Fighter->findById(1));
+		pr($this->Auth->user('id'));
+        $this->set('raw',$this->Fighter->find('first',array('condition'=>array('player_id'=>$this->Auth->user('id')))));
 	}
 	
 	public function sight(){
 		
+		$this->set('fighters',$this->Fighter->choose($this->Auth->user('id')));
+		
 		if ($this->request->is('post')){
-			if(array_key_exists('FighterMove',$this->request->data))$this->Fighter->doMove(1, $this->request->data['FighterMove']['direction']);
-			else if(array_key_exists('FighterAttack',$this->request->data))$this->Fighter->doAttack(1, $this->request->data['FighterAttack']['direction']);
+			if(array_key_exists('FighterMove',$this->request->data))
+				$this->Fighter->doMove(
+										$this->Fighter->getFighterByUserId($this->Auth->user('id'))['Fighter']['id'],
+										$this->request->data['FighterMove']['direction']
+									);
+			else if(array_key_exists('FighterAttack',$this->request->data))
+					$this->Fighter->doAttack(
+												$this->Fighter->getFighterByUserId($this->Auth->user('id'))['Fighter']['id'],
+												$this->request->data['FighterAttack']['direction']
+											);
 			pr($this->request->data);
 		}
-		$this->set('raw',$this->Fighter->find('all'));
+		$this->set('name',$this->Fighter->getFighterByUserId($this->Auth->user('id'))['Fighter']['name']);
+		pr($this->Auth->user('id'));
 	}
 	
 	public function diary(){

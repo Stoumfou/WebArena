@@ -34,23 +34,34 @@ class AppController extends Controller {
 	
 	public function beforeFilter() {
         parent::beforeFilter();
-		$this->Auth->authenticate = array(AuthComponent::ALL => array('userModel' => 'User'),'Basic','Form');
         $this->Auth->allow('index','register', 'login');
     }
 	
 	public $components = array(
+		'Session',
         'Flash',
         'Auth' => array(
 			'controller' => 'users',
+			'userModel' => 'User',
             'action' => 'login',
 			'plugin' => 'users',
-			'loginRedirect'=>'../Arenas/index',
+			'loginAction' => array(
+            'controller' => 'Users', 
+            'action' => 'login'),
+			'loginRedirect' => array(
+            'controller' => 'Arenas',
+            'action' => 'index'),
+			'logoutRedirect' => array(
+            'controller' => 'Users',
+            'action' => 'login'),
+			
 			'authenticate' => array(
 				'Form' => array(
 					'fields' => array(
 						'username' => 'email', // 'username' par défaut
 						'password' => 'password'  // 'password' par défaut
-					)
+					),
+					'passwordHasher' => 'Blowfish'
 				)
 			)
         )

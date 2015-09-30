@@ -10,15 +10,29 @@ class Fighter extends AppModel {
 
     public $belongsTo = array(
 
-        'Player' => array(
+        'User' => array(
 
-            'className' => 'Player',
+            'className' => 'User',
 
             'foreignKey' => 'player_id',
 
         ),
 
    );
+   
+   public function getFighterByUserId($user_id){
+		return $this->findByPlayer_id('first',array('condition'=>array('player_id'=>$user_id)));
+   }
+   
+   public function choose($user_id){
+	   $result = array();
+	   $fighters = $this->find('all',array('condition'=>array('player_id'=>$user_id)));
+	   
+	   foreach($fighters as $fighter){
+		   $result = array_merge($result,array($fighter['Fighter']['name']=>$fighter['Fighter']['name']));
+	   }
+	   return $result;
+   }
    
    public function vector($direction){
 		$vector = array('x'=>0,'y'=>0);

@@ -1,5 +1,8 @@
 <?php
+
 class UsersController extends AppController {
+
+	
 
     public function index() {
         $this->User->recursive = 0;
@@ -18,7 +21,7 @@ class UsersController extends AppController {
             $this->User->create();
             if ($this->User->save($this->request->data)) {
                 $this->Flash->success(__('Le joueur a été sauvegardé'));
-                return $this->redirect(array('action' => 'index'));
+                 return $this->redirect(array('action' => '../Arenas/index'));
             } else {
                 $this->Flash->error(__('Le joueur n\'a pas été sauvegardé. Merci de réessayer.'));
             }
@@ -33,7 +36,7 @@ class UsersController extends AppController {
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->User->save($this->request->data)) {
                 $this->Flash->success(__('Le joueur a été sauvegardé'));
-                return $this->redirect(array('action' => 'index'));
+                return $this->redirect(array('action' => '../Arenas/index'));
             } else {
                 $this->Flash->error(__('Le joueur n\'a pas été sauvegardé. Merci de réessayer.'));
             }
@@ -62,7 +65,7 @@ class UsersController extends AppController {
 	public function login(){
 		if ($this->request->is('post')) {
 			if ($this->Auth->login()) {
-				return $this->redirectURL();
+				return $this->redirect('../Arenas/index');
 			} else {
 				$this->Flash->error(__("Nom d'user ou mot de passe invalide"));
 			}
