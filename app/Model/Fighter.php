@@ -80,40 +80,47 @@ class Fighter extends AppModel {
    }
    
    public function doMove($fighterId, $direction){
+	   $event = array('name'=>'','coordinate_x'=>0,'coordinate_y'=>0);
+	   
 		$player = $this->find('first', array('conditions'=>array('Fighter.id'=>$fighterId)));
+		$event['name'] .= $player['Fighter']['name']." se deplace ";
 		$vector = $this->vector($direction);
-		
-		$result = false;
+		$event['coordinate_x'] = $player['Fighter']['coordinate_x']+$vector['x'];
+		$event['coordinate_y'] = $player['Fighter']['coordinate_y']+$vector['y'];
 		
 		if($this->isThere($fighterId, $vector) == 0){
 			$datas = array('Fighter'=>array('id'=>$fighterId,'coordinate_y'=>$player['Fighter']['coordinate_y'] + $vector['y'],'coordinate_x'=>$player['Fighter']['coordinate_x'] + $vector['x']));
 			$this->save($datas);
-			$result = true;
-		}
+		}else $event['name'] .= 'mais est bloqué';
 		
-		return $result;
+		return $event;
 	}
 	
 	public function doAttack($fighterId, $direction){
-		$result = -1;
+		$event = array('name'=>'','coordinate_x'=>0,'coordinate_y'=>0);
 		
 		$player = $this->find('first', array('conditions'=>array('Fighter.id'=>$fighterId)));
+		$event['name'] .= $player['Fighter']['name']." attaque ";
 		$vector = $this->vector($direction);
+		$event['coordinate_x'] = $player['Fighter']['coordinate_x']+$vector['x'];
+		$event['coordinate_y'] = $player['Fighter']['coordinate_y']+$vector['y'];
 		$defenser = $this->isThere($fighterId, $vector);
 		
 		if(is_array($defenser)){
 			$result = true;
 			$rand = rand(1,20);
-			echo $rand;
+			// echo $rand;
+			$event['name'] .= $defenser['Fighter']['name']." et le ";
 			
 			if($rand>(10+$defenser['Fighter']['level']-$player['Fighter']['level'])){
 				$datas = array('Fighter'=>array('id'=>$defenser['Fighter']['id'],'current_health'=>($defenser['Fighter']['current_health'] - $player['Fighter']['skill_strength'])));
 				$this->save($datas);
-				$result = 1;
-			}else $result = 0;
-		}
+				$event['name'] .= "touche";
+			}else $event['name'] .= "rate";
+		}else $event['name'] .= "dans le vide";
 		// var_dump($defenser);
-		return $result;
+		return $event;
 	}
+	
 }
 ?>

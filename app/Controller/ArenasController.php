@@ -35,14 +35,14 @@ class ArenasController extends AppController
 		
 		if ($this->request->is('post')){
 			if(array_key_exists('FighterMove',$this->request->data))
-				$this->Fighter->doMove(
+				$this->Event->record($this->Fighter->doMove(
 										$this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterMove']['Combattant'])['Fighter']['id'],
-										$this->request->data['FighterMove']['direction']
+										$this->request->data['FighterMove']['direction'])
 									);
 			else if(array_key_exists('FighterAttack',$this->request->data))
-					$this->Fighter->doAttack(
+					$this->Event->record($this->Fighter->doAttack(
 												$this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterAttack']['Combattant'])['Fighter']['id'],
-												$this->request->data['FighterAttack']['direction']
+												$this->request->data['FighterAttack']['direction'])
 											);
 			pr($this->request->data);
 		}
