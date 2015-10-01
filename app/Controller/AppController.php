@@ -46,14 +46,14 @@ class AppController extends Controller {
             'action' => 'login',
 			'plugin' => 'users',
 			'loginAction' => array(
-            'controller' => 'Users', 
-            'action' => 'login'),
+				'controller' => 'Users', 
+				'action' => 'login'),
 			'loginRedirect' => array(
-            'controller' => 'Arenas',
-            'action' => 'index'),
+				'controller' => 'Arenas',
+				'action' => 'index'),
 			'logoutRedirect' => array(
-            'controller' => 'Users',
-            'action' => 'login'),
+				'controller' => 'Users',
+				'action' => 'login'),
 			
 			'authenticate' => array(
 				'Form' => array(

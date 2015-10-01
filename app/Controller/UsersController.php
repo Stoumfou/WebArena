@@ -3,7 +3,6 @@
 class UsersController extends AppController {
 
 	
-
     public function index() {
         $this->User->recursive = 0;
         $this->set('users', $this->paginate());
@@ -16,6 +15,9 @@ class UsersController extends AppController {
         $this->set('user', $this->User->findById($id));
     }
 
+	/*
+	 *Méthode de création d'un nouvel utilisateur
+	 */
     public function register() {
         if ($this->request->is('post')) {
             $this->User->create();
@@ -28,6 +30,9 @@ class UsersController extends AppController {
         }
     }
 
+	/*
+	 *Méthode de modification d'un utilisateur
+	 */
     public function edit($id = null) {
         $this->User->id = $id;
         if (!$this->User->exists()) {
@@ -46,6 +51,9 @@ class UsersController extends AppController {
         }
     }
 
+	/*
+	 *Méthode de suppresion d'un utilisateur
+	 */
     public function delete($id = null) {
 
         $this->request->allowMethod('post');
@@ -62,6 +70,9 @@ class UsersController extends AppController {
         return $this->redirect(array('action' => 'index'));
     }
 	
+	/*
+	 *Méthode d'authentification
+	 */
 	public function login(){
 		if ($this->request->is('post')) {
 			if ($this->Auth->login()) {
@@ -72,6 +83,9 @@ class UsersController extends AppController {
 		}
 	}
 	
+	/*
+	 *Méthode de déconnexion
+	 */
 	public function logout() {
 		return $this->redirect($this->Auth->logout());
 	}

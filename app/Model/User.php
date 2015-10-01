@@ -28,6 +28,9 @@ class User extends AppModel {
         )
     );
 	
+	/*
+	*Méthode de Hashage du mot de passe avant enregistrement en DB
+	*/
 	public function beforeSave($options = array()) {
 		if (isset($this->data[$this->alias]['password'])) {
 			$passwordHasher = new BlowfishPasswordHasher();
