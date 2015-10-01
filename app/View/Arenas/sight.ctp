@@ -2,6 +2,7 @@
     $this->Html->meta('description','Vision',array('inline' => false));
 ?>
     <a href="index">Accueil</a>
+	<a href="fighter">Combattant</a>
 <?php
 
 echo $this->Form->create('FighterMove');

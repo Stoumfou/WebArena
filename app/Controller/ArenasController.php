@@ -15,17 +15,18 @@ class ArenasController extends AppController
      *
      * @return void
      */
-    public function index()
-    {	
+    public function index(){	
+	
         if($this->Auth->loggedIn())$this->set('myname', strtok($this->User->findById($this->Auth->user('id'))['User']['email'],'@'));
 		else $this->set('myname', "toi petit troll");
     }
 	
 	
 	public function fighter(){
+		
 		$this->set('fighters',$this->Fighter->getFighterNameByUser($this->Auth->user('id')));
 		if ($this->request->is('post'))$this->set('raw',$this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterChoose']['Combattant']));
-			
+		else $this->set('raw','Séléctioner un Combattant.');	
 	}
 	
 	public function sight(){
