@@ -1,6 +1,7 @@
 <?php
 
 define('MAPLIMIT',15);
+define('XPUP',4);
 
 App::uses('AppModel', 'Model');
 
@@ -81,11 +82,11 @@ class Fighter extends AppModel {
 	
    /*
     *Méthode déterminant si un combattant est sur une case ciblé par un autre
-    *Reçoit l'id du Fighter en action et la direction de celle-ci en string
+    *Reçoit un Fighter en action en array et la direction de celle-ci en string
     *Retourne -1 si la case cible est hors de l'arène, 0 si la case est vide et retourne le combattant sur la case si elle est occupée
     */
-   public function isThere($fighterId, $vector){
-		$player = $this->find('first', array('conditions'=>array('Fighter.id'=>$fighterId)));
+   public function isThere($fighter, $vector){
+		$player = $fighter;	
 		$target = array();
 		$result = -1;
 		
@@ -107,15 +108,15 @@ class Fighter extends AppModel {
    
    /*
     *Méthode action de déplacement d'un combattant
-    *Reçoit un id de Fighter et une direction en string
+    *Reçoit un Fighter en array et une direction en string
     *Retourne un Event en array avec des valeurs nom, coordinate_x et coordinate_y initialisées
     */
-   public function doMove($fighterId, $direction){
+   public function doMove($fighter, $direction){
 		//Initialisation de l'Event
 		$event = array('name'=>'','coordinate_x'=>0,'coordinate_y'=>0);
 	   
 		//Récupération du Fighter en action
-		$player = $this->find('first', array('conditions'=>array('Fighter.id'=>$fighterId)));
+		$player = $fighter;
 		//Mention du Fighter en action dans l'Event
 		$event['name'] .= $player['Fighter']['name']." se deplace ";
 		//Détermination du vecteur mouvement à partir de la direction choisi par le joueur
@@ -125,9 +126,9 @@ class Fighter extends AppModel {
 		$event['coordinate_y'] = $player['Fighter']['coordinate_y']+$vector['y'];
 		
 		//Vérification de la présence d'un autre Fighter à la destination
-		if($this->isThere($fighterId, $vector) == 0){
+		if($this->isThere($player, $vector) == 0){
 			//Enregistrement du mouvement en DB
-			$datas = array('Fighter'=>array('id'=>$fighterId,'coordinate_y'=>$player['Fighter']['coordinate_y'] + $vector['y'],'coordinate_x'=>$player['Fighter']['coordinate_x'] + $vector['x']));
+			$datas = array('Fighter'=>array('id'=>$player['Fighter']['id'],'coordinate_y'=>$player['Fighter']['coordinate_y'] + $vector['y'],'coordinate_x'=>$player['Fighter']['coordinate_x'] + $vector['x']));
 			$this->save($datas);
 		//Mention de l'échec de l'action dans l'Event
 		}else $event['name'] .= 'mais est bloque';
@@ -136,16 +137,16 @@ class Fighter extends AppModel {
 	}
 	
 	/*
-    *Méthode action d'attaque d'un combattant
-    *Reçoit un id de Fighter et une direction en string
-    *Retourne un Event en array avec des valeurs nom, coordinate_x et coordinate_y initialisées
-    */
-	public function doAttack($fighterId, $direction){
+	 *Méthode action d'attaque d'un combattant
+     *Reçoit un Fighter en array et une direction en string
+     *Retourne un Event en array avec des valeurs nom, coordinate_x et coordinate_y initialisées
+     */
+	public function doAttack($fighter, $direction){
 		//Initialisation de l'Event
 		$event = array('name'=>'','coordinate_x'=>0,'coordinate_y'=>0);
 		
 		//Récupération du Fighter en action
-		$player = $this->find('first', array('conditions'=>array('Fighter.id'=>$fighterId)));
+		$player = $fighter;
 		//Mention du Fighter en action dans l'Event
 		$event['name'] .= $player['Fighter']['name']." attaque ";
 		//Détermination du vecteur d'attaque à partir de la direction choisi par le joueur
@@ -155,7 +156,7 @@ class Fighter extends AppModel {
 		$event['coordinate_y'] = $player['Fighter']['coordinate_y']+$vector['y'];
 		
 		//Vérification de la présence d'un Fighter sur la case cible
-		$defenser = $this->isThere($fighterId, $vector);
+		$defenser = $this->isThere($player, $vector);
 		
 		//Si un Fighter est trouvé comme "Attaqué"
 		if(is_array($defenser)){
@@ -171,11 +172,25 @@ class Fighter extends AppModel {
 			//Si le jet d'attaque est supérieur à 10 plus la différence de niveau des deux joueurs, l'attaque réussie
 			if($rand>(10+$defenser['Fighter']['level']-$player['Fighter']['level'])){
 				//Enregistrement de la blessure en DB
-				$datas = array('Fighter'=>array('id'=>$defenser['Fighter']['id'],'current_health'=>($defenser['Fighter']['current_health'] - $player['Fighter']['skill_strength'])));
+				$defenser['Fighter']['current_health'] -= $player['Fighter']['skill_strength'];
+				$datas = array('Fighter'=>array('id'=>$defenser['Fighter']['id'],'current_health'=>$defenser['Fighter']['current_health']));
 				$this->save($datas);
 				
-				//Mention de la réussite de l'attaque dans l'Event
-				$event['name'] .= "touche";
+				//Mention de la réussite de l'attaque dans l'Event, détermination de la survie de la victime et attribution de l'xp
+				if($this->isDead($defenser)){
+					$event['name'] .= "tue";
+					$xp = ($defenser['Fighter']['level']-$player['Fighter']['level']);
+					if($xp <= 0)$xp = 1;
+					else $xp ++;
+					$player['Fighter']['xp'] += $xp;
+				}else{
+					$event['name'] .= "touche";
+					$player['Fighter']['xp']++;
+				}
+				
+				//Sauvegarde du gain d'xp
+				$datas = array('Fighter'=>array('id'=>$player['Fighter']['id'],'xp'=>$player['Fighter']['xp']));
+				$this->save($datas);
 			//Mention de l'échec de l'attaque dans l'Event
 			}else $event['name'] .= "rate";
 		}else $event['name'] .= "dans le vide";
@@ -232,6 +247,65 @@ class Fighter extends AppModel {
 		}
 		return $event;
 	}
+	
+	/*
+	 * Méthode de vérification si un combattant est en vie
+	 *Reçoit un combattant et retourne un booléen
+	 */
+	public function isDead($fighter){
+		$result = false;
+		
+		//Si les HP du Fighter sont en dessous de 1, le combattant est supprimé et true est retourné
+		if($fighter['Fighter']['current_health'] <=0){
+			$this->delete($fighter['Fighter']['id']);
+			$result = true;
+		}
+		
+		return $result;
+	
+	}
+	
+	/*
+	 *Méthode de vérification si un combattant peu monter de niveau
+	 *Reçoit un combattant et retourne un booléen
+	 */
+	public function canLevelUp($fighter){
+		$result = false;
+	
+		if($fighter['Fighter']['xp'] >= XPUP)$result = true;
+		
+		return $result;
+	}
+	
+	/*
+	 *Méthode de passage de niveau d'un combattant
+	 *Reçoit un combattant et une stat à améliorer et retourne le Fighter modifié
+	 */	
+	public function levelUp($fighter,$stat){
+			
+		//Si le Fighter à XPUP d'xp au moins
+		if($fighter['Fighter']['xp'] >= XPUP){
+			
+			//Retrait de XPUP d'xp, incrément du level, amélioration d'une stat et remise au max des HP
+			$fighter['Fighter']['xp'] -= XPUP; 
+			$fighter['Fighter']['level']++;
+			$fighter['Fighter']['skill_'.$stat]++;
+			$fighter['Fighter']['current_health'] = $fighter['Fighter']['skill_health'];
+			
+			//Sauvegarde des nouvelles caractéristiques
+			$datas = array('Fighter'=>array('id'=>$fighter['Fighter']['id'],
+											'xp'=>$fighter['Fighter']['xp'],
+											'level'=>$fighter['Fighter']['level'],
+											'skill_'.$stat=>$fighter['Fighter']['skill_'.$stat],
+											'current_health'=>$fighter['Fighter']['current_health']
+										)
+							);
+			$this->save($datas);
+		}
+		
+		return $fighter;
+	}
+	
 	
 }
 ?>
