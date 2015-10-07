@@ -22,7 +22,14 @@ class UsersController extends AppController {
         if ($this->request->is('post')) {
             $this->User->create();
             if ($this->User->save($this->request->data)) {
-                $this->Flash->success(__('Le joueur a été sauvegardé'));
+                //$this->Flash->success(__('Le joueur a été sauvegardé'));
+                $id = $this->User->id;
+                $this->request->data['User'] = array_merge(
+                    $this->request->data['User'],
+                    array('id' => $id)
+                );
+                unset($this->request->data['User']['password']);
+                $this->Auth->login($this->request->data['User']);
                  return $this->redirect(array('action' => '../Arenas/index'));
             } else {
                 $this->Flash->error(__('Le joueur n\'a pas été sauvegardé. Merci de réessayer.'));
