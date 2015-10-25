@@ -3,8 +3,9 @@
 ?>
 
 <h1>WebArenas</h1>
+<p> <?php echo $fb_name ?></p>
 <p>Bienvenu dans WebArena, <?php echo $myname;?></p>
-
+<?php var_dump($_SESSION) ;?>
 <?php 	if ($myname == 'toi petit troll') echo ('<ul><li><a href="../Users/login">Connexion/Inscription</a></li>');
 		else echo '<ul><li><a href="../Users/logout">Déconnexion</a></li>
 <li><a href="fighter">Combattant</a></li>

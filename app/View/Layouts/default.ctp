@@ -51,6 +51,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
     ga('send', 'pageview');
 
 </script>
+<?php /*
 <script>
     // This is called with the results from from FB.getLoginStatus().
     function statusChangeCallback(response) {
@@ -139,7 +140,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 -->
 
 <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-</fb:login-button>
+</fb:login-button>*/?>
 
 <div id="status">
 </div>

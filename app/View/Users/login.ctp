@@ -15,6 +15,8 @@
     ?>
     </fieldset>
 <?php echo $this->Form->end(__('Login')); ?>
+
+<a class="btn btn-default facebook" href="<?php echo BASE_PATH.'fblogin'; ?>"> <i class="fa fa-facebook modal-icons"></i> Signin with Facebook</a>
 <a href="forgotten">Mot de passe oublié</a>
 
 <a href="register">Pas encore inscrit ?</a>

@@ -1,4 +1,17 @@
 <?php
+/*define ('FACEBOOK_SDK_V4_SRC_DIR', '../../vendor/facebook/php-sdk-v4/src/Facebook');*/
+require_once("../../vendor/autoload.php");
+
+use Facebook\FacebookSession;
+use Facebook\FacebookRedirectLoginHelper;
+use Facebook\FacebookRequest;
+use Facebook\FacebookResponse;
+use Facebook\FacebookSDKException;
+use Facebook\FacebookRequestException;
+use Facebook\FacebookAuthorizationException;
+use Facebook\GraphObject;
+use Facebook\GraphUser;
+use Facebook\GraphSessionInfo;
 
 class UsersController extends AppController {
 
@@ -97,5 +110,85 @@ class UsersController extends AppController {
 		return $this->redirect($this->Auth->logout());
 	}
 
+
+    /*
+     * Facebook Login
+     */
+    public function fblogin()
+    {
+        if (session_status() == PHP_SESSION_NONE){
+            session_start();
+        }
+        $fb = new \Facebook\Facebook([
+            'app_id' => '1720702151482399',
+            'app_secret' => '498d1d995ef2a182e5f1760734ad57b6',
+            'default_graph_version' => 'v2.4',
+        ]);
+
+        $helper = $fb->getRedirectLoginHelper();
+        $permissions = ['email']; // optional
+        $loginUrl = $helper->getLoginUrl(FACEBOOK_REDIRECT_URI, $permissions);
+        $this->redirect($loginUrl);
+
+
+
+        /*
+         *
+         *
+         *
+         *
+         * $this->autoRender = false;
+        if (session_status() == PHP_SESSION_NONE){
+            session_start();
+        }
+        FacebookSession::setDefaultApplication(FACEBOOK_APP_ID,FACEBOOK_APP_SECRET);
+        $helper = new FacebookRedirectLoginHelper(FACEBOOK_REDIRECT_URI);
+        $url = $helper->getLoginUrl(array('email'));
+        $session = $helper->getSessionFromRedirect();
+        $_SESSION['fb_token'] = $session->getToken();
+        $request = new FacebookRequest($session,'GET','/me');
+        $profile = $request->execute()->getGraphObject();
+
+        $this->redirect($url);*/
+        /*
+         *
+         *
+         *
+         *
+         *
+        if(isset($_SESSION) && isset ($_SESSION['fb_token']))
+        {
+            $session = new FacebookSession($_SESSION['fb_token']);
+        }else{
+            $session = $helper->getSessionFromRedirect();
+        }
+        if($session)
+        {
+            $_SESSION['fb_token'] = $session->getToken();
+            $request = new FacebookRequest($session,'GET','/me');
+            $profile = $request->execute()->getGraphObject();
+            define('TRUC',$profile);
+
+        }else{
+            $url = $helper->getLoginUrl());
+        }
+        $session = $helper->getSessionFromRedirect();
+        $_SESSION['fb_token'] = $session->getToken();*/
+
+
+    }
+
+    public function fb_login()
+    {
+        $this->layout = 'ajax';
+        FacebookSession::setDefaultApplication(FACEBOOK_APP_ID,FACEBOOK_APP_SECRET);
+        $helper = new FacebookRedirectLoginHelper(FACEBOOK_REDIRECT_URI);
+    }
+
+    public function beforeFilter()
+    {
+        $this->Auth->allow('fblogin','fb_login');
+        parent::beforeFilter();
+    }
 }
 ?>
