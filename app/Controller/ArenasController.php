@@ -7,7 +7,7 @@ App::uses('AppController', 'Controller');
  *
  * @author ...
  */
-require_once("../../vendor/autoload.php");
+/*require_once("../../vendor/autoload.php");
 
 use Facebook\FacebookSession;
 use Facebook\FacebookRedirectLoginHelper;
@@ -19,7 +19,7 @@ use Facebook\FacebookAuthorizationException;
 use Facebook\GraphObject;
 use Facebook\GraphUser;
 use Facebook\GraphSessionInfo;
-use Facebook\Helpers\FacebookCanvasHelper;
+use Facebook\Helpers\FacebookCanvasHelper;*/
 
 
 class ArenasController extends AppController
@@ -37,7 +37,9 @@ class ArenasController extends AppController
         if($this->Auth->loggedIn())$this->set('myname', strtok($this->User->findById($this->Auth->user('id'))['User']['email'],'@'));
 		else $this->set('myname', "toi petit troll");
 
-		if (session_status() == PHP_SESSION_NONE){
+
+		//POUR CE CONNECTER, ERREUR SDK Facebook Pouet
+		/*if (session_status() == PHP_SESSION_NONE){
 			session_start();
 		}
 		$fb = new \Facebook\Facebook([
@@ -47,15 +49,17 @@ class ArenasController extends AppController
 		]);
 
 
-		$helper = $fb->getCanvasHelper();
+		$helper = $fb->getRedirectLoginHelper();
 		try {
 			$accessToken = $helper->getAccessToken();
 		} catch(Facebook\Exceptions\FacebookResponseException $e) {
 			// When Graph returns an error
+			echo $e;
 			echo 'Graph returned an error: ' . $e->getMessage();
 			exit;
 		} catch(Facebook\Exceptions\FacebookSDKException $e) {
 			// When validation fails or other local issues
+			echo $e;
 			echo 'Facebook SDK returned an error: ' . $e->getMessage();
 			exit;
 		}
@@ -64,11 +68,11 @@ class ArenasController extends AppController
 			// Logged in!
 			$_SESSION['facebook_access_token'] = (string) $accessToken;
 
-			// OAuth 2.0 client handler
-			$oAuth2Client = $fb->getOAuth2Client();
-			// Exchanges a short-lived access token for a long-lived one
-			$longLivedAccessToken = $oAuth2Client->getLongLivedAccessToken($_SESSION['facebook_access_token']);
-			$fb->setDefaultAccessToken('{access-token}');
+	}*/
+
+
+		//POUR UTILISER LE MAIL LE NOM ETC
+			/*$fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
 
 			try {
 				$response = $fb->get('/me');
@@ -82,12 +86,13 @@ class ArenasController extends AppController
 				echo 'Facebook SDK returned an error: ' . $e->getMessage();
 				exit;
 			}
+
 			$this->set('fb_name',$userNode->getName());
 
-			echo 'Logged in as ' . $userNode->getName();
+			echo 'Logged in as ' . $userNode->getName();*/
 			// Now you can redirect to another page and use the
 			// access token from $_SESSION['facebook_access_token']
-		}
+
     }
 	
 	/*

@@ -1,5 +1,5 @@
 <?php
-/*define ('FACEBOOK_SDK_V4_SRC_DIR', '../../vendor/facebook/php-sdk-v4/src/Facebook');*/
+/*define ('FACEBOOK_SDK_V4_SRC_DIR', '../../vendor/facebook/php-sdk-v4/src/Facebook');
 require_once("../../vendor/autoload.php");
 
 use Facebook\FacebookSession;
@@ -11,7 +11,7 @@ use Facebook\FacebookRequestException;
 use Facebook\FacebookAuthorizationException;
 use Facebook\GraphObject;
 use Facebook\GraphUser;
-use Facebook\GraphSessionInfo;
+use Facebook\GraphSessionInfo;*/
 
 class UsersController extends AppController {
 
@@ -113,9 +113,12 @@ class UsersController extends AppController {
 
     /*
      * Facebook Login
-     */
+     *         //Fonctionne a peu près
+
+
     public function fblogin()
     {
+
         if (session_status() == PHP_SESSION_NONE){
             session_start();
         }
@@ -128,12 +131,11 @@ class UsersController extends AppController {
         $helper = $fb->getRedirectLoginHelper();
         $permissions = ['email']; // optional
         $loginUrl = $helper->getLoginUrl(FACEBOOK_REDIRECT_URI, $permissions);
-        $this->redirect($loginUrl);
-
+        $this->redirect($loginUrl);*/
 
 
         /*
-         *
+         *Fonction pas du tout
          *
          *
          *
@@ -175,7 +177,7 @@ class UsersController extends AppController {
         $session = $helper->getSessionFromRedirect();
         $_SESSION['fb_token'] = $session->getToken();*/
 
-
+/*
     }
 
     public function fb_login()
@@ -189,6 +191,6 @@ class UsersController extends AppController {
     {
         $this->Auth->allow('fblogin','fb_login');
         parent::beforeFilter();
-    }
+    }*/
 }
 ?>
