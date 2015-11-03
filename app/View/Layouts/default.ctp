@@ -136,7 +136,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 'Thanks for logging in, ' + response.name + '!';
             var name = response.name;
             var email = response.email;
-            alert(email);
+           // alert(email);
         });
     }
 
@@ -155,9 +155,11 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>-->
 
-<div id="status">
+<!--<div id="status">
 </div>
-<div class="fb-login-button" data-max-rows="2" data-size="medium" data-show-faces="true" data-auto-logout-link="true"></div>
+<div class="fb-login-button" data-max-rows="2" data-size="medium" data-show-faces="true" data-auto-logout-link="true"></div>-->
+
+
 	<div id="container">
 		<div id="header">
 			<h1><?php echo $cakeDescription; ?></h1>

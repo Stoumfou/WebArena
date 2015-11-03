@@ -31,11 +31,11 @@
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
 /*
- * FB route
+ * FB route*/
 
 
 	Router::connect('/fb_login',array('controller' => 'users', 'action' => 'fb_login'));
-	Router::connect('/fblogin',array('controller' => 'users', 'action' => 'fblogin'));*/
+	Router::connect('/fblogin',array('controller' => 'users', 'action' => 'fblogin'));
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on
