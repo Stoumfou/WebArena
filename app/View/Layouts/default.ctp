@@ -36,14 +36,14 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		echo $this->Html->css(array('bootstrap.min', 'font-awesome.min'));
         //echo $this->Html->css('cake.generic');
         echo $this->Html->script('jquery-2.1.4');
+        echo $this->Html->script(array('grid'));
         echo $this->Html->script(array('jquery-1.11.3.min','bootstrap.min'));
 		echo $this->fetch('css');
         echo $this->fetch('javascript');
-        echo $this->Html->css(array('footer'));
-
+        echo $this->Html->css(array('footer','grid'));
 	?>
 </head>
-<body>
+<body  >
 
 <script>
     //Script pour Google Analytics

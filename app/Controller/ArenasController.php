@@ -160,6 +160,7 @@ class ArenasController extends AppController
 	public function sight(){
 		//Récupération de la liste des noms des Fighter du User connecté
 		$this->set('fighters',$this->Fighter->getFighterNameByUser($this->Auth->user('id')));
+        
 		
 		if ($this->request->is('post')){
 			if(array_key_exists('FighterMove',$this->request->data))
@@ -178,7 +179,13 @@ class ArenasController extends AppController
 		}
 		 // $this->set('raw',$this->Fighter->getFightersByUser($this->Auth->user('id')));
 		 // pr($this->Fighter->getFightersByUser($this->Auth->user('id')));
-	}
+	
+    
+    
+    $this->set('fighterToSight',5);
+    
+    
+    }
 	
 	/*
 	 *Page de Journal

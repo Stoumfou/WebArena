@@ -1,11 +1,10 @@
-<?php
-    $this->Html->meta('description','Vision',array('inline' => false));
-?>
-<script type="text/javascript">
-        var mapLimit = 15 ;
+/*var mapLimit = 15 ;
 var xpUp = 4 ;
+var fighters = {};
 
-var num = "<?php echo $fighterToSight ?>"; 
+var num = "<?php echo $testSight ?>"; 
+
+
 var lastClicked;
 var grid = clickableGrid(mapLimit,mapLimit,function(el,row,col,i){
     console.log("You clicked on element:",el);
@@ -13,7 +12,7 @@ var grid = clickableGrid(mapLimit,mapLimit,function(el,row,col,i){
     console.log("You clicked on col:",col);
     console.log("You clicked on item #:",i);
     
-    el.innerHTML = num;
+    window.alert(num);
     
     el.className='clicked';
     if (lastClicked) lastClicked.className='';
@@ -41,26 +40,4 @@ function clickableGrid( rows, cols, callback ){
         }
     }
     return grid;
-}</script>
-
-
-<div id="gridContainer"></div>
-<div class="gridManipulator">
-<?php
-
-echo $this->Form->create('FighterMove');
-echo $this->Form->input('Combattant',array('options'=>$fighters));
-echo $this->Form->input('direction',array('options' => array('north'=>'north','east'=>'east','south'=>'south','west'=>'west'), 'default' => 'east'));
-echo $this->Form->end('Move');
-
-
-echo $this->Form->create('FighterAttack');
-echo $this->Form->input('Combattant',array('options'=>$fighters));
-echo $this->Form->input('direction',array('options' => array('north'=>'north','east'=>'east','south'=>'south','west'=>'west'), 'default' => 'east'));
-echo $this->Form->end('Attack');
-?>
-    </div>
-
-<script type="text/javascript">
-   drawGrid();
-</script>
+}*/
