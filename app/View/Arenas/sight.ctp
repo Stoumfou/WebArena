@@ -24,7 +24,6 @@ var grid = clickableGrid(mapLimit,mapLimit,function(el,row,col,i){
     console.log("You clicked on item #:",i);
     
     el.innerHTML = fName;
-    
     el.className='clicked';
     if (lastClicked) lastClicked.className='';
     lastClicked = el;
