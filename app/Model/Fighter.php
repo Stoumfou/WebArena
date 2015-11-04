@@ -1,7 +1,5 @@
 <?php
 
-define('MAPLIMIT',15);
-define('XPUP',4);
 
 App::uses('AppModel', 'Model');
 
@@ -28,7 +26,6 @@ class Fighter extends AppModel {
             'className' => 'User',
 
             'foreignKey' => 'player_id',
-
         ),
 
    );
@@ -103,10 +100,10 @@ class Fighter extends AppModel {
 		$result = -1;
 		
 		//Vérification que la case cible est dans l'arène
-		if((($player['Fighter']['coordinate_x']+$vector['x'])>0)&&
-		(($player['Fighter']['coordinate_x']+$vector['x'])<=MAPLIMIT)&&
-		(($player['Fighter']['coordinate_y']+$vector['y'])>0)&&
-		(($player['Fighter']['coordinate_y']+$vector['y'])<=MAPLIMIT)){
+		if((($player['Fighter']['coordinate_x']+$vector['x'])>=0)&&
+		(($player['Fighter']['coordinate_x']+$vector['x'])<MAPLIMIT)&&
+		(($player['Fighter']['coordinate_y']+$vector['y'])>=0)&&
+		(($player['Fighter']['coordinate_y']+$vector['y'])<MAPLIMIT)){
 			//Vérification de la présence d'un combattant sur la case cible
 			$target = $this->find('all',array('conditions'=>array('coordinate_x'=>($player['Fighter']['coordinate_x']+$vector['x']),'coordinate_y'=>($player['Fighter']['coordinate_y']+$vector['y']))));
 		}else $result = -2;
