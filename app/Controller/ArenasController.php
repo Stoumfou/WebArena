@@ -159,7 +159,9 @@ class ArenasController extends AppController
 	 */
 	public function sight(){
 		//Récupération de la liste des noms des Fighter du User connecté
+        $this->set('fighterToSight',0);
 		$this->set('fighters',$this->Fighter->getFighterNameByUser($this->Auth->user('id')));
+<<<<<<< HEAD
 		
 		if ($this->request->is('post')){
 			if(array_key_exists('FighterMove',$this->request->data)){
@@ -220,13 +222,44 @@ class ArenasController extends AppController
 							
 					default: ;
 			}
+=======
+		if ($this->request->is('post')){
+			if(array_key_exists('FighterMove',$this->request->data)) {
+				//Action de déplacement, création de l'Event correspondant
+				$this->Event->record($this->Fighter->doMove(
+										$this->Fighter->getFighterByUserAndName($this->Auth->user('id'),
+                                                $this->request->data['FighterMove']['Combattant']),
+                                                $this->request->data['FighterMove']['direction']));
+            $fighterToSight = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterMove']['Combattant']);
+                $this->set('fighterToSight',$fighterToSight);
+            }
+			else if(array_key_exists('FighterAttack',$this->request->data)) {
+				//Action d'attaque, création de l'Event correspondant
+					$this->Event->record($this->Fighter->doAttack(
+												$this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterAttack']['Combattant']),
+												$this->request->data['FighterAttack']['direction'])
+											);
+                
+                $fighterToSight = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAttack']['Combattant']);
+                $this->set('fighterToSight',$fighterToSight);
+            }
+>>>>>>> refs/remotes/origin/master
 			pr($this->request->data);
+            
 		}
 		 // $this->set('raw',$this->Fighter->getFightersByUser($this->Auth->user('id')));
+<<<<<<< HEAD
 		 // pr($this->Fighter->getFightersByUser($this->Auth->user('id')));
 
 		$this->set('fighterToSight',5);
 		}
+=======
+		  //pr($this->Fighter->getFightersByUser($this->Auth->user('id')));
+	
+    
+    
+        
+>>>>>>> refs/remotes/origin/master
     }
 	
 	/*

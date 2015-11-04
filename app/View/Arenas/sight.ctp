@@ -2,19 +2,28 @@
     $this->Html->meta('description','Vision',array('inline' => false));
 ?>
 <script type="text/javascript">
-        var mapLimit = 15 ;
-var xpUp = 4 ;
-
-var num = "<?php echo $fighterToSight ?>"; 
-var lastClicked;
+    var mapLimit = "<?php echo MAPLIMIT ?>"; 
+    var fName = "<?php echo $fighterToSight['Fighter']['name'] ?>";
+    var fCoordX = "<?php echo $fighterToSight['Fighter']['coordinate_x'] ?>";
+    var fCoordY = "<?php echo $fighterToSight['Fighter']['coordinate_x'] ?>";
+    var flevel = "<?php echo $fighterToSight['Fighter']['level'] ?>";
+    var fXp = "<?php echo $fighterToSight['Fighter']['xp'] ?>";
+    var fSight = "<?php echo $fighterToSight['Fighter']['skill_sight'] ?>";
+    var fStrength = "<?php echo $fighterToSight['Fighter']['skill_strength'] ?>";
+    var fHealMax = "<?php echo $fighterToSight['Fighter']['skill_health'] ?>";
+    var fHealth = "<?php echo $fighterToSight['Fighter']['current_health'] ?>";
+    
+    console.log(fName + " " +fCoordX + " " +fCoordY + " " +flevel + " " +fXp + " " +fSight + " " +fStrength + " " +fHealMax + " " +fHealth);
+    
+    var lastClicked;
+    
 var grid = clickableGrid(mapLimit,mapLimit,function(el,row,col,i){
     console.log("You clicked on element:",el);
     console.log("You clicked on row:",row);
     console.log("You clicked on col:",col);
     console.log("You clicked on item #:",i);
     
-    el.innerHTML = num;
-    
+    el.innerHTML = fName;
     el.className='clicked';
     if (lastClicked) lastClicked.className='';
     lastClicked = el;
@@ -22,6 +31,11 @@ var grid = clickableGrid(mapLimit,mapLimit,function(el,row,col,i){
 
 function drawGrid () {
     document.getElementById('gridContainer').appendChild(grid);
+    if (fCoordX != "") {
+        window.alert(fCoordX);
+    } else {
+        window.alert("null");
+    }
 }
      
 function clickableGrid( rows, cols, callback ){

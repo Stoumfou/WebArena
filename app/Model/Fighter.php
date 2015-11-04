@@ -1,13 +1,12 @@
 <?php
 
-define('MAPLIMIT',15);
-define('XPUP',4);
 
 App::uses('AppModel', 'Model');
 
 class Fighter extends AppModel {
 
     public $displayField = 'name';
+
 
     public $belongsTo = array(
 
