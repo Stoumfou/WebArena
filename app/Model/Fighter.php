@@ -239,7 +239,17 @@ class Fighter extends AppModel {
 		//Si la dernière case testée est marquée libre
 		if($freeSpot){
 			//Enregistrement du noveau Fighter
-			$datas = array('Fighter'=>array('player_id'=>$userId,'name'=>$name,'coordinate_x'=>$coord['coordinate_x'],'coordinate_y'=>$coord['coordinate_y']));
+			$datas = array('Fighter'=>array('player_id'=>$userId,
+											'name'=>$name,
+											'coordinate_x'=>$coord['coordinate_x'],
+											'coordinate_y'=>$coord['coordinate_y'],
+											'level'=>1,
+											'xp'=>0,
+											'skill_sight'=>0,
+											'skill_strength'=>1,
+											'skill_health'=>3,
+											'current_health'=>3
+											));
 			$this->save($datas);
 			//Ajout de la l'emplacement du spawn dans l'Event
 			$event['coordinate_x'] = $coord['coordinate_x'];

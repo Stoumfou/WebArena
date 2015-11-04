@@ -127,6 +127,7 @@ class ArenasController extends AppController
 				//Message si l'arène est pleine et le Fighter n'a pas été créé
 				if($event != null)$this->Event->record($event);
 				else echo('Désolé, l\'arène est pleine ! Vous ne pouvez pas créer de nouveau combattant.');
+				$this->redirect(array('action' => '../Arenas/fighter'));
 			}
 			//Passage de niveau du Fighter séléctionné
 			else if (array_key_exists('FighterLevelUp',$this->request->data)){
@@ -186,7 +187,16 @@ class ArenasController extends AppController
 	 *
 	 */
 	public function diary(){
-		$this->set('raw',$this->Event->find());
+		$this->set('raw',' ');
+		
+		$this->set('fighters',$this->Fighter->getFighterNameByUser($this->Auth->user('id')));
+		if ($this->request->is('post')){
+			//Affichage des charactéristique du Fighter Séléctioné
+			if(array_key_exists('FighterChoose',$this->request->data))
+				$fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterChoose']['Combattant']);
+				$events = $this->Event->getEventList(array('coord_x'=>$fighter['Fighter']['coordinate_x'],'coord_y'=>$fighter['Fighter']['coordinate_y']),$fighter['Fighter']['skill_sight']);
+				$this->set('raw',$events);
+		}
 	}
 }
 ?>
