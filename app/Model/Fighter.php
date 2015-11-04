@@ -274,6 +274,32 @@ class Fighter extends AppModel {
 	
 	}
 	
+	public function kill($fighter){
+		$this->delete($fighter['Fighter']['id']);
+	}
+	
+	public function killMob($fighter,$direction){
+		//Initialisation de l'Event
+		$event = array('name'=>'','coordinate_x'=>0,'coordinate_y'=>0);
+		$vector = $this->vector($direction);
+		
+		$player = $fighter;
+		
+		//Mention du Fighter en action dans l'Event
+		$event['name'] .= $player['Fighter']['name']." tue le monstre ";
+		
+		//Ajout de la case cible dans l'Event
+		$event['coordinate_x'] = $player['Fighter']['coordinate_x']+$vector['x'];
+		$event['coordinate_y'] = $player['Fighter']['coordinate_y']+$vector['y'];
+		
+		//Attribution de l'xp pour le meurtre du monstre
+		$player['Fighter']['xp'] += XPUP;
+		$datas = array('Fighter'=>array('id'=>$player['Fighter']['id'],'xp'=>$player['Fighter']['xp']));
+				$this->save($datas);
+				
+		return $event;
+	}
+	
 	/*
 	 *Méthode de vérification si un combattant peu monter de niveau
 	 *Reçoit un combattant et retourne un booléen
