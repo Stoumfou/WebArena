@@ -34,11 +34,12 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
     <?php
 		//Décommenter et supprimer cake.generic pour passez au CSS Bootstrap
 		echo $this->Html->css(array('bootstrap.min', 'font-awesome.min'));
-        echo $this->Html->css('cake.generic');
+        //echo $this->Html->css('cake.generic');
         echo $this->Html->script('jquery-2.1.4');
         echo $this->Html->script(array('jquery-1.11.3.min','bootstrap.min'));
 		echo $this->fetch('css');
         echo $this->fetch('javascript');
+        echo $this->Html->css(array('footer'));
 
 	?>
 </head>
@@ -155,34 +156,54 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>-->
 
-<!--<div id="status">
+<div id="status">
 </div>
-<div class="fb-login-button" data-max-rows="2" data-size="medium" data-show-faces="true" data-auto-logout-link="true"></div>-->
-
-
-	<div id="container">
-		<div id="header">
-			<h1><?php echo $cakeDescription; ?></h1>
-		</div>
+    <div id="container">
+        
 		<div id="content">
+			<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="../Arenas/index">WebArenas</a>
+    </div>
 
-			<?php echo $this->Session->flash(); ?>
-
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+          <?php 	if ($myname == 'toi petit troll') {}
+		else echo '<li><a href="../Users/logout">Déconnexion</a></li>
+<li><a href="fighter">Combattant</a></li>
+<li><a href="sight">Vision</a></li>
+<li><a href="diary">Journal</a></li>';?>
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right">
+        <?php 	if ($myname == 'toi petit troll') {echo ('<li><a href="../Users/login">Connexion/Inscription</a></li>');echo '<li class="fb-login-button" data-max-rows="2" data-size="medium" data-show-faces="false" data-auto-logout-link="true"></li>';}
+else echo '<li><a href="../Users/logout">Déconnexion</a></li>';?>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+            <div class="container-fluid">
+            <?php echo $this->Session->flash(); ?>
 			<?php echo $this->fetch('content'); ?>
+</div>
+            
 		</div>
-		<div id="footer">
-			<?php echo $this->Html->link(
-					$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
-					'http://www.cakephp.org/',
-					array('target' => '_blank', 'escape' => false, 'id' => 'cake-powered')
-				);
-			?>
-			<p>
-				<?php echo $cakeVersion; ?>
-			</p>
-		</div>
+        <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Nicolas BOUVET / Alexis PAMBOURG / Paul CABELLAN</p>
+      </div>
+    </footer>
 	</div>
-	<?php echo $this->element('sql_dump'); ?>
-    <?php echo $this->fetch('script'); ?>
+	<!--<?php echo $this->element('sql_dump'); ?>
+    <?php echo $this->fetch('script'); ?>-->
 </body>
 </html>
