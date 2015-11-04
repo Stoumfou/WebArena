@@ -26,9 +26,3 @@ if($canLevelUp){
 }
 }
 ?>
-<h2>Créer un nouveau combattant</h2>
-<?php
-echo $this->Form->create('FighterCreate');
-echo $this->Form->input('Nom');
-echo $this->Form->end('Entrez dans l\'arène !');
-?>

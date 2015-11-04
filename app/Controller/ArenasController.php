@@ -157,109 +157,110 @@ class ArenasController extends AppController
 	 * Déplacement - Attaque
 	 *
 	 */
-	public function sight(){
-		//Récupération de la liste des noms des Fighter du User connecté
-        $this->set('fighterToSight',0);
-		$this->set('fighters',$this->Fighter->getFighterNameByUser($this->Auth->user('id')));
-<<<<<<< HEAD
-		
-		if ($this->request->is('post')){
-			if(array_key_exists('FighterMove',$this->request->data)){
-				
-				$fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterMove']['Combattant']);
-				$surroundings = $this->Surroundings->checkSurroundings($fighter,$this->request->data['FighterMove']['direction']);
-				foreach($surroundings as $element)
-				switch($element){
-					
-					case 0:	//Action de déplacement, création de l'Event correspondant
-							$this->Event->record($this->Fighter->doMove($fighter, $this->request->data['FighterMove']['direction']));
-							break;
-							
-					case 1:	$event = $this->Fighter->doMove($fighter,$this->request->data['FighterMove']['direction']);
-							$event['name'] .= 'sur un piège et meurt';
-							$this->Event->record($event);
-							$this->Fighter->kill($fighter);
-							break;
-							
-					case 2:	$event = array('name'=>$fighter['Fighter']['name'].' se fait tuer par le monstre','coordinate_x'=>$fighter['Fighter']['coordinate_x'],'coordinate_y'=>$fighter['Fighter']['coordinate_y']);
-							$this->Event->record($event);
-							$this->Fighter->kill($fighter);
-							break;
-							
-					case 3:	$event = array('name'=>$fighter['Fighter']['name'].' est bloqué par un pilier','coordinate_x'=>$fighter['Fighter']['coordinate_x'],'coordinate_y'=>$fighter['Fighter']['coordinate_y']);
-							$this->Event->record($event);
-							break;
+	public function sight()
+    {
+        //Récupération de la liste des noms des Fighter du User connecté
+        $this->set('fighterToSight', 0);
+        $this->set('fighters', $this->Fighter->getFighterNameByUser($this->Auth->user('id')));
 
-					case 4: $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterMove']['Combattant']);
-							$event = array('name'=>$fighter['Fighter']['name'].' et sent une brise suspecte','coordinate_x'=>$fighter['Fighter']['coordinate_x'],'coordinate_y'=>$fighter['Fighter']['coordinate_y']);
-							$this->Event->record($event);
-							break;
-							
-					case 5: $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterMove']['Combattant']);
-							$event = array('name'=>$fighter['Fighter']['name'].' s\'approche du monstre','coordinate_x'=>$fighter['Fighter']['coordinate_x'],'coordinate_y'=>$fighter['Fighter']['coordinate_y']);
-							$this->Event->record($event);
-							break;
-					default: ;
-				}
-				
-			}else if(array_key_exists('FighterAttack',$this->request->data)){
-				
-				$fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterAttack']['Combattant']);
-				$surroundings = $this->Surroundings->checkSurroundings($fighter,$this->request->data['FighterAttack']['direction']);
-				switch($surroundings[0]){
-					
-					case 0:	
-					case 1:	
-					case 3:	
-					case 4:	//Action d'attaque, création de l'Event correspondant
-					case 5:	$this->Event->record($this->Fighter->doAttack($fighter,$this->request->data['FighterAttack']['direction']));
-							break;
-							
-					case 2:	$this->Event->record($this->Fighter->doAttack($fighter,$this->request->data['FighterAttack']['direction']));
-							$this->Event->record($this->Fighter->killMob($fighter,$this->request->data['FighterAttack']['direction']));
-							$this->Surroundings->mobMove();
-							break;
-							
-					default: ;
-			}
-=======
-		if ($this->request->is('post')){
-			if(array_key_exists('FighterMove',$this->request->data)) {
-				//Action de déplacement, création de l'Event correspondant
-				$this->Event->record($this->Fighter->doMove(
-										$this->Fighter->getFighterByUserAndName($this->Auth->user('id'),
-                                                $this->request->data['FighterMove']['Combattant']),
-                                                $this->request->data['FighterMove']['direction']));
-            $fighterToSight = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterMove']['Combattant']);
-                $this->set('fighterToSight',$fighterToSight);
-            }
-			else if(array_key_exists('FighterAttack',$this->request->data)) {
-				//Action d'attaque, création de l'Event correspondant
-					$this->Event->record($this->Fighter->doAttack(
-												$this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterAttack']['Combattant']),
-												$this->request->data['FighterAttack']['direction'])
-											);
-                
-                $fighterToSight = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAttack']['Combattant']);
-                $this->set('fighterToSight',$fighterToSight);
-            }
->>>>>>> refs/remotes/origin/master
-			pr($this->request->data);
-            
-		}
-		 // $this->set('raw',$this->Fighter->getFightersByUser($this->Auth->user('id')));
-<<<<<<< HEAD
-		 // pr($this->Fighter->getFightersByUser($this->Auth->user('id')));
+        if ($this->request->is('post')) {
+            if (array_key_exists('FighterMove', $this->request->data)) {
 
-		$this->set('fighterToSight',5);
-		}
-=======
-		  //pr($this->Fighter->getFightersByUser($this->Auth->user('id')));
-	
-    
-    
-        
->>>>>>> refs/remotes/origin/master
+                $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterMove']['Combattant']);
+                $surroundings = $this->Surroundings->checkSurroundings($fighter, $this->request->data['FighterMove']['direction']);
+                foreach ($surroundings as $element)
+                    switch ($element) {
+
+                        case 0:    //Action de déplacement, création de l'Event correspondant
+                            $this->Event->record($this->Fighter->doMove($fighter, $this->request->data['FighterMove']['direction']));
+                            break;
+
+                        case 1:
+                            $event = $this->Fighter->doMove($fighter, $this->request->data['FighterMove']['direction']);
+                            $event['name'] .= 'sur un piège et meurt';
+                            $this->Event->record($event);
+                            $this->Fighter->kill($fighter);
+                            break;
+
+                        case 2:
+                            $event = array('name' => $fighter['Fighter']['name'] . ' se fait tuer par le monstre', 'coordinate_x' => $fighter['Fighter']['coordinate_x'], 'coordinate_y' => $fighter['Fighter']['coordinate_y']);
+                            $this->Event->record($event);
+                            $this->Fighter->kill($fighter);
+                            break;
+
+                        case 3:
+                            $event = array('name' => $fighter['Fighter']['name'] . ' est bloqué par un pilier', 'coordinate_x' => $fighter['Fighter']['coordinate_x'], 'coordinate_y' => $fighter['Fighter']['coordinate_y']);
+                            $this->Event->record($event);
+                            break;
+
+                        case 4:
+                            $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterMove']['Combattant']);
+                            $event = array('name' => $fighter['Fighter']['name'] . ' et sent une brise suspecte', 'coordinate_x' => $fighter['Fighter']['coordinate_x'], 'coordinate_y' => $fighter['Fighter']['coordinate_y']);
+                            $this->Event->record($event);
+                            break;
+
+                        case 5:
+                            $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterMove']['Combattant']);
+                            $event = array('name' => $fighter['Fighter']['name'] . ' s\'approche du monstre', 'coordinate_x' => $fighter['Fighter']['coordinate_x'], 'coordinate_y' => $fighter['Fighter']['coordinate_y']);
+                            $this->Event->record($event);
+                            break;
+                        default:
+                            ;
+                    }
+
+            } else if (array_key_exists('FighterAttack', $this->request->data)) {
+
+                $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAttack']['Combattant']);
+                $surroundings = $this->Surroundings->checkSurroundings($fighter, $this->request->data['FighterAttack']['direction']);
+                switch ($surroundings[0]) {
+
+                    case 0:
+                    case 1:
+                    case 3:
+                    case 4:    //Action d'attaque, création de l'Event correspondant
+                    case 5:
+                        $this->Event->record($this->Fighter->doAttack($fighter, $this->request->data['FighterAttack']['direction']));
+                        break;
+
+                    case 2:
+                        $this->Event->record($this->Fighter->doAttack($fighter, $this->request->data['FighterAttack']['direction']));
+                        $this->Event->record($this->Fighter->killMob($fighter, $this->request->data['FighterAttack']['direction']));
+                        $this->Surroundings->mobMove();
+                        break;
+
+                    default:
+                        ;
+                }
+                if ($this->request->is('post')) {
+                    if (array_key_exists('FighterMove', $this->request->data)) {
+                        //Action de déplacement, création de l'Event correspondant
+                        $this->Event->record($this->Fighter->doMove(
+                            $this->Fighter->getFighterByUserAndName($this->Auth->user('id'),
+                                $this->request->data['FighterMove']['Combattant']),
+                            $this->request->data['FighterMove']['direction']));
+                        $fighterToSight = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterMove']['Combattant']);
+                        $this->set('fighterToSight', $fighterToSight);
+                    } else if (array_key_exists('FighterAttack', $this->request->data)) {
+                        //Action d'attaque, création de l'Event correspondant
+                        $this->Event->record($this->Fighter->doAttack(
+                            $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAttack']['Combattant']),
+                            $this->request->data['FighterAttack']['direction'])
+                        );
+
+                        $fighterToSight = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAttack']['Combattant']);
+                        $this->set('fighterToSight', $fighterToSight);
+                    }
+                    pr($this->request->data);
+
+                }
+                // $this->set('raw',$this->Fighter->getFightersByUser($this->Auth->user('id')));
+                // pr($this->Fighter->getFightersByUser($this->Auth->user('id')));
+
+                $this->set('fighterToSight', 5);
+            }
+            //pr($this->Fighter->getFightersByUser($this->Auth->user('id')));
+
+        }
     }
 	
 	/*
