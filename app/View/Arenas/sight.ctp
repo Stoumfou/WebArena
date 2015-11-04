@@ -5,7 +5,7 @@
     var mapLimit = "<?php echo MAPLIMIT ?>"; 
     var fName = "<?php echo $fighterToSight['Fighter']['name'] ?>";
     var fCoordX = "<?php echo $fighterToSight['Fighter']['coordinate_x'] ?>";
-    var fCoordY = "<?php echo $fighterToSight['Fighter']['coordinate_x'] ?>";
+    var fCoordY = "<?php echo $fighterToSight['Fighter']['coordinate_y'] ?>";
     var flevel = "<?php echo $fighterToSight['Fighter']['level'] ?>";
     var fXp = "<?php echo $fighterToSight['Fighter']['xp'] ?>";
     var fSight = "<?php echo $fighterToSight['Fighter']['skill_sight'] ?>";
@@ -13,8 +13,7 @@
     var fHealMax = "<?php echo $fighterToSight['Fighter']['skill_health'] ?>";
     var fHealth = "<?php echo $fighterToSight['Fighter']['current_health'] ?>";
     
-    console.log(fName + " " +fCoordX + " " +fCoordY + " " +flevel + " " +fXp + " " +fSight + " " +fStrength + " " +fHealMax + " " +fHealth);
-    
+    console.log(fName + " // X : " +fCoordX + " // Y : " +fCoordY + " // LVL : " +flevel + " // XP : " +fXp + " // SIGHT : " +fSight + " // STR : " +fStrength + " // MaxHP : " +fHealMax + " // CurHealth : " +fHealth);
     var lastClicked;
     
 var grid = clickableGrid(mapLimit,mapLimit,function(el,row,col,i){
@@ -47,6 +46,7 @@ function clickableGrid( rows, cols, callback ){
         for (var c=0;c<cols;++c){
             var cell = tr.appendChild(document.createElement('td'));
             //cell.innerHTML = ++i;
+            if (fCoordX != "") if(r == fCoordX && c == fCoordY) cell.innerHTML = 'P';
             cell.addEventListener('click',(function(el,r,c,i){
                 return function(){
                     callback(el,r,c,i);
