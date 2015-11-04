@@ -39,7 +39,8 @@ class ArenasController extends AppController
 
 
 		//POUR CE CONNECTER, ERREUR SDK Facebook Pouet
-		/*if (session_status() == PHP_SESSION_NONE){
+		/*
+		if (session_status() == PHP_SESSION_NONE){
 			session_start();
 		}
 		$fb = new \Facebook\Facebook([
@@ -67,7 +68,6 @@ class ArenasController extends AppController
 		if (isset($accessToken)) {
 			// Logged in!
 			$_SESSION['facebook_access_token'] = (string) $accessToken;
-
 	}*/
 
 
