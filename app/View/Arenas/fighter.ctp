@@ -12,6 +12,7 @@ echo $this->Form->end('Entrer dans l\'arène !');
 ?>
 
 <?php
+if (count($fighters) != 0) {
 echo $this->Form->create('FighterChoose');
 echo $this->Form->input('Combattant',array('options'=>$fighters));
 echo $this->Form->end('Voir');
@@ -22,5 +23,6 @@ if($canLevelUp){
 	echo $this->Form->input('Combattant',array('default'=>$fighter['Fighter']['name'],'type'=>'hidden'));
 	echo $this->Form->input('Skill',array('options'=>array('health'=>'health','sight'=>'sight','strength'=>'strength')));
 	echo $this->Form->end('Monter un niveau');
+}
 }
 ?>
