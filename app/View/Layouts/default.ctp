@@ -43,7 +43,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         echo $this->Html->css(array('footer','grid'));
 	?>
 </head>
-<body  >
+<body>
 
 <script>
     //Script pour Google Analytics

@@ -2,18 +2,18 @@
     $this->Html->meta('description','Vision',array('inline' => false));
 ?>
 <script type="text/javascript">
-        var mapLimit = 15 ;
-var xpUp = 4 ;
-
-var num = "<?php echo $fighterToSight ?>"; 
-var lastClicked;
+    var mapLimit = "<?php echo MAPLIMIT ?>"; 
+    var fighter = "<?php echo $fighterToSight ?>";
+    
+    var lastClicked;
+    
 var grid = clickableGrid(mapLimit,mapLimit,function(el,row,col,i){
     console.log("You clicked on element:",el);
     console.log("You clicked on row:",row);
     console.log("You clicked on col:",col);
     console.log("You clicked on item #:",i);
     
-    el.innerHTML = num;
+    el.innerHTML = fighter;
     
     el.className='clicked';
     if (lastClicked) lastClicked.className='';
