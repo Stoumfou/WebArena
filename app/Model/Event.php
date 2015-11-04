@@ -41,6 +41,25 @@ class Event extends AppModel {
 		return $result;
 	}
 	
+	public function getEventList($coord, $range){
+		
+		$res = array();
+		
+		$topleft = array('coord_x'=>$coord['coord_x']-$range,'coord_y'=>$coord['coord_y']+$range);
+		for($i=0;$i<(($range*2)+1);$i++){
+			for($j=0;$j<(($range*2)+1);$j++){
+				$event = $this->find('all',array('conditions'=>array('coordinate_x'=>$topleft['coord_x']+$i,'coordinate_y'=>$topleft['coord_y']-$j)));
+				if(count($event) !=0){
+					foreach($event as $event){
+						if(strtotime("now") - strtotime($event['Event']['date']) <86400)array_push($res,$event);
+					}
+				}
+			}
+		}
+		
+		return $res;
+	}
+	
 }
 
 ?>
