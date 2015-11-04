@@ -4,4 +4,8 @@
 
 require_once __DIR__ . '/composer' . '/autoload_real.php';
 
+<<<<<<< HEAD
 return ComposerAutoloaderInit6b628abd23d80b321c2ad7bea267da64::getLoader();
+=======
+return ComposerAutoloaderInitb87598caae75855eb9f4b7a237c6168b::getLoader();
+>>>>>>> refs/remotes/origin/master

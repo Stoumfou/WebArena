@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+<<<<<<< HEAD
 
 dir=$(d=${0%[/\\]*}; cd "$d"; cd "../phpunit/phpunit/composer/bin" && pwd)
 
@@ -15,3 +16,11 @@ fi
 
 dir=$(echo $dir | sed 's/ /\ /g')
 "${dir}/phpunit" "$@"
+=======
+SRC_DIR="`pwd`"
+cd "`dirname "$0"`"
+cd "../phpunit/phpunit/composer/bin"
+BIN_TARGET="`pwd`/phpunit"
+cd "$SRC_DIR"
+"$BIN_TARGET" "$@"
+>>>>>>> refs/remotes/origin/master

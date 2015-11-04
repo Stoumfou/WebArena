@@ -7,4 +7,8 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
+<<<<<<< HEAD
+=======
+    'Facebook\\' => array($vendorDir . '/facebook/php-sdk-v4/src/Facebook'),
+>>>>>>> refs/remotes/origin/master
 );

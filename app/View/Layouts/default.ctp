@@ -35,13 +35,17 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		//Décommenter et supprimer cake.generic pour passez au CSS Bootstrap
 		echo $this->Html->css(array('bootstrap.min', 'font-awesome.min'));
         echo $this->Html->css('cake.generic');
-        echo $this->Html->script(array('bootstrap.min','jquery-1.11.3.min'));
+        echo $this->Html->script('jquery-2.1.4');
+        echo $this->Html->script(array('jquery-1.11.3.min','bootstrap.min'));
 		echo $this->fetch('css');
+        echo $this->fetch('javascript');
 
 	?>
 </head>
 <body>
+
 <script>
+    //Script pour Google Analytics
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -52,6 +56,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 
 </script>
 <script>
+    //Script pour facebookConnect
+
     // This is called with the results from from FB.getLoginStatus().
     function statusChangeCallback(response) {
         console.log('statusChangeCallback');
@@ -66,12 +72,12 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         } else if (response.status === 'not_authorized') {
             // The person is logged into Facebook, but not your app.
             document.getElementById('status').innerHTML = 'Please log ' +
-            'into this app.';
+                'into this app.';
         } else {
             // The person is not logged into Facebook, so we're not sure if
             // they are logged into this app or not.
             document.getElementById('status').innerHTML = 'Please log ' +
-            'into Facebook.';
+                'into Facebook.';
         }
     }
 
@@ -124,25 +130,36 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
     // successful.  See statusChangeCallback() for when this call is made.
     function testAPI() {
         console.log('Welcome!  Fetching your information.... ');
-        FB.api('/me', function(response) {
+        FB.api('/me',{fields: 'id,name,email'}, function(response) {
             console.log('Successful login for: ' + response.name);
             document.getElementById('status').innerHTML =
                 'Thanks for logging in, ' + response.name + '!';
+            var name = response.name;
+            var email = response.email;
+           // alert(email);
         });
     }
+
 </script>
 
-<!--
-  Below we include the Login Button social plugin. This button uses
-  the JavaScript SDK to present a graphical Login button that triggers
-  the FB.login() function when clicked.
--->
 
-<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-</fb:login-button>
+<!--<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button>-->
 
-<div id="status">
+<!--<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.5&appId=1720702151482399";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>-->
+
+<!--<div id="status">
 </div>
+<div class="fb-login-button" data-max-rows="2" data-size="medium" data-show-faces="true" data-auto-logout-link="true"></div>-->
+
+
 	<div id="container">
 		<div id="header">
 			<h1><?php echo $cakeDescription; ?></h1>
