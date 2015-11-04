@@ -35,8 +35,7 @@ class ArenasController extends AppController
     public function index(){	
 	
         if($this->Auth->loggedIn())$this->set('myname', strtok($this->User->findById($this->Auth->user('id'))['User']['email'],'@'));
-		else $this->set('myname', "toi petit troll");
-
+		else $this->set('myname', "futur grand guerrier");
 
 		//POUR CE CONNECTER, ERREUR SDK Facebook Pouet
 		/*
