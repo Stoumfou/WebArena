@@ -161,10 +161,6 @@ class ArenasController extends AppController
 		//Récupération de la liste des noms des Fighter du User connecté
         $this->set('fighterToSight',0);
 		$this->set('fighters',$this->Fighter->getFighterNameByUser($this->Auth->user('id')));
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 		if ($this->request->is('post')){
 			if(array_key_exists('FighterMove',$this->request->data)) {
 				//Action de déplacement, création de l'Event correspondant
