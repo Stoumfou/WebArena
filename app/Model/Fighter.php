@@ -16,7 +16,6 @@ class Fighter extends AppModel {
             'className' => 'User',
 
             'foreignKey' => 'player_id',
-
         ),
 
    );

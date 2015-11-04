@@ -106,7 +106,7 @@ class ArenasController extends AppController
 		
 		//Récupération de la liste des noms des Fighter du User connecté
 		$this->set('fighters',$this->Fighter->getFighterNameByUser($this->Auth->user('id')));
-		$this->set('raw','Séléctioner un Combattant.');
+		$this->set('raw','Sélectionnez un Combattant.');
 		$this->set('canLevelUp',false);
 		if ($this->request->is('post')){
 			//Affichage des charactéristique du Fighter Séléctioné

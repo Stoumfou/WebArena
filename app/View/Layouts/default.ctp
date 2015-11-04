@@ -158,7 +158,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 
 <div id="status">
 </div>
-    <div id="container">
+    <div id="mainContainer">
         
 		<div id="content">
 			<nav class="navbar navbar-default">
@@ -178,14 +178,14 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
           <?php 	if ($myname == 'toi petit troll') {}
-		else echo '<li><a href="../Users/logout">Déconnexion</a></li>
+		else echo '
 <li><a href="fighter">Combattant</a></li>
 <li><a href="sight">Vision</a></li>
 <li><a href="diary">Journal</a></li>';?>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <?php 	if ($myname == 'toi petit troll') {echo ('<li><a href="../Users/login">Connexion/Inscription</a></li>');echo '<li class="fb-login-button" data-max-rows="2" data-size="medium" data-show-faces="false" data-auto-logout-link="true"></li>';}
+        <?php 	if ($myname == 'toi petit troll') {echo ('<li><a href="../Users/login">Connexion</a></li><li><a href="../Users/register">Inscription</a></li>'); /*echo '<li class="fb-login-button" data-max-rows="2" data-size="medium" data-show-faces="false" data-auto-logout-link="true"></li>';*/}
 else echo '<li><a href="../Users/logout">Déconnexion</a></li>';?>
       </ul>
     </div><!-- /.navbar-collapse -->
@@ -197,11 +197,9 @@ else echo '<li><a href="../Users/logout">Déconnexion</a></li>';?>
 </div>
             
 		</div>
-        <footer class="footer">
-      <div class="container">
-        <p class="text-muted">Nicolas BOUVET / Alexis PAMBOURG / Paul CABELLAN</p>
-      </div>
-    </footer>
+        <div class="footer">
+        <p id="footer" class="footer">Nicolas BOUVET / Alexis PAMBOURG / Paul CABELLAN</p>
+    </div>
 	</div>
 	<!--<?php echo $this->element('sql_dump'); ?>
     <?php echo $this->fetch('script'); ?>-->
