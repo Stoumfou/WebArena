@@ -206,9 +206,10 @@ class ArenasController extends AppController
                         default:
                             ;
                     }
-
+ 		$fighter2 = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterMove']['Combattant']);
+                $this->set('fighterToSight', $fighter2);
+                
             } else if (array_key_exists('FighterAttack', $this->request->data)) {
-
                 $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAttack']['Combattant']);
                 $surroundings = $this->Surroundings->checkSurroundings($fighter, $this->request->data['FighterAttack']['direction']);
                 switch ($surroundings[0]) {
@@ -230,7 +231,9 @@ class ArenasController extends AppController
                     default:
                         ;
                 }
-                if ($this->request->is('post')) {
+                $fighter2 = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAttack']['Combattant']);
+                $this->set('fighterToSight', $fighter2);
+                /*if ($this->request->is('post')) {
                     if (array_key_exists('FighterMove', $this->request->data)) {
                         //Action de déplacement, création de l'Event correspondant
                         $this->Event->record($this->Fighter->doMove(
@@ -251,11 +254,11 @@ class ArenasController extends AppController
                     }
                     pr($this->request->data);
 
-                }
+                }*/
                 // $this->set('raw',$this->Fighter->getFightersByUser($this->Auth->user('id')));
                 // pr($this->Fighter->getFightersByUser($this->Auth->user('id')));
 
-                $this->set('fighterToSight', 5);
+                //$this->set('fighterToSight', 5);
             }
             //pr($this->Fighter->getFightersByUser($this->Auth->user('id')));
 
