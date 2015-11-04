@@ -1,8 +1,6 @@
 <?php
 $this->Html->meta('description','Combattant', array('inline' => false));
 ?>
-<a href="index">Accueil</a>
-<a href="sight">Vision</a>
 <?php
 echo $this->Form->create('FighterChoose');
 echo $this->Form->input('Combattant',array('options'=>$fighters));
