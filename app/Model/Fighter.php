@@ -9,6 +9,18 @@ class Fighter extends AppModel {
 
     public $displayField = 'name';
 
+	public $validate = array(
+			'Nom' => array(
+					'alphaNumeric' => array(
+							'rule' => 'notEmpty',
+							'required' => true,
+							'allowEmpty' => false,
+							'message' => 'Chiffres et lettres uniquement !'
+					)
+			)
+	);
+
+
     public $belongsTo = array(
 
         'User' => array(

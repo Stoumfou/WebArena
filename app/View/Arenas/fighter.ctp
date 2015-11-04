@@ -17,5 +17,5 @@ if($canLevelUp){
 <?php
 echo $this->Form->create('FighterCreate');
 echo $this->Form->input('Nom');
-echo $this->Form->end('Entrer dans l\'arène !');
+echo $this->Form->end('Entrez dans l\'arène !');
 ?>
