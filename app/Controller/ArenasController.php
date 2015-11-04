@@ -166,20 +166,27 @@ class ArenasController extends AppController
 =======
 >>>>>>> origin/master
 		if ($this->request->is('post')){
-			if(array_key_exists('FighterMove',$this->request->data))
+			if(array_key_exists('FighterMove',$this->request->data)) {
 				//Action de déplacement, création de l'Event correspondant
 				$this->Event->record($this->Fighter->doMove(
 										$this->Fighter->getFighterByUserAndName($this->Auth->user('id'),
                                                 $this->request->data['FighterMove']['Combattant']),
                                                 $this->request->data['FighterMove']['direction']));
-			else if(array_key_exists('FighterAttack',$this->request->data))
+            $fighterToSight = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterMove']['Combattant']);
+                $this->set('fighterToSight',$fighterToSight);
+            }
+			else if(array_key_exists('FighterAttack',$this->request->data)) {
 				//Action d'attaque, création de l'Event correspondant
 					$this->Event->record($this->Fighter->doAttack(
 												$this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterAttack']['Combattant']),
 												$this->request->data['FighterAttack']['direction'])
 											);
+                
+                $fighterToSight = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAttack']['Combattant']);
+                $this->set('fighterToSight',$fighterToSight);
+            }
 			pr($this->request->data);
-            //$this->set('fighterToSight',$this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterMove']['Combattant']));
+            
 		}
 		 // $this->set('raw',$this->Fighter->getFightersByUser($this->Auth->user('id')));
 		  //pr($this->Fighter->getFightersByUser($this->Auth->user('id')));
