@@ -25,7 +25,7 @@ use Facebook\Helpers\FacebookCanvasHelper;*/
 class ArenasController extends AppController
 {
 	public $uses = array('User', 'Fighter', 'Event', 'Surroundings');
-    
+    public $fighterCurrent = "";
     /*
      *Page d'accueil
 	 *
@@ -162,14 +162,15 @@ class ArenasController extends AppController
         //Récupération de la liste des noms des Fighter du User connecté
         $this->set('fighterToSight', 0);
         $this->set('fighters', $this->Fighter->getFighterNameByUser($this->Auth->user('id')));
+        $this->set('allFighters', $this->Fighter->getFightersByUser($this->Auth->user('id')));
 
         if ($this->request->is('post')) {
             if(array_key_exists('FighterChoose',$this->request->data)){
 				$fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterChoose']['Combattant']);
                 $this->set('fighterToSight', $fighter);
+                
 			}
             else if (array_key_exists('FighterMove', $this->request->data)) {
-
                 $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterMove']['Combattant']);
                 $surroundings = $this->Surroundings->checkSurroundings($fighter, $this->request->data['FighterMove']['direction']);
                 foreach ($surroundings as $element)
@@ -211,8 +212,8 @@ class ArenasController extends AppController
                         default:
                             ;
                     }
- 		$fighter2 = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterMove']['Combattant']);
-                $this->set('fighterToSight', $fighter2);
+ 		         $fighter2 = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterMove']['Combattant']);
+                 $this->set('fighterToSight', $fighter2);
                 
             } else if (array_key_exists('FighterAttack', $this->request->data)) {
                 $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAttack']['Combattant']);

@@ -10,9 +10,9 @@ class Surroundings extends AppModel {
 		$vector = array('x'=>0,'y'=>0);
 		
 		switch($direction){
-			case "north":	$vector['y']++;
+			case "north":	$vector['y']--;
 							break;
-			case "south":	$vector['y']--;
+			case "south":	$vector['y']++;
 							break;
 			case "east":	$vector['x']++;
 							break;

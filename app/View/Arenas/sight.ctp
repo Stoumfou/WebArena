@@ -3,6 +3,7 @@
 ?>
 <script type="text/javascript">
     var mapLimit = "<?php echo MAPLIMIT ?>"; 
+    
     var fName = "<?php echo $fighterToSight['Fighter']['name'] ?>";
     var fCoordX = "<?php echo $fighterToSight['Fighter']['coordinate_x'] ?>";
     var fCoordY = "<?php echo $fighterToSight['Fighter']['coordinate_y'] ?>";
@@ -16,7 +17,7 @@
     console.log(fName + " // X : " +fCoordX + " // Y : " +fCoordY + " // LVL : " +flevel + " // XP : " +fXp + " // SIGHT : " +fSight + " // STR : " +fStrength + " // MaxHP : " +fHealMax + " // CurHealth : " +fHealth);
     var lastClicked;
     
-var grid = clickableGrid(mapLimit,mapLimit,function(el,row,col,i){
+    var grid = clickableGrid(mapLimit,mapLimit,function(el,row,col,i){
     console.log("You clicked on element:",el);
     console.log("You clicked on row:",row);
     console.log("You clicked on col:",col);
@@ -30,11 +31,6 @@ var grid = clickableGrid(mapLimit,mapLimit,function(el,row,col,i){
 
 function drawGrid () {
     document.getElementById('gridContainer').appendChild(grid);
-    if (fCoordX != "") {
-        window.alert(fCoordX);
-    } else {
-        window.alert("null");
-    }
 }
      
 function clickableGrid( rows, cols, callback ){
@@ -47,6 +43,11 @@ function clickableGrid( rows, cols, callback ){
             var cell = tr.appendChild(document.createElement('td'));
             //cell.innerHTML = ++i;
             if (fCoordX != "") if(c == fCoordX && r == fCoordY) cell.innerHTML = 'P';
+            if (fCoordX != "") if(c == fCoordX && r == fCoordY-1) cell.innerHTML = 'N';
+            if (fCoordX != "") if(c == fCoordX && r == fCoordY-(-1)) cell.innerHTML = 'S';
+            if (fCoordX != "") if(c == fCoordX-(-1) && r == fCoordY) cell.innerHTML = 'E';
+            if (fCoordX != "") if(c == fCoordX-1 && r == fCoordY) cell.innerHTML = 'W';
+            
             cell.addEventListener('click',(function(el,r,c,i){
                 return function(){
                     callback(el,r,c,i);
@@ -60,17 +61,16 @@ function clickableGrid( rows, cols, callback ){
 
 <?php
 
-        
 echo $this->Form->create('FighterChoose');
 echo $this->Form->input('Combattant',array('options'=>$fighters));
 echo $this->Form->end('Choose');
-    
-
+        
 if ($fighterToSight != "") {
     echo '<div id="gridContainer"></div>
 <div class="gridManipulator">';
+    
 echo $this->Form->create('FighterMove');
-echo $this->Form->input('Combattant',array('options'=>$fighters));
+echo $this->Form->input('Combattant',array('options'=> array($fighterToSight['Fighter']['name'])));
 echo $this->Form->input('direction',array('options' => array('north'=>'north','east'=>'east','south'=>'south','west'=>'west'), 'default' => 'east'));
 echo $this->Form->end('Move');
 
