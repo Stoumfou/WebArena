@@ -46,7 +46,7 @@ function clickableGrid( rows, cols, callback ){
         for (var c=0;c<cols;++c){
             var cell = tr.appendChild(document.createElement('td'));
             //cell.innerHTML = ++i;
-            if (fCoordX != "") if(r == fCoordX && c == fCoordY) cell.innerHTML = 'P';
+            if (fCoordX != "") if(c == fCoordX && r == fCoordY) cell.innerHTML = 'P';
             cell.addEventListener('click',(function(el,r,c,i){
                 return function(){
                     callback(el,r,c,i);
