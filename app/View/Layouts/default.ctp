@@ -42,7 +42,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
     <?php
     //Décommenter cake.generic pour passez au CSS Bootstrap
     //echo $this->Html->css('cake.generic');
-    echo $this->Html->css(array('bootstrap.min', 'font-awesome.min', 'grid', 'custom'));
+    echo $this->Html->css(array('bootstrap.min', 'font-awesome.min', 'grid', 'webarena'));
     echo $this->Html->script(array('jquery-2.1.4', 'FacebookLike', 'GoogleAnalytics', 'grid', 'bootstrap.min'));
     echo $this->fetch('css');
     echo $this->fetch('javascript');
