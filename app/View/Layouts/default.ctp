@@ -14,29 +14,36 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-$cakeDescription = __d('cake_dev', 'WebArena le site de jeu de combat d\'arène multijoueurs');
+$cakeDescription = __d('cake_dev', 'WebArena le site de jeu de combat d\'arène multi-joueurs');
 $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <?php
+    echo $this->Html->meta('favicon.ico', '/favicon.ico', array('type' => 'icon'));
+    echo $this->Html->meta(array('name' => 'author', 'content' => 'Nicolas Bouvet Alexis Pambourg Paul Cabellan'));
+    echo $this->Html->meta(array('name' => 'copyright', 'content' => 'Nicolas Bouvet, Alexis Pambourg, Paul Cabellan'));
+    echo $this->Html->meta(array('name' => 'robots', 'content' => 'index, follow'));
+    echo $this->Html->meta(array('name' => 'category', 'content' => 'play'));
+    echo $this->Html->meta(array('name' => 'distribution', 'content' => 'global'));
+    echo $this->Html->meta('keywords', 'WebArena Fighter Combattant Ece ProjetCakePhp');
     echo $this->Html->charset();
     echo $this->fetch('meta');
-    echo $this->Html->meta('icon'); ?>
-    <meta name="author" content="Alexis Pambourg Nicolas Bouvet Paul Cabellan">
+    ?>
     <title>
         <?php
         echo $cakeDescription;
         echo $this->fetch('title'); ?>
     </title>
-    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
+          type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <?php
     //Décommenter cake.generic pour passez au CSS Bootstrap
     //echo $this->Html->css('cake.generic');
-    echo $this->Html->css(array('bootstrap.min', 'font-awesome.min','grid','custom'));
-    echo $this->Html->script(array('jquery-2.1.4','FacebookLike' , 'GoogleAnalytics', 'grid', 'bootstrap.min'));
+    echo $this->Html->css(array('bootstrap.min', 'font-awesome.min', 'grid', 'custom'));
+    echo $this->Html->script(array('jquery-2.1.4', 'FacebookLike', 'GoogleAnalytics', 'grid', 'bootstrap.min'));
     echo $this->fetch('css');
     echo $this->fetch('javascript');
     ?>
@@ -59,9 +66,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                         <span class="icon-bar"></span>
                     </button>
                     <?php echo $this->Html->image("Logo.png", array(
-                            "alt" => "Logo",
-                            'url' => array('controller' => 'Arenas', 'action' => 'index','')
-                        ));?>
+                        "alt" => "Logo",
+                        'url' => array('controller' => 'Arenas', 'action' => 'index', '')
+                    )); ?>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -99,12 +106,32 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 
     </div>
     <div class="footer">
-        <div class="col-md-8">
-            <p id="footer"> Copyright &copy; <?php echo $date = date('Y'); ?> Nicolas BOUVET / Alexis PAMBOURG
-                / Paul CABELLAN</p></div>
-        <div class="col-md-4"><div id="fb-root"></div>
-            <div class="fb-like"></div>
-            <div id="status"></div></div>
+        <div class="row-fluid">
+            <div class="col-lg-2">
+                <div class="btn-group" id="btn-footer">
+                    <a class="btn btn-info"
+                       href="http://webarena.free-hosting.fr/WebArenaGroupSIA-00-00/Arenas/index"><i
+                            class="fa fa-globe"></i></a>
+                    <a class="btn btn-default" href="https://github.com/Stoumfou/WebArenaGroupSIA-00-00"><i
+                            class="fa fa-github-alt"></i></a>
+                    <a class="btn btn-primary" href="https://www.facebook.com/WebArenaEce/?fref=ts"><i
+                            class="fa fa-facebook-official"></i></a>
+                    <a class="btn btn-danger" href="https://plus.google.com/116930005621093464314/about"><i
+                            class="fa fa-google-plus"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row-fluid">
+                    <p id="footer"> Copyright &copy; <?php echo $date = date('Y'); ?> Nicolas BOUVET / Alexis PAMBOURG
+                        / Paul CABELLAN Gr2-12-DG</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div id="fb-root"></div>
+                <div class="fb-like"></div>
+                <div id="status"></div>
+            </div>
+        </div>
     </div>
 </div>
 <!--<?php echo $this->element('sql_dump'); ?>

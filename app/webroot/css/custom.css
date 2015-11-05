@@ -34,7 +34,7 @@ p {
     padding-bottom: 20px;
     position:fixed;
     font-size: medium;
-    bottom:-35px;
+    bottom:-30px;
     color: #F0F0F0;
     background-color: #606060  ;
 }
@@ -47,4 +47,7 @@ p {
 
 .mainContainer {
     padding-bottom: 60px;
+}
+#btn-footer{
+    margin-top: -5px;
 }
