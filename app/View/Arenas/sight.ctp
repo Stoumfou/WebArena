@@ -58,10 +58,17 @@ function clickableGrid( rows, cols, callback ){
 }</script>
 
 
-<div id="gridContainer"></div>
-<div class="gridManipulator">
 <?php
 
+        
+echo $this->Form->create('FighterChoose');
+echo $this->Form->input('Combattant',array('options'=>$fighters));
+echo $this->Form->end('Choose');
+    
+
+if ($fighterToSight != "") {
+    echo '<div id="gridContainer"></div>
+<div class="gridManipulator">';
 echo $this->Form->create('FighterMove');
 echo $this->Form->input('Combattant',array('options'=>$fighters));
 echo $this->Form->input('direction',array('options' => array('north'=>'north','east'=>'east','south'=>'south','west'=>'west'), 'default' => 'east'));
@@ -72,6 +79,7 @@ echo $this->Form->create('FighterAttack');
 echo $this->Form->input('Combattant',array('options'=>$fighters));
 echo $this->Form->input('direction',array('options' => array('north'=>'north','east'=>'east','south'=>'south','west'=>'west'), 'default' => 'east'));
 echo $this->Form->end('Attack');
+}
 ?>
     </div>
 
