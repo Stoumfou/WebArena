@@ -22,6 +22,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <head>
     <?php
     echo $this->Html->meta('favicon.ico', '/favicon.ico', array('type' => 'icon'));
+    echo $this->Html->meta('fighter.jpg', '/fighter.jpg', array('type' => 'icon'));
     echo $this->Html->meta(array('name' => 'author', 'content' => 'Nicolas Bouvet Alexis Pambourg Paul Cabellan'));
     echo $this->Html->meta(array('name' => 'copyright', 'content' => 'Nicolas Bouvet, Alexis Pambourg, Paul Cabellan'));
     echo $this->Html->meta(array('name' => 'robots', 'content' => 'index, follow'));
@@ -52,7 +53,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <!--<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button>-->
 <div id="mainContainer">
-
     <div id="content">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
@@ -75,26 +75,19 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <?php if ($myname == 'futur grand guerrier') {
-                        } else echo '
-<li><a href="../Arenas/fighter">Combattant</a></li>
-<li><a href="../Arenas/sight">Vision</a></li>
-<li><a href="../Arenas/diary">Journal</a></li>'; ?>
+                        } else {
+                            echo '<li>' . $this->Html->link('Combattant', array('controller' => 'Arenas', 'action' => 'fighter')) . '</li>';
+                            echo '<li>' . $this->Html->link('Vision', array('controller' => 'Arenas', 'action' => 'sight')) . '</li>';
+                            echo '<li>' . $this->Html->link('Journal', array('controller' => 'Arenas', 'action' => 'diary')) . '</li>';
+                        }; ?>
                     </ul>
-
                     <ul class="nav navbar-nav navbar-right">
                         <?php if ($myname == 'futur grand guerrier') {
-                            echo('
-        <li>
-        </li>
-        <li>
-            <a href="../Users/login">Connexion</a>
-        </li>
-        <li>
-            <a href="../Users/register">Inscription</a>
-        </li>'); /*echo '<li class="fb-login-button" data-max-rows="2" data-size="medium" data-show-faces="false" data-auto-logout-link="true"></li>';*/
-                        } else echo '<li>
-            <a href="../Users/logout">Déconnexion</a>
-            </li>'; ?>
+                            echo '<li>' . $this->Html->link('Connexion', array('controller' => 'Users', 'action' => 'login')) . '</li>';
+                            echo '<li>' . $this->Html->link('Inscription', array('controller' => 'Users', 'action' => 'register')) . '</li>';
+                        }else
+                            echo '<li>' . $this->Html->link('Déconnexion', array('controller' => 'Users', 'action' => 'logout')) . '</li>';
+                        ?>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->

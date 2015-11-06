@@ -103,9 +103,9 @@ class ArenasController extends AppController
 	 */
 	
 	public function fighter(){
-		
+		$this->set('fighter',null);
 		//Récupération de la liste des noms des Fighter du User connecté
-		$this->set('fighters',$this->Fighter->getFighterNameByUser($this->Auth->user('id')));
+		
 		$this->set('raw','Sélectionnez un Combattant.');
 		$this->set('canLevelUp',false);
 		if ($this->request->is('post')){
@@ -113,12 +113,14 @@ class ArenasController extends AppController
 			if(array_key_exists('FighterChoose',$this->request->data)){
 				$fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterChoose']['Combattant']);
 				$this->set('raw',$fighter);
+                
 				//Détermination de la possibilité de passer un niveau
 				if($this->Fighter->canLevelUp($fighter)){
 					$this->set('canLevelUp',true);
 					$this->set('fighter',$fighter);
 				}
 				else $this->set('canLevelUp',false);
+                $this->set('fighter',$fighter);
 			}
             else if(array_key_exists('FighterKill',$this->request->data)){
 				$fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterKill']['Combattant']);
@@ -129,12 +131,21 @@ class ArenasController extends AppController
 			}
 			//Création d'un nouveau Fighter avec un nom fournis par le User
 			else if (array_key_exists('FighterCreate',$this->request->data)){
+				if(count($this->Surroundings->find('all') == 0))$this->Surroundings->genMap();
 				//Création de l'Event d'arrivée dans l'arène
 				$event = $this->Fighter->spawn($this->Auth->user('id'),$this->request->data['FighterCreate']['Nom']);
 				//Message si l'arène est pleine et le Fighter n'a pas été créé
-				if($event != null)$this->Event->record($event);
-				else echo('Désolé, l\'arène est pleine ! Vous ne pouvez pas créer de nouveau combattant.');
-				$this->redirect(array('action' => '../Arenas/fighter'));
+				if($event != null) {
+                    $this->Event->record($event);
+                    $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterCreate']['Nom']);
+                    //$this->redirect(array('action' => '../Arenas/fighter'));
+                    
+                    $this->set('fighter',$fighter);
+                                   }
+				else {
+                    echo('Désolé, l\'arène est pleine ! Vous ne pouvez pas créer de nouveau combattant.');
+				    $this->redirect(array('action' => '../Arenas/fighter'));
+                }
 			}
 			//Passage de niveau du Fighter séléctionné
 			else if (array_key_exists('FighterLevelUp',$this->request->data)){
@@ -152,8 +163,14 @@ class ArenasController extends AppController
 				}
 				else $this->set('canLevelUp',false);
 			}
+<<<<<<< HEAD
 			// pr($this->request->data);
 		}	
+        $this->set('fighters',$this->Fighter->getFighterNameByUser($this->Auth->user('id')));
+=======
+		}
+
+>>>>>>> origin/master
 	}
 	
 	/*
@@ -246,36 +263,9 @@ class ArenasController extends AppController
                 }
                 $fighter2 = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAttack']['Combattant']);
                 $this->set('fighterToSight', $fighter2);
-                /*if ($this->request->is('post')) {
-                    if (array_key_exists('FighterMove', $this->request->data)) {
-                        //Action de déplacement, création de l'Event correspondant
-                        $this->Event->record($this->Fighter->doMove(
-                            $this->Fighter->getFighterByUserAndName($this->Auth->user('id'),
-                                $this->request->data['FighterMove']['Combattant']),
-                            $this->request->data['FighterMove']['direction']));
-                        $fighterToSight = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterMove']['Combattant']);
-                        $this->set('fighterToSight', $fighterToSight);
-                    } else if (array_key_exists('FighterAttack', $this->request->data)) {
-                        //Action d'attaque, création de l'Event correspondant
-                        $this->Event->record($this->Fighter->doAttack(
-                            $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAttack']['Combattant']),
-                            $this->request->data['FighterAttack']['direction'])
-                        );
-
-                        $fighterToSight = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAttack']['Combattant']);
-                        $this->set('fighterToSight', $fighterToSight);
-                    }
-                    pr($this->request->data);
-
-                }*/
-                // $this->set('raw',$this->Fighter->getFightersByUser($this->Auth->user('id')));
-                // pr($this->Fighter->getFightersByUser($this->Auth->user('id')));
-
-                //$this->set('fighterToSight', 5);
             }
-            //pr($this->Fighter->getFightersByUser($this->Auth->user('id')));
-
         }
+        pr($this->request);
     }
 	
 	/*
