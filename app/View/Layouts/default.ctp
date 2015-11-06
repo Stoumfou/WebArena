@@ -105,6 +105,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         </div>
 
     </div>
+    <div class="preFooter"></div>
     <div class="footer">
         <div class="row-fluid">
             <div class="col-lg-2">

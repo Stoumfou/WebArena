@@ -30,7 +30,7 @@
 });
 
 function drawGrid () {
-    document.getElementById('gridContainer').appendChild(grid);
+    if(document.getElementById('gridContainer')) document.getElementById('gridContainer').appendChild(grid);
 }
      
 function clickableGrid( rows, cols, callback ){
@@ -60,7 +60,7 @@ function clickableGrid( rows, cols, callback ){
 
 
 <?php
-
+if ($fighters != null) {
 echo $this->Form->create('FighterChoose');
 echo $this->Form->input('Combattant',array('options'=>$fighters));
 echo $this->Form->end('Choose');
@@ -79,7 +79,22 @@ echo $this->Form->create('FighterAttack');
 echo $this->Form->input('Combattant',array('options'=>$fighters));
 echo $this->Form->input('direction',array('options' => array('north'=>'north','east'=>'east','south'=>'south','west'=>'west'), 'default' => 'east'));
 echo $this->Form->end('Attack');
-}
+    }
+} else {
+    ?>
+<div class="jumbotron">
+    <h1>Vision</h1>
+
+    <p>Bonjour <span id="PlayerName"><?php echo $myname; ?></span>.</p>
+
+    <p> Il semblerait que tu n'ais pas de combattants ! Va en créer un en cliquant sur le bouton ci-dessous !</p>
+
+    <div class="row">
+        <a href="fighter" class="btn btn-lg btn-primary">Créer mon combattant !</a>
+    </div>
+</div>
+<?php
+    }
 ?>
     </div>
 

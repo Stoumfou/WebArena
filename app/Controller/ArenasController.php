@@ -120,6 +120,13 @@ class ArenasController extends AppController
 				}
 				else $this->set('canLevelUp',false);
 			}
+            else if(array_key_exists('FighterKill',$this->request->data)){
+				$fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterKill']['Combattant']);
+                $this->Fighter->kill($fighter);
+                $this->redirect(array('action' => '../Arenas/fighter'));
+				$this->set('raw','Combattant supprimé !');
+                
+			}
 			//Création d'un nouveau Fighter avec un nom fournis par le User
 			else if (array_key_exists('FighterCreate',$this->request->data)){
 				//Création de l'Event d'arrivée dans l'arène

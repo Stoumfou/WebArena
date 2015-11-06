@@ -16,6 +16,10 @@ if (count($fighters) != 0) {
 echo $this->Form->create('FighterChoose');
 echo $this->Form->input('Combattant',array('options'=>$fighters));
 echo $this->Form->end('Voir');
+    
+echo $this->Form->create('FighterKill');
+echo $this->Form->input('Combattant',array('options'=>$fighters));
+echo $this->Form->end('Supprimer');
 pr ($raw);
 
 if($canLevelUp){

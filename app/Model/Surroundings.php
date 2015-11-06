@@ -74,8 +74,8 @@ class Surroundings extends AppModel {
 		
 		while(!$freeSpot){
 			//Choix d'un couple (x,y) de coordonnée aléatoire dans l'arène
-			$coord['coordinate_x'] = rand(1,MAPLIMIT);
-			$coord['coordinate_y'] = rand(1,MAPLIMIT);
+			$coord['coordinate_x'] = rand(0,MAPLIMIT-1);
+			$coord['coordinate_y'] = rand(0,MAPLIMIT-1);
 			
 			//Si la case (x,y) n'a pas été testée
 			if(array_search($coord,$tried) == false){
