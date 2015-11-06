@@ -163,15 +163,9 @@ class ArenasController extends AppController
 				}
 				else $this->set('canLevelUp',false);
 			}
-<<<<<<< HEAD
-			// pr($this->request->data);
 		}	
-        $this->set('fighters',$this->Fighter->getFighterNameByUser($this->Auth->user('id')));
-=======
-		}
-
->>>>>>> origin/master
-	}
+        $this->set('fighters',$this->Fighter->getFighterNameByUser($this->Auth->user('id')));		
+}
 	
 	/*
 	 *Page Vue
