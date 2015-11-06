@@ -22,6 +22,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <head>
     <?php
     echo $this->Html->meta('favicon.ico', '/favicon.ico', array('type' => 'icon'));
+    echo $this->Html->meta('fighter.jpg', '/fighter.jpg', array('type' => 'icon'));
     echo $this->Html->meta(array('name' => 'author', 'content' => 'Nicolas Bouvet Alexis Pambourg Paul Cabellan'));
     echo $this->Html->meta(array('name' => 'copyright', 'content' => 'Nicolas Bouvet, Alexis Pambourg, Paul Cabellan'));
     echo $this->Html->meta(array('name' => 'robots', 'content' => 'index, follow'));
