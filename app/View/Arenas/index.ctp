@@ -10,7 +10,7 @@ $this->Html->meta('description', 'WebArena le site de jeu de combat d\'arène mu
     <p> Es-tu prêt à entrer dans l'arène ?</p>
 
     <div class="row">
-        <a href="fighter" class="btn btn-lg btn-primary">Go !</a>
+        <?php echo $this->Html->link('Go !', array('controller' => 'Arenas', 'action' => 'fighter'), array('class'=>'btn btn-lg btn-primary')) ?>
     </div>
 </div>
 
