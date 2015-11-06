@@ -76,9 +76,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                     <ul class="nav navbar-nav">
                         <?php if ($myname == 'futur grand guerrier') {
                         } else echo '
-<li><a href="fighter">Combattant</a></li>
-<li><a href="sight">Vision</a></li>
-<li><a href="diary">Journal</a></li>'; ?>
+<li><a href="../Arenas/fighter">Combattant</a></li>
+<li><a href="../Arenas/sight">Vision</a></li>
+<li><a href="../Arenas/diary">Journal</a></li>'; ?>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
