@@ -46,6 +46,10 @@ class UsersController extends AppController {
         $this->set('users', $this->paginate());
     }
 
+    public function forgotten(){
+
+    }
+
     public function view($id = null) {
         if (!$this->User->exists($id)) {
             throw new NotFoundException(__('Joueur invalide'));

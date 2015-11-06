@@ -248,7 +248,9 @@ class ArenasController extends AppController
                 $fighter2 = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAttack']['Combattant']);
                 $this->set('fighterToSight', $fighter2);
             }
+
         }
+        pr($this->request->data);
     }
 	
 	/*
