@@ -259,7 +259,7 @@ class ArenasController extends AppController
                 $this->set('fighterToSight', $fighter2);
             }
         }
-        pr($this->request);
+        pr($this->request->data);
     }
 	
 	/*
