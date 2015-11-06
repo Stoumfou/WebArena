@@ -25,6 +25,18 @@ $this->Html->meta('description', 'WebArena le site de jeu de combat d\'arène mu
     Les attaques se font vers une direction (droite, gauche, haut, bas).<br/>
     Tu gagnes de l'expérience en tuant les autres joueurs et pourras monter de tous les 4 points d'expériences et ainsi choisir une caractéristique à améliorer.<br/>
     3 types de pièges sont présents dans l'arène : le monstre, il te tue en un coup si tu marches sur sa case. Des indications te seront fournis si tu es près de lui. Les pièges te feront des dégâts si tu marches dessus, les colonnes te bloqueront le passage.
-
-
 </p>
+
+<h2>Classement</h2>
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>Name</th>
+        <th>Level</th>
+    </tr>
+    <?php foreach ($classement as $fighter) {
+        echo '<tr>';
+        echo '<td>' . $fighter['Fighter']['name'] . '</td>';
+        echo '<td>' . $fighter['Fighter']['level'] . '</td>';
+        echo '</tr>';
+    } ?>
+</table>

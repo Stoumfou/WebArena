@@ -38,7 +38,11 @@ class ArenasController extends AppController
         if($this->Auth->loggedIn())$this->set('myname', strtok($this->User->findById($this->Auth->user('id'))['User']['email'],'@'));
 		else $this->set('myname', "futur grand guerrier");
 
-		//POUR CE CONNECTER, ERREUR SDK Facebook Pouet
+        $this->set('classement',' ');
+        $classement = $this->Fighter->find('all');
+        $this->set('classement',$classement);
+
+        //POUR CE CONNECTER, ERREUR SDK Facebook Pouet
 		/*
 		if (session_status() == PHP_SESSION_NONE){
 			session_start();
@@ -131,7 +135,8 @@ class ArenasController extends AppController
 			}
 			//Création d'un nouveau Fighter avec un nom fournis par le User
 			else if (array_key_exists('FighterCreate',$this->request->data)){
-				if(count($this->Surroundings->find('all') == 0))$this->Surroundings->genMap();
+				if(count($this->Surroundings->find('all')) == 0)$this->Surroundings->genMap();
+
 				//Création de l'Event d'arrivée dans l'arène
 				$event = $this->Fighter->spawn($this->Auth->user('id'),$this->request->data['FighterCreate']['Nom']);
 				//Message si l'arène est pleine et le Fighter n'a pas été créé

@@ -174,7 +174,7 @@ class UsersController extends AppController {
             }
         }
 
-        $data = array();
+        $data = array('email'=>'');
         $fb_data = array();
 
         if(isset($session)){
@@ -200,10 +200,10 @@ class UsersController extends AppController {
 
                 }else{
                     $data['email'] = $fb_data['email'];
-                    $data['first_name'] = $fb_data['first_name'];
+                   /* $data['first_name'] = $fb_data['first_name'];
                     $data['social_id'] = $fb_data['id'];
                     $data['picture'] = $image;
-                    $data['uuid'] = String::uuid ();
+                    $data['uuid'] = String::uuid ();*/
                     $this->User->save( $data );
                     if($this->User->save( $data )){
                         $data['id'] = $this->User->getLastInsertID();
