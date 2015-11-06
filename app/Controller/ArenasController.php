@@ -191,12 +191,16 @@ class ArenasController extends AppController
                 $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAction']['Combattant']);
 				$surroundings = $this->Surroundings->checkSurroundings($fighter, $this->request->data['FighterAction']['Direction']);
 				var_dump($surroundings);
+				$moved = false;
                 foreach ($surroundings as $element){
                     switch ($element) {
 
                         case 0:    //Action de déplacement, création de l'Event correspondant
-                            $this->Event->record($this->Fighter->doMove($fighter, $this->request->data['FighterAction']['Direction']));
-                            break;
+                            if(!$moved){
+								$this->Event->record($this->Fighter->doMove($fighter, $this->request->data['FighterAction']['Direction']));
+								$moved = true;
+							}
+							break;
 
                         case 1:
                             $event = $this->Fighter->doMove($fighter, $this->request->data['FighterAction']['Direction']);
@@ -217,15 +221,21 @@ class ArenasController extends AppController
                             break;
 
                         case 4:
-                            $this->Event->record($this->Fighter->doMove($fighter, $this->request->data['FighterAction']['Direction']));
+							if(!$moved){
+								$this->Event->record($this->Fighter->doMove($fighter, $this->request->data['FighterAction']['Direction']));
+								$moved = true;
+							}
                             $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAction']['Combattant']);
                             $event = array('name' => $fighter['Fighter']['name'] . ' sent une brise suspecte', 'coordinate_x' => $fighter['Fighter']['coordinate_x'], 'coordinate_y' => $fighter['Fighter']['coordinate_y']);
                             $this->Event->record($event);
                             break;
 
                         case 5:
-                            $this->Event->record($this->Fighter->doMove($fighter, $this->request->data['FighterAction']['Direction']));
-                            $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAction']['Combattant']);
+							if(!$moved){
+								$this->Event->record($this->Fighter->doMove($fighter, $this->request->data['FighterAction']['Direction']));
+								$moved = true;
+							}
+							$fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAction']['Combattant']);
                             $event = array('name' => $fighter['Fighter']['name'] . ' sent une odeur nauseabonde', 'coordinate_x' => $fighter['Fighter']['coordinate_x'], 'coordinate_y' => $fighter['Fighter']['coordinate_y']);
                             $this->Event->record($event);
                             break;
