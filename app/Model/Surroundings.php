@@ -35,11 +35,11 @@ class Surroundings extends AppModel {
 
 		//Vérification de la présence d'un Surroundings à la destination
 		$surroundings = $this->find('all',array('conditions'=>array('coordinate_x'=>($player['Fighter']['coordinate_x']+$vector['x']),
-						'coordinate_y'=>($player['Fighter']['coordinate_y']+$vector['y'])
-				),
-						'order'=>'type'
-				)
-		);
+																	'coordinate_y'=>($player['Fighter']['coordinate_y']+$vector['y'])
+																	),
+												'order'=>'type'
+												)
+									);
 
 		if(count($surroundings) != 0){
 			foreach($surroundings as $surrounding){

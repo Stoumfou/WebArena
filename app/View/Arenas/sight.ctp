@@ -69,16 +69,17 @@ if ($fighterToSight != "") {
     echo '<div id="gridContainer"></div>
 <div class="gridManipulator">';
     
-echo $this->Form->create('FighterMove');
-echo $this->Form->input('Combattant',array('options'=> array($fighterToSight['Fighter']['name'])));
-echo $this->Form->input('direction',array('options' => array('north'=>'north','east'=>'east','south'=>'south','west'=>'west'), 'default' => 'east'));
-echo $this->Form->end('Move');
+echo $this->Form->create('FighterAction');
+echo $this->Form->input('Combattant',array('options'=> array($fighters)));
+echo $this->Form->input('Action',array('options'=>array('move'=>'move','attack'=>'attack')));
+echo $this->Form->input('Direction',array('options' => array('north'=>'north','east'=>'east','south'=>'south','west'=>'west'), 'default' => 'east'));
+echo $this->Form->end('GO!');
 
 
-echo $this->Form->create('FighterAttack');
+/*echo $this->Form->create('FighterAttack');
 echo $this->Form->input('Combattant',array('options'=>$fighters));
 echo $this->Form->input('direction',array('options' => array('north'=>'north','east'=>'east','south'=>'south','west'=>'west'), 'default' => 'east'));
-echo $this->Form->end('Attack');
+echo $this->Form->end('Attack');*/
     }
 } else {
     ?>
