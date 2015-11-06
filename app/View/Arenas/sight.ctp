@@ -90,7 +90,7 @@ echo $this->Form->end('Attack');
     <p> Il semblerait que tu n'ais pas de combattants ! Va en créer un en cliquant sur le bouton ci-dessous !</p>
 
     <div class="row">
-        <a href="fighter" class="btn btn-lg btn-primary">Créer mon combattant !</a>
+        <?php echo $this->Html->link('Créer mon combattant !', array('controller' => 'Arenas', 'action' => 'fighter'), array('class'=>'btn btn-lg btn-primary')) ?>
     </div>
 </div>
 <?php
