@@ -33,6 +33,16 @@ p {
     padding-bottom: 200px;
 }
 
+#gavelIcon {
+    color:#ea1212;
+}
+
+#eyeIcon {
+    color:#2626c3;
+}
+#arrowIcon {
+    color:#2a2a2a;
+}
 .footer {
     width: 100%;
     padding-top: 20px;
