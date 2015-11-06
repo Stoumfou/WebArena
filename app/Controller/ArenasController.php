@@ -217,14 +217,16 @@ class ArenasController extends AppController
                             break;
 
                         case 4:
+                            $this->Event->record($this->Fighter->doMove($fighter, $this->request->data['FighterAction']['Direction']));
                             $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAction']['Combattant']);
-                            $event = array('name' => $fighter['Fighter']['name'] . ' et sent une brise suspecte', 'coordinate_x' => $fighter['Fighter']['coordinate_x'], 'coordinate_y' => $fighter['Fighter']['coordinate_y']);
+                            $event = array('name' => $fighter['Fighter']['name'] . ' sent une brise suspecte', 'coordinate_x' => $fighter['Fighter']['coordinate_x'], 'coordinate_y' => $fighter['Fighter']['coordinate_y']);
                             $this->Event->record($event);
                             break;
 
                         case 5:
+                            $this->Event->record($this->Fighter->doMove($fighter, $this->request->data['FighterAction']['Direction']));
                             $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAction']['Combattant']);
-                            $event = array('name' => $fighter['Fighter']['name'] . ' s\'approche du monstre', 'coordinate_x' => $fighter['Fighter']['coordinate_x'], 'coordinate_y' => $fighter['Fighter']['coordinate_y']);
+                            $event = array('name' => $fighter['Fighter']['name'] . ' sent une odeur nauseabonde', 'coordinate_x' => $fighter['Fighter']['coordinate_x'], 'coordinate_y' => $fighter['Fighter']['coordinate_y']);
                             $this->Event->record($event);
                             break;
                         default: ;
