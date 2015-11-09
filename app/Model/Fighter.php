@@ -90,9 +90,9 @@ class Fighter extends AppModel {
 		
 		//Vérification que la case cible est dans l'arène
 		if((($player['Fighter']['coordinate_x']+$vector['x'])>=0)&&
-		(($player['Fighter']['coordinate_x']+$vector['x'])<MAPLIMIT)&&
+		(($player['Fighter']['coordinate_x']+$vector['x'])<MAPLIMITX)&&
 		(($player['Fighter']['coordinate_y']+$vector['y'])>=0)&&
-		(($player['Fighter']['coordinate_y']+$vector['y'])<MAPLIMIT)){
+		(($player['Fighter']['coordinate_y']+$vector['y'])<MAPLIMITY)){
 			//Vérification de la présence d'un combattant sur la case cible
 			$target = $this->find('all',array('conditions'=>array('coordinate_x'=>($player['Fighter']['coordinate_x']+$vector['x']),'coordinate_y'=>($player['Fighter']['coordinate_y']+$vector['y']))));
 		}else $result = -2;
@@ -216,8 +216,8 @@ class Fighter extends AppModel {
 		//Temps qu'un emplacement libre n'est pas trouvé
 		while(!$freeSpot){
 			//Choix d'un couple (x,y) de coordonnée aléatoire dans l'arène
-			$coord['coordinate_x'] = rand(0,MAPLIMIT-1);
-			$coord['coordinate_y'] = rand(0,MAPLIMIT-1);
+			$coord['coordinate_x'] = rand(0,MAPLIMITX-1);
+			$coord['coordinate_y'] = rand(0,MAPLIMITY-1);
 			
 			//Si la case (x,y) n'a pas été testée
 			if(array_search($coord,$tried) == false){
@@ -227,7 +227,7 @@ class Fighter extends AppModel {
 				else array_push($tried,$coord);
 			}
 			//Si toute les cases ont été testées
-			if(count($tried) == (MAPLIMIT * MAPLIMIT)){
+			if(count($tried) == (MAPLIMITX * MAPLIMITY)){
 				//L'Event est annulé et la boucle est terminée
 				$event = null;
 				break;

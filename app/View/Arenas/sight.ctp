@@ -2,8 +2,9 @@
     $this->Html->meta('description','Vision',array('inline' => false));
 ?>
 <script type="text/javascript">
-    var mapLimit = "<?php echo MAPLIMIT ?>"; 
-    
+    var mapLimitX = "<?php echo MAPLIMITX ?>";
+    var mapLimitY = "<?php echo MAPLIMITY ?>";
+
     var fName = "<?php echo $fighterToSight['Fighter']['name'] ?>";
     var fCoordX = "<?php echo $fighterToSight['Fighter']['coordinate_x'] ?>";
     var fCoordY = "<?php echo $fighterToSight['Fighter']['coordinate_y'] ?>";
@@ -61,7 +62,7 @@
     var champVision = Array();
     champVision = inSight(fSight,fCoordX,fCoordY);
     
-var grid = clickableGrid(mapLimit,mapLimit,function(el,row,col,i){
+var grid = clickableGrid(mapLimitY,mapLimitX,function(el,row,col,i){
     console.log("You clicked on element:",el);
     console.log("You clicked on row:",row);
     console.log("You clicked on col:",col);

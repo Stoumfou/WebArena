@@ -16,7 +16,8 @@ define ('FACEBOOK_LOGIN_FAILURE','Damn');
 
 define ('GOOGLE_APP_ID','879047244513-jrrnhqb98tfn44vkq1pd9ld386p9tfeg.apps.googleusercontent.com');
 define ('GOOGLE_APP_SECRET','VrlKqw3Vfn7POdXYIeucioUj');
-define ('MAPLIMIT',15);
+define ('MAPLIMITX',15);
+define ('MAPLIMITY',10);
 define ('XPUP',4);
 
 ?>

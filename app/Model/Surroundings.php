@@ -74,8 +74,8 @@ class Surroundings extends AppModel {
 
 		while(!$freeSpot){
 			//Choix d'un couple (x,y) de coordonnée aléatoire dans l'arène
-			$coord['coordinate_x'] = rand(0,MAPLIMIT-1);
-			$coord['coordinate_y'] = rand(0,MAPLIMIT-1);
+			$coord['coordinate_x'] = rand(0,MAPLIMITX-1);
+			$coord['coordinate_y'] = rand(0,MAPLIMITY-1);
 
 			//Si la case (x,y) n'a pas été testée
 			if(array_search($coord,$tried) == false){
@@ -85,7 +85,7 @@ class Surroundings extends AppModel {
 				else array_push($tried,$coord);
 			}
 			//Si toute les cases ont été testées
-			if(count($tried) == (MAPLIMIT * MAPLIMIT)){
+			if(count($tried) == (MAPLIMITX * MAPLIMITY)){
 				//L'Event est annulé et la boucle est terminée
 				break;
 			}
@@ -113,8 +113,8 @@ class Surroundings extends AppModel {
 
 		while(!$freeSpot){
 			//Choix d'un couple (x,y) de coordonnée aléatoire dans l'arène
-			$coord['coordinate_x'] = rand(0,MAPLIMIT-1);
-			$coord['coordinate_y'] = rand(0,MAPLIMIT-1);
+			$coord['coordinate_x'] = rand(0,MAPLIMITX-1);
+			$coord['coordinate_y'] = rand(0,MAPLIMITY-1);
 
 			//Si la case (x,y) n'a pas été testée
 			if(array_search($coord,$tried) == false){
@@ -125,7 +125,7 @@ class Surroundings extends AppModel {
 			}
 
 			//Si toute les cases ont été testées
-			if(count($tried) == (MAPLIMIT * MAPLIMIT))break;
+			if(count($tried) == (MAPLIMITX * MAPLIMITY))break;
 		}
 		//Si la dernière case testée est marquée libre
 		if($freeSpot){
@@ -179,7 +179,7 @@ class Surroundings extends AppModel {
 					break;
 				default: ;
 			}
-			if(($coord['coordinate_x']+$i>=0)&&($coord['coordinate_x']+$i<MAPLIMIT)&&($coord['coordinate_y']+$j>=0)&&($coord['coordinate_y']+$j<MAPLIMIT)){
+			if(($coord['coordinate_x']+$i>=0)&&($coord['coordinate_x']+$i<MAPLIMITX)&&($coord['coordinate_y']+$j>=0)&&($coord['coordinate_y']+$j<MAPLIMITY)){
 				$warning['Surroundings']['coordinate_x'] = $coord['coordinate_x']+$i;
 				$warning['Surroundings']['coordinate_y'] = $coord['coordinate_y']+$j;
 
@@ -196,7 +196,7 @@ class Surroundings extends AppModel {
 	}
 
 	public function genMap(){
-		$ratio = MAPLIMIT*MAPLIMIT/10;
+		$ratio = MAPLIMITX*MAPLIMITY/10;
 
 		for($i=0;$i<$ratio;$i++){
 			$this->generate('trap');
