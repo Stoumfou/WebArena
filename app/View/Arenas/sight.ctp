@@ -3,6 +3,25 @@
 ?>
 <script type="text/javascript">
     var mapLimit = "<?php echo MAPLIMIT ?>"; 
+    var nbPilar = (mapLimit*mapLimit)/10;
+    var arPilars = <?php echo json_encode($manyWalls) ?>;
+    var arEvents = <?php echo json_encode($manyEvents) ?>;
+
+    var manyPillars = Array();
+    for(var i=0;i<nbPilar;i++){
+        manyPillars.push(String(arPilars[i]["Surroundings"]["coordinate_x"])+";"+String(arPilars[i]["Surroundings"]["coordinate_y"]));
+    }
+    
+    
+    var manyEvents = Array();
+    if(arEvents != "") {
+        console.log(arEvents);
+        for(var i=0;i<arEvents.length;i++){
+            manyEvents.push(String(arEvents[i]['Event']['coordinate_x'])+";"+String(arEvents[i]['Event']['coordinate_y']));
+        }
+    }
+    
+    
     
     var fName = "<?php echo $fighterToSight['Fighter']['name'] ?>";
     var fCoordX = "<?php echo $fighterToSight['Fighter']['coordinate_x'] ?>";
@@ -14,50 +33,28 @@
     var fHealMax = "<?php echo $fighterToSight['Fighter']['skill_health'] ?>";
     var fHealth = "<?php echo $fighterToSight['Fighter']['current_health'] ?>";
     
-    console.log(fName + " // X : " +fCoordX + " // Y : " +fCoordY + " // LVL : " +flevel + " // XP : " +fXp + " // SIGHT : " +fSight + " // STR : " +fStrength + " // MaxHP : " +fHealMax + " // CurHealth : " +fHealth);
-    var lastClicked;
-    
     
     function inSight(s,cx,cy) {
-    var resultat = Array();
-    for ( var x=0; x<=s ;x++) {
+        var resultat = Array();
+        for ( var x=0; x<=s ;x++) {
             var y = s - x;
             for (y; y>=0 ;y--) {
-                //console.log(x-(-cx)+""+y-(-cy));
-                //console.log(x-(-cx));
-                //console.log(y-(-cy));
-                var t1 = String(x-(-cx));
-                var test1 = t1 + String(y-(-cy));
-               // var test1 = String(x-(-cx)+""+y-(-cy));
+                var test1 = String(x-(-cx)) +";"+ String(y-(-cy));
+                var test2 = String(x-(-cx)) +";"+ String(-y-(-cy));
+                var test3 = String(-y-(-cx)) +";"+ String(x-(-cy));
+                var test4 = String(-y-(-cx)) +";"+ String(-x-(-cy));
                 
-                var t1 = String(-x-(-cx));
-                var test2 = t1 + String(-y-(-cy));
-                //var test2 = String(-x-(-cx)+""+-y-(-cy));
+                resultat.push(test1);
+                resultat.push(test2);
+                resultat.push(test3);
+                resultat.push(test4);
                 
-                var t1 = String(y-(-cx));
-                var test3 = t1 + String(x-(-cy));
-                //var test3 = String(y-(-cx)+""+x-(-cy));
-                
-                var t1 = String(-y-(-cx));
-                var test4 = t1 + String(-x-(-cy));
-                //var test4 = String(-y-(-cx)+""+-x-(-cy));
-                //console.log(t2);
-
-                resultat[test1] = Array(x-(-cx),y-(-cy));
-                resultat[test2] = Array(-x-(-cx),-y-(-cy));
-                resultat[test3] = Array(y-(-cx),x-(-cy));
-                resultat[test4] = Array(-y-(-cx),-x-(-cy));
-                
-                //resultat.push((""+x-(-cx)+""+y-(-cy)+""),  Array(x-(-cx),y-(-cy)));
-                //resultat.push((""+-x-(-cx)+""+-y-(-cy)+""), Array(-x-(-cx),-y-(-cy)));
-                //resultat.push((""+y-(-cx)+""+x-(-cy)+""),   Array(y-(-cx),x-(-cy)));
-                //resultat.push((""+-y-(-cx)+""+-x-(-cy)+""), Array(-y-(-cx),-x-(-cy)));
             }
         }
-    //var res = jQuery.unique(resultat);
-    return resultat;
+        var res = jQuery.unique(resultat);
+        return res;
         
-}
+    }
     var champVision = Array();
     champVision = inSight(fSight,fCoordX,fCoordY);
     
@@ -66,12 +63,12 @@ var grid = clickableGrid(mapLimit,mapLimit,function(el,row,col,i){
     console.log("You clicked on row:",row);
     console.log("You clicked on col:",col);
     console.log("You clicked on item #:",i);
-    console.log(champVision);
     
     //el.innerHTML = fName;
-    el.className='clicked';
-    if (lastClicked) lastClicked.className='';
-    lastClicked = el;
+    //lastClassClicked = el.className;
+    //el.className = el.className + ' clicked';
+    //if (lastClicked) lastClicked.className = lastClassClicked;
+    //lastClicked = el;
 });
 
 function drawGrid () {
@@ -81,21 +78,26 @@ function drawGrid () {
 function clickableGrid( rows, cols, callback ){
     var i=0;
     var grid = document.createElement('table');
+    var player = document.createElement('i');
+    player.innerHTML = '<i class="fa fa-user fa-2x"></i>';
     grid.className = 'grid';
     for (var r=0;r<rows;++r){
         var tr = grid.appendChild(document.createElement('tr'));
         for (var c=0;c<cols;++c){
             var cell = tr.appendChild(document.createElement('td'));
             //cell.innerHTML = ++i;
-            if (fCoordX != "") if(c == fCoordX && r == fCoordY) cell.innerHTML = 'P';
+            if (fCoordX != "") if(c == fCoordX && r == fCoordY) cell.appendChild(player);
             if (fCoordX != "") if(c == fCoordX && r == fCoordY-1) cell.innerHTML = 'N';
             if (fCoordX != "") if(c == fCoordX && r == fCoordY-(-1)) cell.innerHTML = 'S';
             if (fCoordX != "") if(c == fCoordX-(-1) && r == fCoordY) cell.innerHTML = 'E';
             if (fCoordX != "") if(c == fCoordX-1 && r == fCoordY) cell.innerHTML = 'W';
             
-            var title = String(r + c); 
-            if(champVision[title]) cell.className = 'cellInSight';
+            var title = String(c) +";"+ String(r); 
+            if($.inArray( title, manyPillars)>=0)cell.className = ' pilar';
+            else if($.inArray( title, manyEvents )>=0)cell.className = cell.className + ' events';
+            else if($.inArray( title, champVision )>=0)cell.className = cell.className + ' cellInSight';
             else cell.className = 'cellNoSight';
+            
             //else cell.className = 'cellNoSight';
             cell.addEventListener('click',(function(el,r,c,i){
                 return function(){
@@ -107,11 +109,7 @@ function clickableGrid( rows, cols, callback ){
     return grid;
 }
 
-
-    
-
 </script>
-
 
 <?php
 if ($fighters != null) {

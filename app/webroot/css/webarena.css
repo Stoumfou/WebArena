@@ -88,5 +88,13 @@ p {
 }
 
 .cellNoSight {
-    background-color:#908f8f;   
+    background-color:#b4b4b4;   
+}
+
+.pilar {
+    background-color:#000000;   
+}
+
+.events {
+    background-color:#f2b203;   
 }
