@@ -5,8 +5,7 @@
     var mapLimitX = "<?php echo MAPLIMITX ?>";
     var mapLimitY = "<?php echo MAPLIMITY ?>";
 
-    var mapLimit = "<?php echo MAPLIMIT ?>"; 
-    var nbPilar = (mapLimit*mapLimit)/10;
+    var nbPilar = (mapLimitX*mapLimitY)/10;
     var arPilars = <?php echo json_encode($manyWalls) ?>;
     var arEvents = <?php echo json_encode($manyEvents) ?>;
 
