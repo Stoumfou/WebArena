@@ -2,11 +2,9 @@
     $this->Html->meta('description','Vision',array('inline' => false));
 ?>
 <script type="text/javascript">
-<<<<<<< HEAD
     var mapLimitX = "<?php echo MAPLIMITX ?>";
     var mapLimitY = "<?php echo MAPLIMITY ?>";
 
-=======
     var mapLimit = "<?php echo MAPLIMIT ?>"; 
     var nbPilar = (mapLimit*mapLimit)/10;
     var arPilars = <?php echo json_encode($manyWalls) ?>;
@@ -26,9 +24,7 @@
         }
     }
     
-    
-    
->>>>>>> ac6c6e5a28eb2211e331c16c53600a3febb914d4
+
     var fName = "<?php echo $fighterToSight['Fighter']['name'] ?>";
     var fCoordX = "<?php echo $fighterToSight['Fighter']['coordinate_x'] ?>";
     var fCoordY = "<?php echo $fighterToSight['Fighter']['coordinate_y'] ?>";
