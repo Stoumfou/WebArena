@@ -43,6 +43,41 @@ class Event extends AppModel {
 	
 	public function getEventList($coord, $range){
 		
+        /*
+        $res = array();
+        
+        $inRange = array();
+        
+        for ( $x=0; $x<=$range; $x++) {
+            $y = fSight - $x;
+            for ($y; $y>=0 ;$y--) {
+                array_push($inRange, array('coord_x'=>$x,'coord_y'=>$y);
+                array_push($inRange, array('coord_x'=>-$x,'coord_y'=>-$y);
+                array_push($inRange, array('coord_x'=>$y,'coord_y'=>$x);
+                array_push($inRange, array('coord_x'=>-$y,'coord_y'=>-$x);
+            }
+        }
+        
+        $inRange = array_unique($inRange);
+        
+        foreach($inRange as case){
+            $event = $this->find('all',array('conditions'=>array('coordinate_x'=>$coord['coord_x']+$case['coord_x'],
+                                                                'coordinate_y'=>$coord['coord_y']+$case['coord_y']
+                                                                )
+                                            )
+                                );
+				if(count($event) !=0){
+					foreach($event as $event){
+						if(strtotime("now") - strtotime($event['Event']['date']) <86400)array_push($res,$event);
+					}
+				}
+        }
+        
+        return $res;
+        
+        
+        */
+        
 		$res = array();
 		
 		$topleft = array('coord_x'=>$coord['coord_x']-$range,'coord_y'=>$coord['coord_y']+$range);
