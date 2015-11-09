@@ -1,0 +1,7 @@
+var arEvents = "<?php echo json_encode($manyEvents) ?>";
+    var manyEvents = Array();
+    
+    for(var i=0;i<nbPilar;i++){
+        manyEvents.push(String(arEvents[i]['Event']['coordinate_x'])+";"+String(arEvents[i]['Event']['coordinate_y']));
+    }
+    console.log(manyEvents);

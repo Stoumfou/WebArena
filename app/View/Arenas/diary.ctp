@@ -26,7 +26,7 @@ if ($fighters != null) {
 	//pr($raw);
 
 
-	if(sizeof($raw) != 0){
+	if(empty($raw) != true){
         echo '<table id="listEvent" class="table table-bordered table-striped table-responsive table-hover">
         <thead>
         <tr>
@@ -45,8 +45,10 @@ if ($fighters != null) {
             echo '<td>' . $event['Event']['coordinate_x'] . '</td>';
             echo '<td>' . $event['Event']['coordinate_y'] . '</td>';
             echo '</tr>';
+
         }
-    }echo '</tbody></table>';
+        echo '</tbody></table>';
+    }
 }else {
     ?>
 <div class="jumbotron">

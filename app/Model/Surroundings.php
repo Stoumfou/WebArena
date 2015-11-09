@@ -62,6 +62,15 @@ class Surroundings extends AppModel {
 
 		return $result;
 	}
+    public function getAllWall() {
+        $resultat = $this->find('all',array('conditions'=>array('type'=>'wall')));
+        return $resultat;
+    }
+    
+    public function getAllWarning() {
+        $resultat = $this->find('all',array('conditions'=>array('type'=>'warning_trap')));
+        return $resultat;
+    }
 
 	public function mobMove(){
 		$mob = $this->find('first',array('conditions'=>array('type'=>'mob')));
