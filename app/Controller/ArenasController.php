@@ -307,7 +307,7 @@ class ArenasController extends AppController
 			if(array_key_exists('FighterChoose',$this->request->data))
 				$fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterChoose']['Combattant']);
 				$events = $this->Event->getEventList(array('coord_x'=>$fighter['Fighter']['coordinate_x'],'coord_y'=>$fighter['Fighter']['coordinate_y']),$fighter['Fighter']['skill_sight']);
-				$this->set('raw',$events);
+            $this->set('raw',$events);
 		}
 	}
 }

@@ -23,10 +23,8 @@ if ($fighters != null) {
     $options = array('label' => 'Voir', 'class' => 'btn btn-primary', 'div'=>false);
 	echo $this->Form->end($options);
     echo '</div>';
-	//pr($raw);
-
-
-	if(empty($raw) != true){
+	//var_dump($raw);
+	if( is_array($raw)){
         echo '<table id="listEvent" class="table table-bordered table-striped table-responsive table-hover">
         <thead>
         <tr>
