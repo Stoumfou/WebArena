@@ -95,7 +95,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                             echo '<li>' . $this->Html->link('Connexion', array('controller' => 'Users', 'action' => 'login')) . '</li>';
                             echo '<li>' . $this->Html->link('Inscription', array('controller' => 'Users', 'action' => 'register')) . '</li>';
                         }else{
-                            echo '<li>' . $this->Html->link('Suppression', array('controller'=>'Users','action'=>'delete', $idDelete)). '</li>';
+                            echo '<li>' . $this->Html->link('Modification', array('controller'=>'Users','action'=>'delete','')). '</li>';
                             echo '<li>' . $this->Html->link('Déconnexion', array('controller' => 'Users', 'action' => 'logout')) . '</li>';}
                         ?>
                     </ul>

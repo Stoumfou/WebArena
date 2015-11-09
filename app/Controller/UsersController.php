@@ -105,19 +105,23 @@ class UsersController extends AppController {
 	 */
     public function delete($id = null) {
 
-        $this->request->allowMethod('get');
+        $this->set('idDelete',$this->Auth->user('id'));
 
-        $this->User->id = $id;
-        if (!$this->User->exists()) {
-            throw new NotFoundException(__('Joueur invalide'));
+        if($this->request->is('post')) {
+            $this->request->allowMethod('post');
+
+            $this->User->id = $id;
+            if (!$this->User->exists()) {
+                throw new NotFoundException(__('Joueur invalide'));
+            }
+            if ($this->User->delete()) {
+                $this->logout();
+                $this->Flash->success(__('Joueur supprimé'));
+                return $this->redirect($this->Auth->logout());
+            }
+            $this->Flash->error(__('Le joueur n\'a pas été supprimé'));
+            return $this->redirect('../Arenas/index');
         }
-        if ($this->User->delete()) {
-            $this->logout();
-            $this->Flash->success(__('Joueur supprimé'));
-            return $this->redirect($this->Auth->logout());
-        }
-        $this->Flash->error(__('Le joueur n\'a pas été supprimé'));
-        return $this->redirect('../Arenas/index');
     }
 	
 	/*

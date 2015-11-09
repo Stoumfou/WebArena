@@ -13,7 +13,9 @@ $this->Html->meta('description', 'Suppression de compte', array('inline' => fals
             <div class="main">
                 <div class="row">
                     <div class="col-xs-8 col-sm-8 col-lg-8">
-                        <h1>Suppresion</h1>
+                        <h1>Suppression</h1>
+                        <?php echo $this->Form->create(null ,array('type'=>'post', 'url' => array('controller' => 'Users', 'action' => 'delete', $idDelete)));
+                        echo $this->Form->end('Supprimer');?>
                     </div>
                 </div>
             </div>

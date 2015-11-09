@@ -38,12 +38,9 @@ class ArenasController extends AppController
         if($this->Auth->loggedIn())
         {
             $this->set('myname', strtok($this->User->findById($this->Auth->user('id'))['User']['email'],'@'));
-            var_dump($this->Auth->user('id'));
-            $this->set('idDelete',$this->Auth->user('id'));
         }
 		else {
             $this->set('myname', "futur grand guerrier");
-            $this->set('idDelete','');
         }
 
         $this->set('classement',' ');
