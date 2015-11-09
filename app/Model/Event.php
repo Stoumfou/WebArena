@@ -54,8 +54,8 @@ class Event extends AppModel {
                 array_push($inRange, array('coord_x'=>-$y,'coord_y'=>-$x));
             }
         }
-        
-        $inRange = array_unique($inRange);
+		$inRange = array_map("unserialize", array_unique(array_map("serialize", $inRange)));
+		
         foreach($inRange as $case){
             $event = $this->find('all',array('conditions'=>array('coordinate_x'=>$coord['coord_x']+$case['coord_x'],
                                                                 'coordinate_y'=>$coord['coord_y']+$case['coord_y']
