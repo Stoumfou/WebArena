@@ -165,25 +165,38 @@ class UsersController extends AppController {
         $helper = new FacebookRedirectLoginHelper(FACEBOOK_REDIRECT_URI);
         $session = $helper->getSessionFromRedirect();
 
+
         if(isset($_SESSION['token'])){
             $session = new FacebookSession($_SESSION['token']);
             try{
                 $session->validate(FACEBOOK_APP_ID, FACEBOOK_APP_SECRET);
             }catch(FacebookAuthorizationException $e){
-                echo $e->getMessage();
+                //echo $e->getMessage();
+                $session='';
             }
         }
 
         $data = array('email'=>'');
+        //$data = array();
         $fb_data = array();
 
         if(isset($session)){
             $_SESSION['token'] = $session->getToken();
+            /*// SessionInfo
+            $info = $session->getSessionInfo();
+            // getAppId
+            echo "Appid: " . $info->getAppId() . "<br />";
+            // session expire data
+            $expireDate = $info->getExpiresAt()->format('Y-m-d H:i:s');
+            echo 'Session expire time: ' . $expireDate . "<br />";
+            // session token
+            echo 'Session Token: ' . $session->getToken() . "<br />";*/
             $request = new FacebookRequest($session, 'GET', '/me');
             $response = $request->execute();
-            $graph = $response->getGraphObject(GraphUser::className());
+            $graph = $response->getGraphObject();
 
             $fb_data = $graph->asArray();
+            var_dump($graph);
             $id = $graph->getId();
             $image = "https://graph.facebook.com/".$id."/picture?width=100";
 

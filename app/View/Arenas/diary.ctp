@@ -27,14 +27,16 @@ if ($fighters != null) {
 
 
 	if(sizeof($raw) != 0){
-        echo '<table class="table table-bordered table-hover">
+        echo '<table id="listEvent" class="table table-bordered table-striped table-responsive table-hover">
+        <thead>
         <tr>
             <th>Id</th>
             <th>Name</th>
             <th>date</th>
             <th>coordinate_x</th>
             <th>coordinate_y</th>
-        </tr>';
+        </tr>
+        </thead><tbody>';
         foreach ($raw as $event) {
             echo '<tr>';
             echo '<td>' . $event['Event']['id'] . '</td>';
@@ -44,7 +46,7 @@ if ($fighters != null) {
             echo '<td>' . $event['Event']['coordinate_y'] . '</td>';
             echo '</tr>';
         }
-    }echo '</table>';
+    }echo '</tbody></table>';
 }else {
     ?>
 <div class="jumbotron">
@@ -61,3 +63,6 @@ if ($fighters != null) {
 <?php
     }
 ?>
+<script>$(document).ready(function() {
+        $('#listEvent').DataTable();
+    } );</script>

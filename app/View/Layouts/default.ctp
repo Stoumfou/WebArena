@@ -18,7 +18,7 @@ $cakeDescription = __d('cake_dev', 'WebArena le site de jeu de combat d\'arène 
 $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 ?>
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <?php
     echo $this->Html->meta('favicon.ico', '/favicon.ico', array('type' => 'icon'));
@@ -37,9 +37,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         echo $cakeDescription;
         echo $this->fetch('title'); ?>
     </title>
-    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
-          type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <?php
     //Décommenter cake.generic pour passez au CSS Bootstrap
     //echo $this->Html->css('cake.generic');
@@ -48,6 +45,18 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
     echo $this->fetch('css');
     echo $this->fetch('javascript');
     ?>
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
+          type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.10/css/jquery.dataTables.css">
+
+    <!-- jQuery -->
+    <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.10/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.10/js/dataTables.bootstrap.min.js"></script>
 </head>
 <body>
 <!--<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">

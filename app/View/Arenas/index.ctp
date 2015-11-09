@@ -28,15 +28,20 @@ $this->Html->meta('description', 'WebArena le site de jeu de combat d\'arène mu
 </p>
 
 <h2>Classement</h2>
-<table class="table table-bordered table-hover">
-    <tr>
+<table id="classementTable" class="table table-bordered table-striped table-responsive table-hover">
+    <thead><tr>
         <th>Name</th>
         <th>Level</th>
     </tr>
+    </thead>
+    <tbody>
     <?php foreach ($classement as $fighter) {
         echo '<tr>';
         echo '<td>' . $fighter['Fighter']['name'] . '</td>';
         echo '<td>' . $fighter['Fighter']['level'] . '</td>';
         echo '</tr>';
     } ?>
-</table>
+</tbody></table>
+<script>$(document).ready(function() {
+            $('#classementTable').DataTable();
+    } );</script>
