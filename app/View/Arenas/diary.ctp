@@ -28,7 +28,6 @@ if ($fighters != null) {
         echo '<table id="listEvent" class="table table-bordered table-striped table-responsive table-hover">
         <thead>
         <tr>
-            <th>Id</th>
             <th>Name</th>
             <th>date</th>
             <th>coordinate_x</th>
@@ -37,7 +36,6 @@ if ($fighters != null) {
         </thead><tbody>';
         foreach ($raw as $event) {
             echo '<tr>';
-            echo '<td>' . $event['Event']['id'] . '</td>';
             echo '<td>' . $event['Event']['name'] . '</td>';
             echo '<td>' . $event['Event']['date'] . '</td>';
             echo '<td>' . $event['Event']['coordinate_x'] . '</td>';

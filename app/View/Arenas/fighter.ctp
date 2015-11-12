@@ -75,8 +75,13 @@ if (count($fighters) != 0) {
 if ($fighter) {
 ?>
 <hr/>
+<<<<<<< HEAD
 <div id="fighterDisplay" class="row top-buffer jumbotron">
     <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3">
+=======
+<div id="fighterDisplay" class="top-buffer">
+    <div class="col-xs-12 col-md-3 col-lg-3">
+>>>>>>> origin/master
 <?php
 if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.jpeg'))echo $this->Html->image($fighter['Fighter']['id'].'.jpeg', array('alt' => 'Fighter','class'=>'imgResize'));
 else if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.png'))echo $this->Html->image($fighter['Fighter']['id'].'.png', array('alt' => 'Fighter','class'=>'imgResize'));

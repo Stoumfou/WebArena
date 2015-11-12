@@ -2,6 +2,7 @@
 
 
 App::uses('AppModel', 'Model');
+App::uses('File', 'Utility');
 
 class Fighter extends AppModel {
 
@@ -22,8 +23,15 @@ class Fighter extends AppModel {
             'unique' => array(
                 'rule' => array('isUnique'),
                 'message' => 'Nom deja utilise'
+<<<<<<< HEAD
             ), 'max' => array('rule' => array('maxLength', 16)),
             'min' => array('rule' => array('minLength', 3))
+=======
+            ),'required' => array(
+                'rule' => 'notBlank',
+                'message' => 'Un nom est requis'
+            )
+>>>>>>> origin/master
         )
     );
 	
@@ -282,6 +290,11 @@ class Fighter extends AppModel {
 	}
 	
 	public function kill($fighter){
+		$file = new File(WWW_ROOT.'img\\'.$fighter['Fighter']['id'].'.jpg', false);
+		if(!$file)$file = new File(WWW_ROOT.'img\\'.$fighter['Fighter']['id'].'.jpeg', false);
+		if(!$file)$file = new File(WWW_ROOT.'img\\'.$fighter['Fighter']['id'].'.png', false);
+		if(!$file)$file = new File(WWW_ROOT.'img\\'.$fighter['Fighter']['id'].'.gif', false);
+		if($file)$file->delete();
 		$this->delete($fighter['Fighter']['id']);
 	}
 	
