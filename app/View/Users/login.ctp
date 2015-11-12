@@ -31,7 +31,7 @@ $this->Html->meta('description', 'Connexion', array('inline' => false));
                             <?php echo $this->Form->input('email');
                             echo $this->Form->input('password'); ?>
                         </fieldset>
-                        <div class="col-md-offset-2 col-md-8"><input class="btn btn-success btn btn-success" type="submit" value="Login"/>
+                        <div class="col-md-offset-2 col-md-8"><input class="btn btn-success" type="submit" value="Login"/>
                             <a class="btn btn-default facebook" href="<?php echo BASE_PATH . 'fblogin'; ?>"> <i
                                     class="fa fa-facebook modal-icons"> Sign in with Facebook</i></a>
                             <div><a href="forgotten">Mot de passe oublié</a></div>
