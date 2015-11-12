@@ -4,25 +4,74 @@ $this->Html->meta('description','Combattant', array('inline' => false));
 ?>
 
 
+<h2>Gestion des combattants</h2>
+    <div class="row top-buffer">
+        <div class="col-xs-12 col-md-12 col-lg-12 ">
+            <?php if(count($fighters) == 0) {?>
+            <div class="col-md-offset-1 col-lg-offset-1 col-xs-12 col-sm-12 col-md-10 col-lg-10">
+                <?php } else  {?>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <?php }?>
 <?php
-echo '<h2>Gestion des combattants</h2>';
-//echo $this->Form->create('Combattant',array('enctype'=>'multipart/form-data'));
-echo $this->Form->create('FighterCreate',array('enctype'=>'multipart/form-data'));
-echo $this->Form->input('Nom');
-echo $this->Form->input('Avatar', array('type'=>'file'));
-echo $this->Form->end('Entrer dans l\'arène !');
-?>
 
+echo $this->Form->create('FighterCreate', array(
+                            'enctype'=>'multipart/form-data',
+                            'class' => 'form-horizontal',
+                            'role' => 'form',
+                            'inputDefaults' => array(
+                                'format' => array('before', 'label', 'between', 'input', 'error', 'after'),
+                                'div' => array('class' => 'form-group'),
+                                'class' => array('form-control'),
+                                'label' => array('class' => 'col-xs-2 col-md-2 col-lg-2 control-label'),
+                                'between' => '<div class="col-xs-12 col-md-10 col-lg-10">',
+                                'after' => '</div>',
+                                'error' => array('attributes' => array('wrap' => 'span', 'class' => 'help-inline')),
+                            ))); ?>
+
+    <fieldset>
+        <legend><?php echo __('Veuillez entrer le nom de votre combattant.'); ?></legend>
+        <?php echo $this->Form->input('Nom'); 
+        echo $this->Form->input('Avatar', array('type'=>'file'));?>
+        <?php echo $this->Form->end(array(
+            'label'=>__('Créer'),
+            'class'=>'btn btn-primary col-md-offset-2 col-lg-offset-2 col-xs-12 col-sm-12 col-md-10 col-lg-10',
+            'div'=>'form-actions'));
+        ?>
+    </fieldset>
+    
+</div>
+<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 <?php
 if (count($fighters) != 0) {
-echo $this->Form->create('FighterChoose');
-echo $this->Form->input('Combattant',array('options'=>$fighters));
-echo $this->Form->end('Voir');
-    
-echo $this->Form->create('FighterKill');
-echo $this->Form->input('Combattant',array('options'=>$fighters));
-echo $this->Form->end('Supprimer');
+    echo $this->Form->create('FighterChoose', array(
+                            'class' => 'form-horizontal',
+                            'role' => 'form',
+                            'inputDefaults' => array(
+                                'format' => array('before', 'label', 'between', 'input', 'error', 'after'),
+                                'div' => array('class' => 'form-group'),
+                                'class' => array('form-control'),
+                                'label' => array('class' => 'col-xs-2 col-md-2 col-lg-2 control-label'),
+                                'between' => '<div class="col-xs-12 col-md-10 col-lg-10">',
+                                'after' => '</div>',
+                                'error' => array('attributes' => array('wrap' => 'span', 'class' => 'help-inline')),
+                            ))); ?>
 
+    <fieldset>
+        <legend><?php echo __('Choisissez un combattant à afficher.'); ?></legend>
+        <?php echo $this->Form->input('Combattant',array('options'=>$fighters)); 
+         echo $this->Form->end(array(
+            'label'=>__('Voir'),
+            'class'=>'btn btn-primary col-md-offset-2 col-lg-offset-2 col-xs-12 col-sm-12 col-md-10 col-lg-10',
+            'div'=>'form-actions'));
+        ?>
+    </fieldset>
+
+</div>
+    </div>
+        </div>
+</div>
+<?php
+    
 if($canLevelUp){
 	echo $this->Form->create('FighterLevelUp');
 	echo $this->Form->input('Combattant',array('default'=>$fighter['Fighter']['name'],'type'=>'hidden'));
@@ -32,14 +81,15 @@ if($canLevelUp){
 }
 if ($fighter) {
 ?>
-<div id="fighterDisplay" class="">
+<hr/>
+<div id="fighterDisplay" class="row top-buffer">
     <div class="col-xs-12 col-md-3 col-lg-3">
 <?php
-if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.jpeg'))echo $this->Html->image($fighter['Fighter']['id'].'.jpeg', array('alt' => 'Fighter'));
-else if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.png'))echo $this->Html->image($fighter['Fighter']['id'].'.png', array('alt' => 'Fighter'));
-else if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.jpg'))echo $this->Html->image($fighter['Fighter']['id'].'.jpg', array('alt' => 'Fighter'));
-else if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.gif'))echo $this->Html->image($fighter['Fighter']['id'].'.gif', array('alt' => 'Fighter'));
-else echo $this->Html->image('fighter.jpg', array('alt' => 'Fighter'));
+if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.jpeg'))echo $this->Html->image($fighter['Fighter']['id'].'.jpeg', array('alt' => 'Fighter','class'=>'imgResize'));
+else if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.png'))echo $this->Html->image($fighter['Fighter']['id'].'.png', array('alt' => 'Fighter','class'=>'imgResize'));
+else if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.jpg'))echo $this->Html->image($fighter['Fighter']['id'].'.jpg', array('alt' => 'Fighter','class'=>'imgResize'));
+else if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.gif'))echo $this->Html->image($fighter['Fighter']['id'].'.gif', array('alt' => 'Fighter','class'=>'imgResize'));
+else echo $this->Html->image('fighter.jpg', array('alt' => 'Fighter', 'class'=>'imgResize'));
 ?></div>
 <div class="col-xs-12 col-md-8 col-lg-8 jumbotron">
     <h1>
@@ -63,6 +113,20 @@ echo '
 <i class="col-xs-3 col-md-3 col-lg-3 fa fa-eye fa-3x" id="eyeIcon">'.$fighter['Fighter']['skill_sight'].'</i>
 <i class="col-xs-3 col-md-3 col-lg-3 fa fa-arrows-h fa-3x" id="arrowIcon">'.$fighter['Fighter']['coordinate_x'].'</i>
     <i class="col-xs-3 col-md-3 col-lg-3 fa fa-arrows-v fa-3x" id="arrowIcon">'.$fighter['Fighter']['coordinate_y'].'</i>';
-?></div>
-</div>
+?>
+    
+    <div class="row top-buffer">
+    <div class="col-xs-12 col-md-8 col-lg-8">
+    <?php
+    echo $this->Form->create('FighterKill');
+    echo $this->Form->input('Combattant',array('default'=>$fighter['Fighter']["name"], 'type'=>'hidden'));
+    echo $this->Form->end(array(
+            'label'=>__('Supprimer'),
+            'class'=>'btn btn-danger col-md-offset-12  col-lg-offset-12 col-xs-12 col-sm-12 col-md-6 col-lg-6',
+            'before'=>'<hr/>',
+            'div'=>'form-actions'));
+        
+    
+    ?></div></div>
+</div></div>
 <?php }?>
