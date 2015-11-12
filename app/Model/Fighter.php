@@ -23,15 +23,9 @@ class Fighter extends AppModel {
             'unique' => array(
                 'rule' => array('isUnique'),
                 'message' => 'Nom deja utilise'
-<<<<<<< HEAD
+
             ), 'max' => array('rule' => array('maxLength', 16)),
             'min' => array('rule' => array('minLength', 3))
-=======
-            ),'required' => array(
-                'rule' => 'notBlank',
-                'message' => 'Un nom est requis'
-            )
->>>>>>> origin/master
         )
     );
 	

@@ -3,15 +3,10 @@ $this->Html->meta('description','Combattant', array('inline' => false));
 
 ?>
 
-<<<<<<< HEAD
 <div class="panel panel-info">
 <div class="panel-heading"><div class="panel-title">
     <h2>Gestion des combattants</h2></div></div>
     <div class="panel-body">
-=======
-
-<h2>Gestion des combattants</h2>
->>>>>>> origin/master
     <div class="row top-buffer">
         <div class="col-xs-12 col-md-12 col-lg-12 ">
             <?php if(count($fighters) == 0) {?>
@@ -82,13 +77,8 @@ if (count($fighters) != 0) {
 if ($fighter) {
 ?>
 <hr/>
-<<<<<<< HEAD
 <div id="fighterDisplay" class="row top-buffer jumbotron">
     <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3">
-=======
-<div id="fighterDisplay" class="top-buffer">
-    <div class="col-xs-12 col-md-3 col-lg-3">
->>>>>>> origin/master
 <?php
 if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.jpeg'))echo $this->Html->image($fighter['Fighter']['id'].'.jpeg', array('alt' => 'Fighter','class'=>'imgResize'));
 else if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.png'))echo $this->Html->image($fighter['Fighter']['id'].'.png', array('alt' => 'Fighter','class'=>'imgResize'));
@@ -106,7 +96,6 @@ echo $fighter['Fighter']['name'];
         <?php
 echo ' LvL : '.$fighter['Fighter']['level'];
     ?>
-<<<<<<< HEAD
     </div>
     </div>
     <hr/>
@@ -130,14 +119,6 @@ echo ' LvL : '.$fighter['Fighter']['level'];
 <div class="col-xs-2 col-md-2 col-lg-2">HP (' . $fighter['Fighter']['current_health'] . '/' . $fighter['Fighter']['skill_health'] . ')</div><div class="progress">
   <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="' . $fighter['Fighter']['current_health'] . '" aria-valuemin="0" aria-valuemax="' . $fighter['Fighter']['skill_health'] . '" style="width: ' . ((($fighter['Fighter']['current_health']) / ($fighter['Fighter']['skill_health'])) * 100) . '%">
     <span class="sr-only">' . ((($fighter['Fighter']['current_health']) / ($fighter['Fighter']['skill_health'])) * 100) . '% Complete</span>
-=======
-        </h2>
-    <?php
-echo '
-<div class="col-xs-2 col-md-2 col-lg-2">HP ('.$fighter['Fighter']['current_health'].'/'.$fighter['Fighter']['skill_health'].')</div><div class="progress">
-  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="'.$fighter['Fighter']['current_health'].'" aria-valuemin="0" aria-valuemax="'.$fighter['Fighter']['skill_health'].'" style="width: '.((($fighter['Fighter']['current_health'])/($fighter['Fighter']['skill_health']))*100).'%">
-    <span class="sr-only">'.((($fighter['Fighter']['current_health'])/($fighter['Fighter']['skill_health']))*100).'% Complete</span>
->>>>>>> origin/master
   </div>
 </div>
 <div class="col-xs-2 col-md-2 col-lg-2">XP ('.$fighter['Fighter']['xp'].'/4)</div><div class="progress">
