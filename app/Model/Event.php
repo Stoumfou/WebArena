@@ -68,7 +68,9 @@ class Event extends AppModel {
 					}
 				}
         }
+
         return $res;
+       
         
         /*
         

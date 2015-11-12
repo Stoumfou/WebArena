@@ -42,6 +42,7 @@ class Fighter extends AppModel {
    public function getFightersByUser($user_id){
 		return $this->find('all',array('conditions'=>array('player_id'=>$user_id)));
    }
+    
    
    /*
     *Méthode de récupération d'un combattant par son nom et l'id de son joueur
@@ -360,7 +361,35 @@ class Fighter extends AppModel {
 		
 		return $fighter;
 	}
-	
-	
+    
+    public function getEnnemiesInRange($coord,$range){
+        
+        $res = array();        
+        for ($x=0; $x <= $range; $x++) {
+            $y = $range - $x;
+            for ($y; $y>=0 ;$y--) {
+                $fighter = $this->getFighterByPosition($x+$coord['coord_x'],$y+$coord['coord_y']);
+                if (count($fighter) != 0) array_push($res, $fighter[0]['Fighter']);
+                $fighter = $this->getFighterByPosition($x+$coord['coord_x'],-$y+$coord['coord_y']);
+                if (count($fighter) != 0) array_push($res, $fighter[0]['Fighter']);
+                $fighter = $this->getFighterByPosition(-$y+$coord['coord_x'],$x+$coord['coord_y']);
+                if (count($fighter) != 0) array_push($res, $fighter[0]['Fighter']);
+                $fighter = $this->getFighterByPosition(-$y+$coord['coord_x'],-$x+$coord['coord_y']);
+                if (count($fighter) != 0) array_push($res, $fighter[0]['Fighter']);       
+            }
+        }
+        $res = array_map("unserialize", array_unique(array_map("serialize", $res)));
+        $resultat = array();
+        foreach($res as $case){
+            array_push($resultat, $case);
+        }
+        return $resultat;
+    }
+    
+     public function getFighterByPosition($x,$y) {
+        $try = $this->find('all',array('conditions'=>array('coordinate_x'=>$x,'coordinate_y'=>$y)));
+        return $try;
+     }
+   
 }
 ?>

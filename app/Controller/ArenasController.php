@@ -232,7 +232,7 @@ class ArenasController extends AppController
         $this->set('manyWalls',$this->Surroundings->getAllWall());
         $this->set('fighterToSight', 0);   
         $this->set('manyEvents',"");
-        
+        //$this->set('manyEnnemies',"");
         
         if ($this->request->is('post')) {
         
@@ -242,7 +242,7 @@ class ArenasController extends AppController
                 $coord = array("coord_x"=>$fighter['Fighter']['coordinate_x'],"coord_y"=>$fighter['Fighter']['coordinate_y']);
                 $range = $fighter['Fighter']['skill_sight'];
                 $this->set('manyEvents',$this->Event->getEventList($coord, $range));
-                
+                $this->set('manyEnnemies',$this->Fighter->getEnnemiesInRange($coord, $range));
 			}
             else if ((array_key_exists('FighterAction',$this->request->data))&&($this->request->data['FighterAction']['Action'] == 'move')) {
              
@@ -304,6 +304,7 @@ class ArenasController extends AppController
                     $coord = array("coord_x"=>$fighter2['Fighter']['coordinate_x'],"coord_y"=>$fighter2['Fighter']['coordinate_y']);
                     $range = $fighter2['Fighter']['skill_sight'];
                     $this->set('manyEvents',$this->Event->getEventList($coord, $range));
+                    $this->set('manyEnnemies',$this->Fighter->getEnnemiesInRange($coord, $range));
                 }
                 
             } else if  ((array_key_exists('FighterAction',$this->request->data))&&($this->request->data['FighterAction']['Action'] == 'attack')) {
@@ -333,6 +334,7 @@ class ArenasController extends AppController
                 $coord = array("coord_x"=>$fighter2['Fighter']['coordinate_x'],"coord_y"=>$fighter2['Fighter']['coordinate_y']);
                 $range = $fighter2['Fighter']['skill_sight'];
                 $this->set('manyEvents',$this->Event->getEventList($coord, $range));
+                $this->set('manyEnnemies',$this->Fighter->getEnnemiesInRange($coord, $range));
                 
             }
         }

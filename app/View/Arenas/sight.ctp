@@ -8,21 +8,27 @@
     var nbPilar = (mapLimitX*mapLimitY)/10;
     var arPilars = <?php echo json_encode($manyWalls) ?>;
     var arEvents = <?php echo json_encode($manyEvents) ?>;
+    var arEnnemies = <?php echo json_encode($manyEnnemies) ?>;
 
     var manyPillars = Array();
     for(var i=0;i<nbPilar;i++){
         manyPillars.push(String(arPilars[i]["Surroundings"]["coordinate_x"])+";"+String(arPilars[i]["Surroundings"]["coordinate_y"]));
     }
-    
-    
+
     var manyEvents = Array();
     if(arEvents != "") {
-        //console.log(arEvents);
         for(var i=0;i<arEvents.length;i++){
             manyEvents.push(String(arEvents[i]['Event']['coordinate_x'])+";"+String(arEvents[i]['Event']['coordinate_y']));
         }
     }
     
+    var manyEnnemies = Array();
+        for(var i=0;i<arEnnemies.length;i++){
+            manyEnnemies.push(String(arEnnemies[i]['coordinate_x'])+";"+String(arEnnemies[i]['coordinate_y']));
+            console.log('shitters');
+        }
+    
+    console.log(manyEnnemies);
 
     var fName = "<?php echo $fighterToSight['Fighter']['name'] ?>";
     var fCoordX = "<?php echo $fighterToSight['Fighter']['coordinate_x'] ?>";
@@ -87,19 +93,25 @@ function clickableGrid( rows, cols, callback ){
         for (var c=0;c<cols;++c){
             var cell = tr.appendChild(document.createElement('td'));
             //cell.innerHTML = ++i;
-            if (fCoordX != "") if(c == fCoordX && r == fCoordY) cell.appendChild(player);
-            if (fCoordX != "") if(c == fCoordX && r == fCoordY-1) cell.innerHTML = 'N';
-            if (fCoordX != "") if(c == fCoordX && r == fCoordY-(-1)) cell.innerHTML = 'S';
-            if (fCoordX != "") if(c == fCoordX-(-1) && r == fCoordY) cell.innerHTML = 'E';
-            if (fCoordX != "") if(c == fCoordX-1 && r == fCoordY) cell.innerHTML = 'W';
+            var ennemy = document.createElement('i');
+            ennemy.innerHTML = '<i class="fa fa-dot-circle-o fa-2x"></i>';
             
-            var title = String(c) +";"+ String(r); 
+            if (fCoordX != "") {
+                if(c == fCoordX && r == fCoordY-1) cell.innerHTML = 'N';
+                if(c == fCoordX && r == fCoordY-(-1)) cell.innerHTML = 'S';
+                if(c == fCoordX-(-1) && r == fCoordY) cell.innerHTML = 'E';
+                if(c == fCoordX-1 && r == fCoordY) cell.innerHTML = 'W';
+                if(c == fCoordX && r == fCoordY) cell.appendChild(player);
+                               }
+        
+                var title = String(c) +";"+ String(r); 
+                console.log(($.inArray( title, manyEnnemies)>= 0));
+            if(($.inArray( title, manyEnnemies)>= 0) && title != (fCoordX+";"+fCoordY)) cell.appendChild(ennemy);
             if($.inArray( title, manyPillars)>=0)cell.className = ' pilar';
             else if($.inArray( title, manyEvents )>=0)cell.className = cell.className + ' events';
             else if($.inArray( title, champVision )>=0)cell.className = cell.className + ' cellInSight';
             else cell.className = 'cellNoSight';
             
-            //else cell.className = 'cellNoSight';
             cell.addEventListener('click',(function(el,r,c,i){
                 return function(){
                     callback(el,r,c,i);
