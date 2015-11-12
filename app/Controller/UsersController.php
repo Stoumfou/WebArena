@@ -90,22 +90,26 @@ class UsersController extends AppController
     public function edit()
     {
         if (!empty($this->data)) {
-            $email = $this->Auth->user('email');
-            $id = $this->Auth->user('id');
-            $datas = array('User' => array(
-                'id' => $id,
-                'email' => $email,
-                'password' => $this->request->data['Users']['password'])
-            );
-            pr($datas);
-            if ($this->User->save($datas)) {
-                $this->Session->setFlash('Password has been changed.');
-                return $this->redirect(array('action' => '../Arenas/index'));
+            if ($this->request->data['User']['pass1'] == $this->request->data['User']['pass2']) {
+                $this->request->data['Users']['password'] = $this->request->data['User']['pass1'];
+
+                $email = $this->Auth->user('email');
+                $id = $this->Auth->user('id');
+                $datas = array('User' => array(
+                    'id' => $id,
+                    'email' => $email,
+                    'password' => $this->request->data['Users']['password'])
+                );
+                pr($datas);
+                if ($this->User->save($datas)) {
+                    $this->Session->setFlash('Password has been changed.','default',array ('class' => 'alert alert-success'));
+                    return $this->redirect(array('action' => '../Arenas/index'));
+                } else {
+                    $this->Session->setFlash('Password could not be changed.','default',array ('class' => 'alert alert-danger'));
+                }
             } else {
-                $this->Session->setFlash('Password could not be changed.');
+                $this->data = $this->User->findById($this->Auth->user('id'));
             }
-        } else {
-            $this->data = $this->User->findById($this->Auth->user('id'));
         }
     }
 

@@ -25,7 +25,7 @@ $this->Html->meta('description', 'Edition de compte', array('inline' => false));
                         echo $this->Form->input('password1');
                         echo $this->Form->input('password2');
                         echo $this->Form->end('Submit');*/ ?>
-                                <?php echo $this->Form->create('Users', array(
+                                <?php echo $this->Form->create('User', array(
                                     'class' => 'form-horizontal',
                                     'role' => 'form',
                                     'inputDefaults' => array(
@@ -39,8 +39,8 @@ $this->Html->meta('description', 'Edition de compte', array('inline' => false));
                                     ))); ?>
                                 <fieldset>
                                     <legend><?php echo __('Entrez votre nouveau mot de passe'); ?></legend>
-                                    <?php echo $this->Form->input('password'); ?>
-                                </fieldset>
+                                    <?php echo $this->Form->input('pass1', array('label' => 'Mot de passe', 'type' => 'password')); ?>
+                                    <?php echo $this->Form->input('pass2', array('label' => 'Confirmer le mot de passe', 'type' => 'password')); ?>                                </fieldset>
                                 <div class="col-md-offset-2 col-md-6 col-lg-4"><input class="btn btn-success" type="submit"
                                                                              value="Edit"/>
                                 </div>
