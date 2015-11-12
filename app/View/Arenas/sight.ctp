@@ -17,7 +17,7 @@
     
     var manyEvents = Array();
     if(arEvents != "") {
-        console.log(arEvents);
+        //console.log(arEvents);
         for(var i=0;i<arEvents.length;i++){
             manyEvents.push(String(arEvents[i]['Event']['coordinate_x'])+";"+String(arEvents[i]['Event']['coordinate_y']));
         }
@@ -139,18 +139,39 @@ if ($fighters != null) {
             'div'=>'form-actions'));
         ?>
     </fieldset>
+            <?php 
+        
+        if ($fighterToSight != "") {
+        echo $this->Form->create('FighterAction',array(
+                            'class' => 'form-horizontal',
+                            'role' => 'form',
+                            'inputDefaults' => array(
+                                'format' => array('before', 'label', 'between', 'input', 'error', 'after'),
+                                'div' => array('class' => 'form-group'),
+                                'class' => array('form-control'),
+                                'label' => array('class' => 'col-xs-2 col-md-2 col-lg-2 control-label'),
+                                'between' => '<div class="col-xs-12 col-md-10 col-lg-10">',
+                                'after' => '</div>',
+                                'error' => array('attributes' => array('wrap' => 'span', 'class' => 'help-inline')),
+                            )));
+            ?>
+            <fieldset>
+        <legend><?php echo __('Choisissez une action.'); ?></legend>
+                <?php
+            echo $this->Form->input('Combattant',array('default'=>$fighterToSight['Fighter']["name"], 'type'=>'hidden'));
+            echo $this->Form->radio('Action',array('attack'=>'Attack'));
+            echo $this->Form->radio('Action',array('move'=>'Move'));
+            echo $this->Form->input('Direction',array('options' => array('north'=>'north','east'=>'east','south'=>'south','west'=>'west'), 'default' => 'east'));
+            echo $this->Form->end(array(
+            'label'=>__('GO!'),
+            'class'=>'btn btn-success col-md-offset-2 col-lg-offset-2 col-xs-12 col-sm-12 col-md-10 col-lg-10',
+            'div'=>'form-actions'));
+        ?>
 
 </div>
 <?php
-if ($fighterToSight != "") {
     echo '<div id="gridContainer"></div>
 <div class="gridManipulator">';
-    
-echo $this->Form->create('FighterAction');
-echo $this->Form->input('Combattant',array('options'=> array($fighters)));
-echo $this->Form->input('Action',array('options'=>array('move'=>'move','attack'=>'attack')));
-echo $this->Form->input('Direction',array('options' => array('north'=>'north','east'=>'east','south'=>'south','west'=>'west'), 'default' => 'east'));
-echo $this->Form->end('GO!');
 
 
 /*echo $this->Form->create('FighterAttack');

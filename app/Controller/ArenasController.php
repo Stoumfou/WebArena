@@ -134,7 +134,7 @@ class ArenasController extends AppController
             else if(array_key_exists('FighterKill',$this->request->data)){
 				$fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterKill']['Combattant']);
                 $this->Fighter->kill($fighter);
-                $this->redirect(array('action' => '../Arenas/fighter'));
+                //$this->redirect(array('action' => '../Arenas/fighter'));
 				$this->set('raw','Combattant supprimé !');
                 
 			}
@@ -169,12 +169,40 @@ class ArenasController extends AppController
                 }
 			}
 			//Passage de niveau du Fighter séléctionné
-			else if (array_key_exists('FighterLevelUp',$this->request->data)){
+			else if (array_key_exists('FighterLevelUpHealth',$this->request->data)){
 				//Récupération du Fighter à partir de son nom et de son User
-				$fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterLevelUp']['Combattant']);
+				$fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterLevelUpHealth']['Combattant']);
 								
 				// Méthode de passage de niveau avec le skill renseigné
-				$fighter = $this->Fighter->levelUp($fighter,$this->request->data['FighterLevelUp']['Skill']);
+				$fighter = $this->Fighter->levelUp($fighter,'health');
+				$this->set('raw',$fighter);
+				
+				//Détermination de la possibilité de passer un niveau
+				if($this->Fighter->canLevelUp($fighter)){
+					$this->set('canLevelUp',true);
+					$this->set('fighter',$fighter);
+				}
+				else $this->set('canLevelUp',false);
+			} else if (array_key_exists('FighterLevelUpSight',$this->request->data)){
+				//Récupération du Fighter à partir de son nom et de son User
+				$fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterLevelUpSight']['Combattant']);
+								
+				// Méthode de passage de niveau avec le skill renseigné
+				$fighter = $this->Fighter->levelUp($fighter,'sight');
+				$this->set('raw',$fighter);
+				
+				//Détermination de la possibilité de passer un niveau
+				if($this->Fighter->canLevelUp($fighter)){
+					$this->set('canLevelUp',true);
+					$this->set('fighter',$fighter);
+				}
+				else $this->set('canLevelUp',false);
+			} else if (array_key_exists('FighterLevelUpStrength',$this->request->data)){
+				//Récupération du Fighter à partir de son nom et de son User
+				$fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterLevelUpStrength']['Combattant']);
+								
+				// Méthode de passage de niveau avec le skill renseigné
+				$fighter = $this->Fighter->levelUp($fighter,'strength');
 				$this->set('raw',$fighter);
 				
 				//Détermination de la possibilité de passer un niveau
@@ -205,7 +233,9 @@ class ArenasController extends AppController
         $this->set('fighterToSight', 0);   
         $this->set('manyEvents',"");
         
+        
         if ($this->request->is('post')) {
+        
             if(array_key_exists('FighterChoose',$this->request->data)){
 				$fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterChoose']['Combattant']);
                 $this->set('fighterToSight', $fighter);
@@ -215,6 +245,7 @@ class ArenasController extends AppController
                 
 			}
             else if ((array_key_exists('FighterAction',$this->request->data))&&($this->request->data['FighterAction']['Action'] == 'move')) {
+             
                 $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAction']['Combattant']);
 				$surroundings = $this->Surroundings->checkSurroundings($fighter, $this->request->data['FighterAction']['Direction']);
 				$moved = false;
@@ -268,11 +299,12 @@ class ArenasController extends AppController
                         default: ;
                     }
 				}
- 		        $fighter2 = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAction']['Combattant']);
-                $this->set('fighterToSight', $fighter2);
-                $coord = array("coord_x"=>$fighter['Fighter']['coordinate_x'],"coord_y"=>$fighter['Fighter']['coordinate_y']);
-                $range = $fighter['Fighter']['skill_sight'];
-                $this->set('manyEvents',$this->Event->getEventList($coord, $range));
+                if ($fighter2 = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAction']['Combattant'])) {
+                    $this->set('fighterToSight', $fighter2);
+                    $coord = array("coord_x"=>$fighter2['Fighter']['coordinate_x'],"coord_y"=>$fighter2['Fighter']['coordinate_y']);
+                    $range = $fighter2['Fighter']['skill_sight'];
+                    $this->set('manyEvents',$this->Event->getEventList($coord, $range));
+                }
                 
             } else if  ((array_key_exists('FighterAction',$this->request->data))&&($this->request->data['FighterAction']['Action'] == 'attack')) {
                 $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAction']['Combattant']);
@@ -298,8 +330,8 @@ class ArenasController extends AppController
                 }
                 $fighter2 = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAction']['Combattant']);
                 $this->set('fighterToSight', $fighter2);
-                $coord = array("coord_x"=>$fighter['Fighter']['coordinate_x'],"coord_y"=>$fighter['Fighter']['coordinate_y']);
-                $range = $fighter['Fighter']['skill_sight'];
+                $coord = array("coord_x"=>$fighter2['Fighter']['coordinate_x'],"coord_y"=>$fighter2['Fighter']['coordinate_y']);
+                $range = $fighter2['Fighter']['skill_sight'];
                 $this->set('manyEvents',$this->Event->getEventList($coord, $range));
                 
             }
