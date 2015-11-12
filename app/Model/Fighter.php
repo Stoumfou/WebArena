@@ -288,7 +288,10 @@ class Fighter extends AppModel {
 	
 	public function kill($fighter){
 		$file = new File(WWW_ROOT.'img\\'.$fighter['Fighter']['id'].'.jpg', false);
-		$file->delete();
+		if(!$file)$file = new File(WWW_ROOT.'img\\'.$fighter['Fighter']['id'].'.jpeg', false);
+		if(!$file)$file = new File(WWW_ROOT.'img\\'.$fighter['Fighter']['id'].'.png', false);
+		if(!$file)$file = new File(WWW_ROOT.'img\\'.$fighter['Fighter']['id'].'.gif', false);
+		if($file)$file->delete();
 		$this->delete($fighter['Fighter']['id']);
 	}
 	
