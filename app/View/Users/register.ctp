@@ -21,8 +21,9 @@
                         ))); ?>
                     <fieldset>
                         <legend><?php echo __('Entrez un nom de compte et un mot de passe'); ?></legend>
-                        <?php echo $this->Form->input('email'); ?>
-                        <?php echo $this->Form->input('password'); ?>
+                        <?php echo $this->Form->input('email', array('label' => '  Adresse email', 'type' => 'email')); ?>
+                        <?php echo $this->Form->input('pass1', array('label' => 'Mot de passe', 'type' => 'password')); ?>
+                        <?php echo $this->Form->input('pass2', array('label' => 'Confirmer le mot de passe', 'type' => 'password')); ?>
                     </fieldset>
                     <div class="col-md-offset-2 col-md-8"><input class="btn btn-success btn btn-success" type="submit"
                                                                  value="Register"/>
