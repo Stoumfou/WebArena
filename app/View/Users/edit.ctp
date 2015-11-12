@@ -37,9 +37,9 @@
                         </fieldset>
                         <div class="col-md-offset-2 col-md-8"><input class="btn btn-success" type="submit" value="Edit"/>
                         </div>
-                        <?php echo '<li>' . $this->Html->link('Suppression du compte',
+                        <?php echo  $this->Html->link('Suppression du compte',
                                 array('controller'=>'Users','action'=>'delete',$idUser),array(
-                                    'class'=>'btn btn-danger')). '</li>';?>
+                                    'class'=>'col-md-offset-2 col-md-6 btn btn-danger'));?>
                     </div>
             </div>
         </div>
