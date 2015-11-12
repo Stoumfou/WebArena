@@ -4,17 +4,11 @@ body {
     font-family: Lora,"Helvetica Neue",Helvetica,Arial,sans-serif;
 	background-image: url("../img/arena.jpg");
 	background-size: 100% 100%;
-<<<<<<< HEAD
 	background-attachment: fixed;
-=======
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
 
-#mainContainer {
-
->>>>>>> origin/master
-}
 
 html {
     width: 100%;
