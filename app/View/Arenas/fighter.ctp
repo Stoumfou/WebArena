@@ -4,14 +4,7 @@ $this->Html->meta('description','Combattant', array('inline' => false));
 ?>
 
 
-<?php
-echo '<h2>Gestion des combattants</h2>';
-//echo $this->Form->create('Combattant',array('enctype'=>'multipart/form-data'));
-echo $this->Form->create('FighterCreate',array('enctype'=>'multipart/form-data'));
-echo $this->Form->input('Nom');
-echo $this->Form->input('Avatar', array('type'=>'file'));
-echo $this->Form->end('Entrer dans l\'arène !');
-?>
+<h2>Gestion des combattants</h2>
     <div class="row top-buffer">
         <div class="col-xs-12 col-md-12 col-lg-12 ">
             <?php if(count($fighters) == 0) {?>
@@ -22,6 +15,7 @@ echo $this->Form->end('Entrer dans l\'arène !');
 <?php
 
 echo $this->Form->create('FighterCreate', array(
+                            'enctype'=>'multipart/form-data',
                             'class' => 'form-horizontal',
                             'role' => 'form',
                             'inputDefaults' => array(
@@ -36,7 +30,8 @@ echo $this->Form->create('FighterCreate', array(
 
     <fieldset>
         <legend><?php echo __('Veuillez entrer le nom de votre combattant.'); ?></legend>
-        <?php echo $this->Form->input('Nom'); ?>
+        <?php echo $this->Form->input('Nom'); 
+        echo $this->Form->input('Avatar', array('type'=>'file'));?>
         <?php echo $this->Form->end(array(
             'label'=>__('Créer'),
             'class'=>'btn btn-primary col-md-offset-2 col-lg-offset-2 col-xs-12 col-sm-12 col-md-10 col-lg-10',
@@ -88,13 +83,13 @@ if ($fighter) {
 ?>
 <hr/>
 <div id="fighterDisplay" class="row top-buffer">
-    <div class="col-xs-12 col-md-3 col-lg-3 ">
+    <div class="col-xs-12 col-md-3 col-lg-3">
 <?php
-if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.jpeg'))echo $this->Html->image($fighter['Fighter']['id'].'.jpeg', array('alt' => 'Fighter'));
-else if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.png'))echo $this->Html->image($fighter['Fighter']['id'].'.png', array('alt' => 'Fighter'));
-else if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.jpg'))echo $this->Html->image($fighter['Fighter']['id'].'.jpg', array('alt' => 'Fighter'));
-else if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.gif'))echo $this->Html->image($fighter['Fighter']['id'].'.gif', array('alt' => 'Fighter'));
-else echo $this->Html->image('fighter.jpg', array('alt' => 'Fighter'));
+if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.jpeg'))echo $this->Html->image($fighter['Fighter']['id'].'.jpeg', array('alt' => 'Fighter','class'=>'imgResize'));
+else if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.png'))echo $this->Html->image($fighter['Fighter']['id'].'.png', array('alt' => 'Fighter','class'=>'imgResize'));
+else if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.jpg'))echo $this->Html->image($fighter['Fighter']['id'].'.jpg', array('alt' => 'Fighter','class'=>'imgResize'));
+else if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.gif'))echo $this->Html->image($fighter['Fighter']['id'].'.gif', array('alt' => 'Fighter','class'=>'imgResize'));
+else echo $this->Html->image('fighter.jpg', array('alt' => 'Fighter', 'class'=>'imgResize'));
 ?></div>
 <div class="col-xs-12 col-md-8 col-lg-8 jumbotron">
     <h1>

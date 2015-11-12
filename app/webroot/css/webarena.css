@@ -98,3 +98,7 @@ p {
 .events {
     background-color:#f2b203;   
 }
+
+.imgResize {
+    width: 100%;   
+}
