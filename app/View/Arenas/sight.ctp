@@ -115,6 +115,10 @@ function clickableGrid( rows, cols, callback ){
 <?php
 if ($fighters != null) {
 ?>        
+<div class="panel panel-info">
+<div class="panel-heading"><div class="panel-title">
+    <h2>Gestion des actions</h2></div></div>
+    <div class="panel-body">
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 <?php
     echo $this->Form->create('FighterChoose', array(
@@ -172,9 +176,11 @@ if ($fighters != null) {
 <?php
     echo '<div id="gridContainer"></div>
 <div class="gridManipulator">';
-
-
-/*echo $this->Form->create('FighterAttack');
+?>
+<script type="text/javascript">
+   drawGrid();
+</script>
+<?php /*echo $this->Form->create('FighterAttack');
 echo $this->Form->input('Combattant',array('options'=>$fighters));
 echo $this->Form->input('direction',array('options' => array('north'=>'north','east'=>'east','south'=>'south','west'=>'west'), 'default' => 'east'));
 echo $this->Form->end('Attack');*/
@@ -192,11 +198,12 @@ echo $this->Form->end('Attack');*/
         <?php echo $this->Html->link('Créer mon combattant !', array('controller' => 'Arenas', 'action' => 'fighter'), array('class'=>'btn btn-lg btn-primary')) ?>
     </div>
 </div>
+
+    </div>
+</div>
+</div>
+
 <?php
     }
 ?>
-    </div>
 
-<script type="text/javascript">
-   drawGrid();
-</script>

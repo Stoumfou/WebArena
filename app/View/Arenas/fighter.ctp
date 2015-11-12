@@ -71,43 +71,14 @@ if (count($fighters) != 0) {
 </div>
     </div>
         </div>
-</div>
+        </div>
 <?php
 }
 if ($fighter) {
 ?>
-<hr/>
-
-
-<div id="fighterDisplay" class="row top-buffer jumbotron">
-    <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3">
-
-
-<div id="fighterDisplay" class="row top-buffer jumbotron">
-    <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3">
-
-<?php
-if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.jpeg'))echo $this->Html->image($fighter['Fighter']['id'].'.jpeg', array('alt' => 'Fighter','class'=>'imgResize'));
-else if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.png'))echo $this->Html->image($fighter['Fighter']['id'].'.png', array('alt' => 'Fighter','class'=>'imgResize'));
-else if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.jpg'))echo $this->Html->image($fighter['Fighter']['id'].'.jpg', array('alt' => 'Fighter','class'=>'imgResize'));
-else if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.gif'))echo $this->Html->image($fighter['Fighter']['id'].'.gif', array('alt' => 'Fighter','class'=>'imgResize'));
-else echo $this->Html->image('fighter.jpg', array('alt' => 'Fighter', 'class'=>'imgResize'));
-?></div>
-<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 ">
-    <h1>
-        <?php
-echo $fighter['Fighter']['name'];
-    ?>
-        </h1>
-    <h2>
-        <?php
-echo ' LvL : '.$fighter['Fighter']['level'];
-    ?>
-    </div>
-    </div>
     <hr/>
-    <div id="fighterDisplay" class="top-buffer">
-        <div class="col-xs-12 col-md-3 col-lg-3">
+    <div id="fighterDisplay" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 jumbotron">
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 ">
             <?php
             if (file_exists(WWW_ROOT . 'img/' . $fighter['Fighter']['id'] . '.jpeg')) echo $this->Html->image($fighter['Fighter']['id'] . '.jpeg', array('alt' => 'Fighter', 'class' => 'imgResize'));
             else if (file_exists(WWW_ROOT . 'img/' . $fighter['Fighter']['id'] . '.png')) echo $this->Html->image($fighter['Fighter']['id'] . '.png', array('alt' => 'Fighter', 'class' => 'imgResize'));
@@ -115,12 +86,17 @@ echo ' LvL : '.$fighter['Fighter']['level'];
             else if (file_exists(WWW_ROOT . 'img/' . $fighter['Fighter']['id'] . '.gif')) echo $this->Html->image($fighter['Fighter']['id'] . '.gif', array('alt' => 'Fighter', 'class' => 'imgResize'));
             else echo $this->Html->image('fighter.jpg', array('alt' => 'Fighter', 'class' => 'imgResize'));
             ?></div>
-        <div class="col-xs-12 col-md-8 col-lg-8 jumbotron">
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
             <h1>
                 <?php
-                echo $fighter['Fighter']['name'] . ' LvL : ' . $fighter['Fighter']['level'];
+                echo $fighter['Fighter']['name'];
                 ?>
             </h1>
+            <h2>
+                <?php
+                echo ' LvL : ' . $fighter['Fighter']['level'];
+                ?>
+            </h2>
             <?php
             echo '
 <div class="col-xs-2 col-md-2 col-lg-2">HP (' . $fighter['Fighter']['current_health'] . '/' . $fighter['Fighter']['skill_health'] . ')</div><div class="progress">
@@ -182,5 +158,5 @@ if($canLevelUp){
         
     
     ?></div></div>
-</div></div>
+        </div></div></div>
 <?php }?>

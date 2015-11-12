@@ -26,7 +26,7 @@ class Fighter extends AppModel {
 
             ), 'max' => array('rule' => array('maxLength', 16)),
             'min' => array('rule' => array('minLength', 3))
-<<<<<<< HEAD
+
 
             ),'required' => array(
                 'rule' => 'notBlank',
@@ -34,10 +34,6 @@ class Fighter extends AppModel {
             )
 
         );
-=======
-        )
-    );
->>>>>>> origin/master
 	
    /*
     *Méthode de récupération de tout les combattant d'un joueur
