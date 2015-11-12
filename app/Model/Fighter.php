@@ -25,7 +25,8 @@ class Fighter extends AppModel {
                 'message' => 'Nom deja utilise'
 
             ), 'max' => array('rule' => array('maxLength', 16)),
-            'min' => array('rule' => array('minLength', 3))
+            'min' => array('rule' => array('minLength', 3)),
+				'alphaNum'=> array('rule'=> 'alphanumeric'),
 
 
             ),'required' => array(

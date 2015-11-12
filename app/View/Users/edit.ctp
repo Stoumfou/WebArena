@@ -32,7 +32,7 @@ $this->Html->meta('description', 'Edition de compte', array('inline' => false));
                                         'format' => array('before', 'label', 'between', 'input', 'error', 'after'),
                                         'div' => array('class' => 'form-group'),
                                         'class' => array('form-control'),
-                                        'label' => array('class' => 'col-xs-3 col-md-2 col-lg-2 control-label'),
+                                        'label' => array('class' => 'col-xs-3 col-md-6 col-lg-2 control-label'),
                                         'between' => '<div class="col-xs-9 col-md-6 col-lg-6">',
                                         'after' => '</div>',
                                         'error' => array('attributes' => array('wrap' => 'span', 'class' => 'help-inline')),
@@ -41,12 +41,12 @@ $this->Html->meta('description', 'Edition de compte', array('inline' => false));
                                     <legend><?php echo __('Entrez votre nouveau mot de passe'); ?></legend>
                                     <?php echo $this->Form->input('password'); ?>
                                 </fieldset>
-                                <div class="col-md-offset-2 col-md-8"><input class="btn btn-success" type="submit"
+                                <div class="col-md-offset-2 col-md-6 col-lg-4"><input class="btn btn-success" type="submit"
                                                                              value="Edit"/>
                                 </div>
                                 <?php echo $this->Html->link('Suppression du compte',
                                     array('controller' => 'Users', 'action' => 'delete', $idUser), array(
-                                        'class' => 'col-md-offset-2 col-md-6 btn btn-danger')); ?>
+                                        'class' => 'col-md-offset-2 col-md-6 col-lg-4 btn btn-danger')); ?>
                             </div>
                         </div>
                     </div>
