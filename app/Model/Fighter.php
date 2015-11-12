@@ -11,9 +11,7 @@ class Fighter extends AppModel {
     public $belongsTo = array(
 
         'User' => array(
-
             'className' => 'User',
-
             'foreignKey' => 'player_id',
         ),
 
@@ -24,7 +22,8 @@ class Fighter extends AppModel {
             'unique' => array(
                 'rule' => array('isUnique'),
                 'message' => 'Nom deja utilise'
-            )
+            ), 'max' => array('rule' => array('maxLength', 16)),
+            'min' => array('rule' => array('minLength', 3))
         )
     );
 	

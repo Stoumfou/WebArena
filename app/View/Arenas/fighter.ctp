@@ -71,19 +71,12 @@ if (count($fighters) != 0) {
         </div>
 </div>
 <?php
-    
-if($canLevelUp){
-	echo $this->Form->create('FighterLevelUp');
-	echo $this->Form->input('Combattant',array('default'=>$fighter['Fighter']['name'],'type'=>'hidden'));
-	echo $this->Form->input('Skill',array('options'=>array('health'=>'health','sight'=>'sight','strength'=>'strength')));
-	echo $this->Form->end('Monter un niveau');
-}
 }
 if ($fighter) {
 ?>
 <hr/>
-<div id="fighterDisplay" class="row top-buffer">
-    <div class="col-xs-12 col-md-3 col-lg-3">
+<div id="fighterDisplay" class="row top-buffer jumbotron">
+    <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3">
 <?php
 if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.jpeg'))echo $this->Html->image($fighter['Fighter']['id'].'.jpeg', array('alt' => 'Fighter','class'=>'imgResize'));
 else if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.png'))echo $this->Html->image($fighter['Fighter']['id'].'.png', array('alt' => 'Fighter','class'=>'imgResize'));
@@ -91,12 +84,17 @@ else if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.jpg'))echo $this
 else if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.gif'))echo $this->Html->image($fighter['Fighter']['id'].'.gif', array('alt' => 'Fighter','class'=>'imgResize'));
 else echo $this->Html->image('fighter.jpg', array('alt' => 'Fighter', 'class'=>'imgResize'));
 ?></div>
-<div class="col-xs-12 col-md-8 col-lg-8 jumbotron">
+<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 ">
     <h1>
         <?php
-echo $fighter['Fighter']['name'].' LvL : '.$fighter['Fighter']['level'];
+echo $fighter['Fighter']['name'];
     ?>
         </h1>
+    <h2>
+        <?php
+echo ' LvL : '.$fighter['Fighter']['level'];
+    ?>
+        </h2>
     <?php
 echo '
 <div class="col-xs-2 col-md-2 col-lg-2">HP ('.$fighter['Fighter']['current_health'].'/'.$fighter['Fighter']['skill_health'].')</div><div class="progress">
@@ -116,14 +114,44 @@ echo '
 ?>
     
     <div class="row top-buffer">
-    <div class="col-xs-12 col-md-8 col-lg-8">
+    <div class="col-xs-12 col-md-12 col-lg-12">
     <?php
+    
+    
+if($canLevelUp){
+    
+    
+    echo $this->Form->create('FighterLevelUpStrength');
+    echo $this->Form->input('Combattant',array('default'=>$fighter['Fighter']["name"], 'type'=>'hidden'));
+    echo $this->Form->end(array(
+            'label'=>__('Augmenter Force'),
+            'class'=>'btn btn-danger col-xs-12 col-sm-12 col-md-4 col-lg-4',
+            'before'=>'<hr/>',
+            'div'=>'form-actions'));
+    
+    echo $this->Form->create('FighterLevelUpSight');
+    echo $this->Form->input('Combattant',array('default'=>$fighter['Fighter']["name"], 'type'=>'hidden'));
+    echo $this->Form->end(array(
+            'label'=>__('Augmenter Vision'),
+            'class'=>'btn btn-primary col-xs-12 col-sm-12 col-md-4 col-lg-4',
+            'div'=>'form-actions'));
+    
+    echo $this->Form->create('FighterLevelUpHealth');
+    echo $this->Form->input('Combattant',array('default'=>$fighter['Fighter']["name"], 'type'=>'hidden'));
+    echo $this->Form->end(array(
+            'label'=>__('Augmenter HP'),
+            'class'=>'btn btn-success col-xs-12 col-sm-12 col-md-4 col-lg-4',
+            'after'=>'<hr/>',
+            'div'=>'form-actions'));
+    
+}
+    
     echo $this->Form->create('FighterKill');
     echo $this->Form->input('Combattant',array('default'=>$fighter['Fighter']["name"], 'type'=>'hidden'));
     echo $this->Form->end(array(
             'label'=>__('Supprimer'),
-            'class'=>'btn btn-danger col-md-offset-12  col-lg-offset-12 col-xs-12 col-sm-12 col-md-6 col-lg-6',
-            'before'=>'<hr/>',
+            'class'=>'btn btn-danger col-xs-offset-9 col-sm-offset-9 col-md-offset-9 col-lg-offset-9 col-xs-3 col-sm-3 col-md-3 col-lg-3',
+            'before'=>'<div class="row"></div><hr/>',
             'div'=>'form-actions'));
         
     
