@@ -82,7 +82,7 @@ if($canLevelUp){
 if ($fighter) {
 ?>
 <hr/>
-<div id="fighterDisplay" class="row top-buffer">
+<div id="fighterDisplay" class="top-buffer">
     <div class="col-xs-12 col-md-3 col-lg-3">
 <?php
 if(file_exists(WWW_ROOT.'img/'.$fighter['Fighter']['id'].'.jpeg'))echo $this->Html->image($fighter['Fighter']['id'].'.jpeg', array('alt' => 'Fighter','class'=>'imgResize'));
