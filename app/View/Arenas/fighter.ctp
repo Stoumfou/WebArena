@@ -3,8 +3,10 @@ $this->Html->meta('description','Combattant', array('inline' => false));
 
 ?>
 
-
-<h2>Gestion des combattants</h2>
+<div class="panel panel-info">
+<div class="panel-heading"><div class="panel-title">
+    <h2>Gestion des combattants</h2></div></div>
+    <div class="panel-body">
     <div class="row top-buffer">
         <div class="col-xs-12 col-md-12 col-lg-12 ">
             <?php if(count($fighters) == 0) {?>
@@ -76,6 +78,11 @@ if ($fighter) {
 ?>
 <hr/>
 
+
+<div id="fighterDisplay" class="row top-buffer jumbotron">
+    <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3">
+
+
 <div id="fighterDisplay" class="row top-buffer jumbotron">
     <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3">
 
@@ -96,12 +103,29 @@ echo $fighter['Fighter']['name'];
         <?php
 echo ' LvL : '.$fighter['Fighter']['level'];
     ?>
-        </h2>
-    <?php
-echo '
-<div class="col-xs-2 col-md-2 col-lg-2">HP ('.$fighter['Fighter']['current_health'].'/'.$fighter['Fighter']['skill_health'].')</div><div class="progress">
-  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="'.$fighter['Fighter']['current_health'].'" aria-valuemin="0" aria-valuemax="'.$fighter['Fighter']['skill_health'].'" style="width: '.((($fighter['Fighter']['current_health'])/($fighter['Fighter']['skill_health']))*100).'%">
-    <span class="sr-only">'.((($fighter['Fighter']['current_health'])/($fighter['Fighter']['skill_health']))*100).'% Complete</span>
+    </div>
+    </div>
+    <hr/>
+    <div id="fighterDisplay" class="top-buffer">
+        <div class="col-xs-12 col-md-3 col-lg-3">
+            <?php
+            if (file_exists(WWW_ROOT . 'img/' . $fighter['Fighter']['id'] . '.jpeg')) echo $this->Html->image($fighter['Fighter']['id'] . '.jpeg', array('alt' => 'Fighter', 'class' => 'imgResize'));
+            else if (file_exists(WWW_ROOT . 'img/' . $fighter['Fighter']['id'] . '.png')) echo $this->Html->image($fighter['Fighter']['id'] . '.png', array('alt' => 'Fighter', 'class' => 'imgResize'));
+            else if (file_exists(WWW_ROOT . 'img/' . $fighter['Fighter']['id'] . '.jpg')) echo $this->Html->image($fighter['Fighter']['id'] . '.jpg', array('alt' => 'Fighter', 'class' => 'imgResize'));
+            else if (file_exists(WWW_ROOT . 'img/' . $fighter['Fighter']['id'] . '.gif')) echo $this->Html->image($fighter['Fighter']['id'] . '.gif', array('alt' => 'Fighter', 'class' => 'imgResize'));
+            else echo $this->Html->image('fighter.jpg', array('alt' => 'Fighter', 'class' => 'imgResize'));
+            ?></div>
+        <div class="col-xs-12 col-md-8 col-lg-8 jumbotron">
+            <h1>
+                <?php
+                echo $fighter['Fighter']['name'] . ' LvL : ' . $fighter['Fighter']['level'];
+                ?>
+            </h1>
+            <?php
+            echo '
+<div class="col-xs-2 col-md-2 col-lg-2">HP (' . $fighter['Fighter']['current_health'] . '/' . $fighter['Fighter']['skill_health'] . ')</div><div class="progress">
+  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="' . $fighter['Fighter']['current_health'] . '" aria-valuemin="0" aria-valuemax="' . $fighter['Fighter']['skill_health'] . '" style="width: ' . ((($fighter['Fighter']['current_health']) / ($fighter['Fighter']['skill_health'])) * 100) . '%">
+    <span class="sr-only">' . ((($fighter['Fighter']['current_health']) / ($fighter['Fighter']['skill_health'])) * 100) . '% Complete</span>
   </div>
 </div>
 <div class="col-xs-2 col-md-2 col-lg-2">XP ('.$fighter['Fighter']['xp'].'/4)</div><div class="progress">

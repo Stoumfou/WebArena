@@ -1,11 +1,11 @@
 <?php
 $this->Html->meta('description', 'Journal', array('inline' => false));
 ?>
-
-<?php //pr($raw); ?>
-
 <?php
 if ($fighters != null) {
+    echo'<div class="panel panel-info">
+    <div class="panel-heading"><div class="panel-title"><h2>Choisissez un combattant pour afficher son journal</h2></div></div>
+    <div class="panel-body">';
     echo '<div class="col-lg-12 text-center">';
 	echo $this->Form->create('FighterChoose', array(
         'class' => 'form-inline',
@@ -43,7 +43,7 @@ if ($fighters != null) {
             echo '</tr>';
 
         }
-        echo '</tbody></table>';
+        echo '</tbody></table></</div></div>';
     }
 }else {
     ?>
