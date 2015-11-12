@@ -114,10 +114,34 @@ function clickableGrid( rows, cols, callback ){
 
 <?php
 if ($fighters != null) {
-echo $this->Form->create('FighterChoose');
-echo $this->Form->input('Combattant',array('options'=>$fighters));
-echo $this->Form->end('Choose');
-        
+?>        
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+<?php
+    echo $this->Form->create('FighterChoose', array(
+                            'class' => 'form-horizontal',
+                            'role' => 'form',
+                            'inputDefaults' => array(
+                                'format' => array('before', 'label', 'between', 'input', 'error', 'after'),
+                                'div' => array('class' => 'form-group'),
+                                'class' => array('form-control'),
+                                'label' => array('class' => 'col-xs-2 col-md-2 col-lg-2 control-label'),
+                                'between' => '<div class="col-xs-12 col-md-10 col-lg-10">',
+                                'after' => '</div>',
+                                'error' => array('attributes' => array('wrap' => 'span', 'class' => 'help-inline')),
+                            ))); ?>
+
+    <fieldset>
+        <legend><?php echo __('Choisissez un combattant à afficher.'); ?></legend>
+        <?php echo $this->Form->input('Combattant',array('options'=>$fighters)); 
+         echo $this->Form->end(array(
+            'label'=>__('Voir'),
+            'class'=>'btn btn-primary col-md-offset-2 col-lg-offset-2 col-xs-12 col-sm-12 col-md-10 col-lg-10',
+            'div'=>'form-actions'));
+        ?>
+    </fieldset>
+
+</div>
+<?php
 if ($fighterToSight != "") {
     echo '<div id="gridContainer"></div>
 <div class="gridManipulator">';
