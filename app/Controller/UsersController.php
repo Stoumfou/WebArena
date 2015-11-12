@@ -72,23 +72,44 @@ class UsersController extends AppController {
                 );
                 unset($this->request->data['User']['password']);
                 $this->Auth->login($this->request->data['User']);
-                 return $this->redirect(array('action' => '../Arenas/index'));
+                return $this->redirect(array('action' => '../Arenas/index'));
             } else {
                 $this->Flash->error(__('Le joueur n\'a pas été sauvegardé. Merci de réessayer.'));
             }
         }
     }
-
+    public function edit() {
+        if (!empty($this->data)) {
+            $email = $this->Auth->user('email');
+            $id = $this->Auth->user('id');
+            $datas = array('User'=>array(
+                'id'=>$id,
+                'email'=>$email,
+                'password'=>$this->request->data['Users']['password'])
+            );
+                pr($datas);
+            if ($this->User->save($datas)) {
+                $this->Session->setFlash('Password has been changed.');
+                return $this->redirect(array('action' => '../Arenas/index'));
+            } else {
+                $this->Session->setFlash('Password could not be changed.');
+            }
+        } else {
+            $this->data = $this->User->findById($this->Auth->user('id'));
+        }
+    }
 	/*
 	 *Méthode de modification d'un utilisateur
-	 */
+
     public function edit($id = null) {
+        $this->set('idUser',$this->Auth->user('id'));
         $this->User->id = $id;
         if (!$this->User->exists()) {
             throw new NotFoundException(__('Joueur Invalide'));
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->User->save($this->request->data)) {
+
                 $this->Flash->success(__('Le joueur a été sauvegardé'));
                 return $this->redirect(array('action' => '../Arenas/index'));
             } else {
@@ -105,10 +126,10 @@ class UsersController extends AppController {
 	 */
     public function delete($id = null) {
 
-        $this->set('idDelete',$this->Auth->user('id'));
+        //$this->set('idDelete',$this->Auth->user('id'));
 
-        if($this->request->is('post')) {
-            $this->request->allowMethod('post');
+        if($this->request->is('get')) {
+            $this->request->allowMethod('get');
 
             $this->User->id = $id;
             if (!$this->User->exists()) {

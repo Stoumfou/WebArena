@@ -19,6 +19,15 @@ class Fighter extends AppModel {
 
    );
    
+   public $validate = array(
+        'name' => array(
+            'unique' => array(
+                'rule' => array('isUnique'),
+                'message' => 'Nom deja utilise'
+            )
+        )
+    );
+	
    /*
     *Méthode de récupération de tout les combattant d'un joueur
     *Reçoit un id de User en string et retourne un array contenant tout ses Fighter en array

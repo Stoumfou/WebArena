@@ -71,6 +71,11 @@ class Surroundings extends AppModel {
         $resultat = $this->find('all',array('conditions'=>array('type'=>'warning_trap')));
         return $resultat;
     }
+	
+	public function getAllSurroundings(){
+		$resultat = $this->find('all');
+		return $resultat;
+	}
 
 	public function mobMove(){
 		$mob = $this->find('first',array('conditions'=>array('type'=>'mob')));

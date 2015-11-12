@@ -140,20 +140,33 @@ class ArenasController extends AppController
 			}
 			//Création d'un nouveau Fighter avec un nom fournis par le User
 			else if (array_key_exists('FighterCreate',$this->request->data)){
-				if(count($this->Surroundings->find('all')) == 0)$this->Surroundings->genMap();
+				if(count($this->Surroundings->getAllSurroundings) == 0)$this->Surroundings->genMap();
 
+				pr($this->request->data);
 				//Création de l'Event d'arrivée dans l'arène
 				$event = $this->Fighter->spawn($this->Auth->user('id'),$this->request->data['FighterCreate']['Nom']);
 				//Message si l'arène est pleine et le Fighter n'a pas été créé
 				if($event != null) {
                     $this->Event->record($event);
                     $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'),$this->request->data['FighterCreate']['Nom']);
-                    //$this->redirect(array('action' => '../Arenas/fighter'));
+                    if(!empty($this->data['FighterCreate']['Avatar']))
+                    {
+                        $file = $this->data['FighterCreate']['Avatar'];
+
+                        $ext = substr(strtolower(strrchr($file['name'], '.')), 1);
+                        $arr_ext = array('jpg', 'jpeg', 'gif', 'png');
+
+                        if(in_array($ext, $arr_ext))
+                        {
+                            move_uploaded_file($file['tmp_name'], WWW_ROOT . '/img/' . $fighter['Fighter']['id'].'.'.$ext);
+                        }
+                    }
+
                     
                     $this->set('fighter',$fighter);
                                    }
 				else {
-                    echo('Désolé, l\'arène est pleine ! Vous ne pouvez pas créer de nouveau combattant.');
+                    echo('Desole, l\'arene est pleine ! Vous ne pouvez pas creer de nouveau combattant.');
 				    $this->redirect(array('action' => '../Arenas/fighter'));
                 }
 			}

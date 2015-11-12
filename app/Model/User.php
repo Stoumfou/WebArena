@@ -2,10 +2,11 @@
 App::uses('AppModel', 'Model');
 App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
 
-class User extends AppModel {
+class User extends AppModel
+{
 
     public $useTable = 'players';
-	
+
     public $validate = array(
         'email' => array(
             'required' => array(
@@ -20,23 +21,25 @@ class User extends AppModel {
             )
         )
     );
-	
-	public $hasMany = array(
+
+    public $hasMany = array(
         'Fighter' => array(
             'className' => 'Fighter',
-			'foreignKey' => 'player_id'
+            'foreignKey' => 'player_id'
         )
     );
-	
-	/*
-	*Méthode de Hashage du mot de passe avant enregistrement en DB
-	*/
-	public function beforeSave($options = array()) {
-		if (isset($this->data[$this->alias]['password'])) {
-			$passwordHasher = new BlowfishPasswordHasher();
-			$this->data[$this->alias]['password'] = $passwordHasher->hash($this->data[$this->alias]['password']);
-		}
-		return true;
-	}
+
+    /*
+    *Méthode de Hashage du mot de passe avant enregistrement en DB
+    */
+    public function beforeSave($options = array())
+    {
+        if (isset($this->data[$this->alias]['password'])) {
+            $passwordHasher = new BlowfishPasswordHasher();
+            $this->data[$this->alias]['password'] = $passwordHasher->hash($this->data[$this->alias]['password']);
+        }
+        return true;
+    }
 }
+
 ?>

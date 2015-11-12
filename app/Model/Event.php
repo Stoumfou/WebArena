@@ -70,8 +70,6 @@ class Event extends AppModel {
         }
         return $res;
         
-        
-        
         /*
         
 		$res = array();
