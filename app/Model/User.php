@@ -10,9 +10,15 @@ class User extends AppModel
     public $validate = array(
         'email' => array(
             'required' => array(
-                'rule' => 'notBlank',
+                'rule' => 'email',
+                'allowEmpty'=>false,
                 'message' => 'Un e-mail est requis'
+            ),
+            'unique'=>array(
+                'rule'=>'isUnique',
+                'message'=> "Ce mail est déjà pris"
             )
+
         ),
         'password' => array(
             'required' => array(
