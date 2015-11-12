@@ -10,9 +10,11 @@ $this->Html->meta('description', 'Connexion', array('inline' => false));
 
 
                     <div class="col-xs-8 col-sm-8 col-lg-8">
+                        <div class="panel panel-info">
+                            <div class="panel-heading"><div class="panel-title">
+                        <h1>Connexion</h1></div></div>
 
-                        <h1>Connexion</h1>
-
+                            <div class="panel-body">
                         <?php echo $this->Flash->render('auth'); ?>
                         <?php echo $this->Form->create('User', array(
                             'class' => 'form-horizontal',
@@ -35,6 +37,8 @@ $this->Html->meta('description', 'Connexion', array('inline' => false));
                             <a class="btn btn-default facebook" href="<?php echo BASE_PATH . 'fblogin'; ?>"> <i
                                     class="fa fa-facebook modal-icons"> Sign in with Facebook</i></a>
                             <div><a href="forgotten">Mot de passe oublié</a></div>
+                            </div>
+                                    </div>
                         </div>
                     </div>
                 </div>

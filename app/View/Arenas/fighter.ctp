@@ -3,8 +3,10 @@ $this->Html->meta('description', 'Combattant', array('inline' => false));
 
 ?>
 
-
-    <h2>Gestion des combattants</h2>
+<div class="panel panel-info">
+<div class="panel-heading"><div class="panel-title">
+    <h2>Gestion des combattants</h2></div></div>
+    <div class="panel-body">
     <div class="row top-buffer">
     <div class="col-xs-12 col-md-12 col-lg-12 ">
 <?php if (count($fighters) == 0) { ?>
@@ -81,6 +83,8 @@ if (count($fighters) != 0) {
 }
 if ($fighter) {
     ?>
+    </div>
+    </div>
     <hr/>
     <div id="fighterDisplay" class="top-buffer">
         <div class="col-xs-12 col-md-3 col-lg-3">
