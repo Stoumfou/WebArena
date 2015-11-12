@@ -110,4 +110,9 @@ p {
     height: 100%;  
 }
 
+#listEvent thead, #classementTable thead{
+    background-color: white;
+
+}
+
 
