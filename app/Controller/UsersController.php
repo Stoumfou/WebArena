@@ -244,7 +244,7 @@ class UsersController extends AppController
             $graph = $response->getGraphObject();
 
             $fb_data = $graph->asArray();
-            var_dump($graph);
+            //var_dump($graph);
             $id = $graph->getId();
             $image = "https://graph.facebook.com/" . $id . "/picture?width=100";
 

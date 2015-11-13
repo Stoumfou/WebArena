@@ -43,7 +43,7 @@ class Surroundings extends AppModel {
 
 		if(count($surroundings) != 0){
 			foreach($surroundings as $surrounding){
-				var_dump($surrounding);
+				//var_dump($surrounding);
 				switch($surrounding['Surroundings']['type']){
 					case 'trap': 			array_push($result,1);
 						break;
