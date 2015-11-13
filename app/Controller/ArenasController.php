@@ -197,6 +197,7 @@ class ArenasController extends AppController
                             $event['name'] .= 'sur un piège et meurt';
                             $this->Event->record($event);
                             $this->Fighter->kill($fighter);
+                            $this->Session->setFlash('Vous avez marché dans un piège et êtes mort...', 'default', array('class' => 'alert alert-danger'));
                             break;
 
                         case 2:
