@@ -56,11 +56,12 @@ if ($fighters != null) {
 
     <div class="row">
 		<?php echo $this->Html->link('Créer mon combattant !', array('controller' => 'Arenas', 'action' => 'fighter'), array('class'=>'btn btn-lg btn-primary')) ?>
-    </div>
-</div>
+
 <?php
     }
 ?>
 <script>$(document).ready(function() {
         $('#listEvent').DataTable();
     } );</script>
+            </div>
+</div>

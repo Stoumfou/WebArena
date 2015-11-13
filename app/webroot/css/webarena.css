@@ -115,4 +115,12 @@ p {
 
 }
 
+.showDisplayEvent {
+    visibility: visible;
+}
+
+.hideDisplayEvent {
+    visibility: hidden;
+}
+
 

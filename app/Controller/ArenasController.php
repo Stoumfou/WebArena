@@ -165,7 +165,8 @@ class ArenasController extends AppController
         $this->set('manyWalls', $this->Surroundings->getAllWall());
         $this->set('fighterToSight', 0);
         $this->set('manyEvents', "");
-        //$this->set('manyEnnemies',"");
+        
+        $this->set('manyEnnemies',"");
 
         if ($this->request->is('post')) {
 

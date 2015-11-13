@@ -14,21 +14,24 @@
     for(var i=0;i<nbPilar;i++){
         manyPillars.push(String(arPilars[i]["Surroundings"]["coordinate_x"])+";"+String(arPilars[i]["Surroundings"]["coordinate_y"]));
     }
-
+    
+    
     var manyEvents = Array();
+    var testEvents = Array();
+    
     if(arEvents != "") {
         for(var i=0;i<arEvents.length;i++){
-            manyEvents.push(String(arEvents[i]['Event']['coordinate_x'])+";"+String(arEvents[i]['Event']['coordinate_y']));
+            var coordString = String(arEvents[i]['Event']['coordinate_x'])+";"+String(arEvents[i]['Event']['coordinate_y']);
+            manyEvents.push(coordString);
+            testEvents[coordString] = String(arEvents[i]['Event']['name']);
         }
     }
     
     var manyEnnemies = Array();
-        for(var i=0;i<arEnnemies.length;i++){
-            manyEnnemies.push(String(arEnnemies[i]['coordinate_x'])+";"+String(arEnnemies[i]['coordinate_y']));
-            console.log('shitters');
-        }
+    for(var i=0;i<arEnnemies.length;i++){
+        manyEnnemies.push(String(arEnnemies[i]['coordinate_x'])+";"+String(arEnnemies[i]['coordinate_y']));
+    }
     
-    console.log(manyEnnemies);
 
     var fName = "<?php echo $fighterToSight['Fighter']['name'] ?>";
     var fCoordX = "<?php echo $fighterToSight['Fighter']['coordinate_x'] ?>";
@@ -66,16 +69,52 @@
     champVision = inSight(fSight,fCoordX,fCoordY);
     
 var grid = clickableGrid(mapLimitY,mapLimitX,function(el,row,col,i){
-    console.log("You clicked on element:",el);
-    console.log("You clicked on row:",row);
-    console.log("You clicked on col:",col);
-    console.log("You clicked on item #:",i);
+    console.log(arEvents);
+    var tableEntry = document.createElement('table');
+    var headTableEntry = document.createElement('thead'); 
+    var headTableEntryRow = document.createElement('tr'); 
+    var headNameTable = document.createElement('th');
+    var headDateTable = document.createElement('th');
+    var bodyTableEntry = document.createElement('tbody');
     
-    //el.innerHTML = fName;
-    //lastClassClicked = el.className;
-    //el.className = el.className + ' clicked';
-    //if (lastClicked) lastClicked.className = lastClassClicked;
-    //lastClicked = el;
+    tableEntry.className ='table table-bordered table-striped table-responsive table-hover';
+    tableEntry.setAttribute("id", "tableEntry");
+    
+    headNameTable.innerHTML = "Entrée";
+    headDateTable.innerHTML = "Date";
+    
+    headTableEntryRow.appendChild(headDateTable);
+    headTableEntryRow.appendChild(headNameTable);
+    headTableEntry.appendChild(headTableEntryRow);
+    
+    tableEntry.appendChild(headTableEntry);
+    
+    for(var i = 0; i<arEvents.length;i++) {
+        var coordCompare = (String(arEvents[i]['Event']['coordinate_x'])+";"+String(arEvents[i]['Event']['coordinate_y']));
+        if ((coordCompare)==(col+';'+row)) {
+            var rowTable = document.createElement('tr'); 
+            var entryDate = document.createElement('td');
+            var entryName = document.createElement('td');
+            
+            entryName.innerHTML = String(arEvents[i]['Event']['name']);
+            entryDate.innerHTML = String(arEvents[i]['Event']['date']);
+            rowTable.appendChild(entryDate);
+            rowTable.appendChild(entryName);
+            
+            bodyTableEntry.appendChild(rowTable);
+        }
+    }
+    tableEntry.appendChild(bodyTableEntry);
+    
+    var disEvent = document.getElementById('displayEvent');
+    var entryEvent = "Il n'y a pas d'entrée.";
+    if (testEvents[col+';'+row] != undefined) entryEvent = testEvents[col+';'+row];
+    disEvent.className = 'jumbotron showDisplayEvent';
+    disEvent.innerHTML = '<h2>événements de la case ' + col +";"+ row + '</h2>';
+    disEvent.appendChild(tableEntry);
+
+
+    $('#tableEntry').DataTable();
 });
 
 function drawGrid () {
@@ -148,7 +187,7 @@ if ($fighters != null) {
 
     <fieldset>
         <legend><?php echo __('Choisissez un combattant à afficher.'); ?></legend>
-        <?php echo $this->Form->input('Combattant',array('options'=>$fighters)); 
+        <?php echo $this->Form->input('Combattant',array('options'=>$fighters, 'default'=>$fighterToSight['Fighter']["name"])); 
          echo $this->Form->end(array(
             'label'=>__('Voir'),
             'class'=>'btn btn-primary col-md-offset-2 col-lg-offset-2 col-xs-12 col-sm-12 col-md-10 col-lg-10',
@@ -192,11 +231,10 @@ if ($fighters != null) {
 <script type="text/javascript">
    drawGrid();
 </script>
-<?php /*echo $this->Form->create('FighterAttack');
-echo $this->Form->input('Combattant',array('options'=>$fighters));
-echo $this->Form->input('direction',array('options' => array('north'=>'north','east'=>'east','south'=>'south','west'=>'west'), 'default' => 'east'));
-echo $this->Form->end('Attack');*/
-    }
+            <div id="displayEvent" class="jumbotron hideDisplayEvent">
+                
+            </div>  
+<?php }
 } else {
     ?>
 <div class="jumbotron">
@@ -209,13 +247,15 @@ echo $this->Form->end('Attack');*/
     <div class="row">
         <?php echo $this->Html->link('Créer mon combattant !', array('controller' => 'Arenas', 'action' => 'fighter'), array('class'=>'btn btn-lg btn-primary')) ?>
     </div>
-</div>
+</div>   
 
-    </div>
-</div>
-</div>
+
 
 <?php
     }
 ?>
+        </div>
+    </div>
+
+    
 
