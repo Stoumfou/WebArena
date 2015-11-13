@@ -67,23 +67,27 @@ class UsersController extends AppController
     public function register()
     {
         if ($this->request->is('post')) {
-            if ($this->request->data['User']['pass1'] == $this->request->data['User']['pass2']) {
-                $this->request->data['User']['password'] = $this->request->data['User']['pass1'];
-                $this->User->create();
-                if ($this->User->save($this->request->data)) {
-                    $this->Flash->success(__('Le joueur a été sauvegardé'));
-                    $id = $this->User->id;
-                    $this->request->data['User'] = array_merge(
-                        $this->request->data['User'],
-                        array('id' => $id)
-                    );
-                    unset($this->request->data['User']['password']);
-                    $this->Auth->login($this->request->data['User']);
-                    return $this->redirect(array('action' => '../Arenas/index'));
-                } else {
-                    $this->Flash->error(__('Le joueur n\'a pas été sauvegardé. Merci de réessayer.'));
+            if ($this->isValid($_POST['g-recaptcha-response']) == true) {
+                if ($this->request->data['User']['pass1'] == $this->request->data['User']['pass2']) {
+                    $this->request->data['User']['password'] = $this->request->data['User']['pass1'];
+                    $this->User->create();
+                    if ($this->User->save($this->request->data)) {
+                        $this->Flash->success(__('Le joueur a été sauvegardé'));
+                        $id = $this->User->id;
+                        $this->request->data['User'] = array_merge(
+                            $this->request->data['User'],
+                            array('id' => $id)
+                        );
+                        unset($this->request->data['User']['password']);
+                        $this->Auth->login($this->request->data['User']);
+                        return $this->redirect(array('action' => '../Arenas/index'));
+                    } else {
+                        $this->Flash->error(__('Le joueur n\'a pas été sauvegardé. Merci de réessayer.'));
+                    }
                 }
+                $this->Session->setFlash('Les mots de passe ne correspondent pas, merci de réessayer', 'default', array('class' => 'alert alert-danger'));
             }
+            $this->Session->setFlash('Le catcha n\'a pas été coché, merci de réessayer', 'default', array('class' => 'alert alert-danger'));
         }
     }
 
@@ -158,6 +162,29 @@ class UsersController extends AppController
     public function logout()
     {
         return $this->redirect($this->Auth->logout());
+    }
+
+    /*
+     * Google ReCaptcha
+     */
+    public function isValid($code)
+    {
+        if (empty($code)) {
+            return false;
+        }
+        $params = [
+            'secret' => '6Les8BATAAAAAKXW1xHGIIfGGm7u2M3WeRvG53m0',
+            'response' => $code
+        ];
+        $url = "https://www.google.com/recaptcha/api/siteverify?" . http_build_query($params);
+        $response = file_get_contents($url);
+
+        if (empty($response) || is_null($response)) {
+            return false;
+        }
+
+        $json = json_decode($response);
+        return $json->success;
     }
 
     /**

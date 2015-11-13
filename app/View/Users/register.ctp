@@ -1,3 +1,5 @@
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
 <?php
 $this->Html->meta('description', 'Inscription', array('inline' => false));
 ?>
@@ -30,6 +32,7 @@ $this->Html->meta('description', 'Inscription', array('inline' => false));
                         echo $this->Form->input('pass1', array('label' => 'Mot de passe', 'type' => 'password'));
                         echo $this->Form->input('pass2', array('label' => 'Confirmer le mot de passe', 'type' => 'password')); ?>
                     </fieldset>
+                    <div class="g-recaptcha" data-sitekey="6Les8BATAAAAAOwKeUAOA9G2m-Jbn0Rx4o6HBkKY"></div>
                     <div class="col-md-offset-2 col-md-8"><input class="btn btn-success btn btn-success" type="submit"
                                                                  value="Register"/>
                     </div>
