@@ -148,7 +148,7 @@ function clickableGrid( rows, cols, callback ){
                 if(c == fCoordX && r == fCoordY-1) cell.innerHTML = 'N';
                 if(c == fCoordX && r == fCoordY-(-1)) cell.innerHTML = 'S';
                 if(c == fCoordX-(-1) && r == fCoordY) cell.innerHTML = 'E';
-                if(c == fCoordX-1 && r == fCoordY) cell.innerHTML = 'W';
+                if(c == fCoordX-1 && r == fCoordY) cell.innerHTML = 'O';
                 if(c == fCoordX && r == fCoordY) cell.appendChild(player);
                                }
         
