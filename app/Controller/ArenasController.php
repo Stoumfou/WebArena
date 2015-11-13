@@ -81,9 +81,9 @@ class ArenasController extends AppController
             else if (array_key_exists('FighterCreate', $this->request->data)) {
                 if (count($this->Surroundings->getAllSurroundings()) == 0) $this->Surroundings->genMap();
                 //Création de l'Event d'arrivée dans l'arène
-                {$event = $this->Fighter->spawn($this->Auth->user('id'), $this->request->data['FighterCreate']['Nom'],$this->Surroundings->getAllSurroundings());
-                $this->Session->setFlash('Combattant créé', 'default', array('class' => 'alert alert-success'));}
-                //Message si l'arène est pleine et le Fighter n'a pas été créé
+                {
+                    $event = $this->Fighter->spawn($this->Auth->user('id'), $this->request->data['FighterCreate']['Nom'], $this->Surroundings->getAllSurroundings());
+                }//Message si l'arène est pleine et le Fighter n'a pas été créé
                 if ($event != null) {
                     $this->Event->record($event);
                     $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterCreate']['Nom']);
