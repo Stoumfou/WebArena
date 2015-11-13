@@ -212,9 +212,11 @@ class Fighter extends AppModel
                     if ($xp <= 0) $xp = 1;
                     else $xp++;
                     $player['Fighter']['xp'] += $xp;
+                    //$this->Session->setFlash('Vous tuez quelqu\'un !', 'default', array('class' => 'alert alert-success'));
                 } else {
                     $event['name'] .= "touche";
                     $player['Fighter']['xp']++;
+                    //$this->Session->setFlash('Vous frappé quelqu\'un !', 'default', array('class' => 'alert alert-success'));
                 }
 
                 //Sauvegarde du gain d'xp

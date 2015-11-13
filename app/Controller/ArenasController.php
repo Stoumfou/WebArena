@@ -204,6 +204,7 @@ class ArenasController extends AppController
                             $event = array('name' => $fighter['Fighter']['name'] . ' se fait tuer par le monstre', 'coordinate_x' => $fighter['Fighter']['coordinate_x'], 'coordinate_y' => $fighter['Fighter']['coordinate_y']);
                             $this->Event->record($event);
                             $this->Fighter->kill($fighter);
+                            $this->Session->setFlash('Un monstre surgit et vous arrache la tête ! Vous êtes mort...', 'default', array('class' => 'alert alert-danger'));
                             break;
 
                         case 3:
@@ -219,6 +220,7 @@ class ArenasController extends AppController
                             $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterMove']['Combattant']);
                             $event = array('name' => $fighter['Fighter']['name'] . ' sent une brise suspecte', 'coordinate_x' => $fighter['Fighter']['coordinate_x'], 'coordinate_y' => $fighter['Fighter']['coordinate_y']);
                             $this->Event->record($event);
+                            $this->Session->setFlash('Vous sentez une brise suspecte...', 'default', array('class' => 'alert alert-warning'));
                             break;
 
                         case 5:
@@ -229,6 +231,7 @@ class ArenasController extends AppController
                             $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterMove']['Combattant']);
                             $event = array('name' => $fighter['Fighter']['name'] . ' sent une odeur nauseabonde', 'coordinate_x' => $fighter['Fighter']['coordinate_x'], 'coordinate_y' => $fighter['Fighter']['coordinate_y']);
                             $this->Event->record($event);
+                            $this->Session->setFlash('Vous sentez une odeur nauséabonde...', 'default', array('class' => 'alert alert-warning'));
                             break;
                         default:
                             ;
