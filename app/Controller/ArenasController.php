@@ -74,14 +74,15 @@ class ArenasController extends AppController
             } else if (array_key_exists('FighterKill', $this->request->data)) {
                 $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterKill']['Combattant']);
                 $this->Fighter->kill($fighter);
-                //$this->redirect(array('action' => '../Arenas/fighter'));
+
                 $this->set('raw', 'Combattant supprimé !');
 
             } //Création d'un nouveau Fighter avec un nom fournis par le User
             else if (array_key_exists('FighterCreate', $this->request->data)) {
                 if (count($this->Surroundings->getAllSurroundings()) == 0) $this->Surroundings->genMap();
                 //Création de l'Event d'arrivée dans l'arène
-                $event = $this->Fighter->spawn($this->Auth->user('id'), $this->request->data['FighterCreate']['Nom']);
+                {$event = $this->Fighter->spawn($this->Auth->user('id'), $this->request->data['FighterCreate']['Nom']);
+                $this->Session->setFlash('Combattant créé', 'default', array('class' => 'alert alert-success'));}
                 //Message si l'arène est pleine et le Fighter n'a pas été créé
                 if ($event != null) {
                     $this->Event->record($event);
@@ -100,7 +101,7 @@ class ArenasController extends AppController
 
                     $this->set('fighter', $fighter);
                 } else {
-                    echo('Desole, l\'arene est pleine ! Vous ne pouvez pas creer de nouveau combattant.');
+                    $this->Session->setFlash('Desole, l\'arene est pleine ! Vous ne pouvez pas creer de nouveau combattant', 'default', array('class' => 'alert alert-danger'));
                     $this->redirect(array('action' => '../Arenas/fighter'));
                 }
             } //Passage de niveau du Fighter séléctionné

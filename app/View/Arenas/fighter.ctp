@@ -34,6 +34,7 @@ $this->Html->meta('description', 'Combattant', array('inline' => false));
 
                         <fieldset>
                             <legend><?php echo __('Veuillez entrer le nom de votre combattant.'); ?></legend>
+                            <div class="alert alert-warning">Le nom doit être compris entre 3 et 16 caractères alphanumériques</div>
                             <?php echo $this->Form->input('Nom');
                             echo $this->Form->input('Avatar', array('type' => 'file')); ?>
                             <?php echo $this->Form->end(array(
