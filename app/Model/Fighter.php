@@ -232,7 +232,7 @@ class Fighter extends AppModel
      *Reçoit un id de User et un nom de Fighter en string
      *Retourne un Event en array avec des valeurs nom, coordinate_x et coordinate_y initialisées
      */
-    public function spawn($userId, $name)
+    public function spawn($userId, $name,$surroundings)
     {
         //Initialisation de l'Event
         $event = array('name' => 'Entree de ', 'coordinate_x' => 0, 'coordinate_y' => 0);
@@ -242,8 +242,16 @@ class Fighter extends AppModel
 
         //Initialisation des coordonnées de spawn
         $coord = array('coordinate_x' => 0, 'coordinate_y' => 0);
+		$surroundingBlocks = array();
         $tried = array();
         $freeSpot = false;
+		//var_dump($surroundings);
+		
+		foreach($surroundings as $surrounding){
+			if(($surrounding['Surroundings']['type'] == 'trap')||($surrounding['Surroundings']['type'] == 'wall')||($surrounding['Surroundings']['type'] == 'mob')){
+				array_push($surroundingBlocks,array('coordinate_x'=>$surrounding['Surroundings']['coordinate_x'],'coordinate_y'=>$surrounding['Surroundings']['coordinate_y']));
+			}
+		}
 
         //Temps qu'un emplacement libre n'est pas trouvé
         while (!$freeSpot) {
@@ -254,7 +262,7 @@ class Fighter extends AppModel
             //Si la case (x,y) n'a pas été testée
             if (array_search($coord, $tried) == false) {
                 //Si aucun Fighter n'est positionné sur la case (x,y), la case est marquée comme libre
-                if (count($this->find('all', array('conditions' => array('coordinate_x' => $coord['coordinate_x'], 'coordinate_y' => $coord['coordinate_y'])))) == 0) $freeSpot = true;
+                if ((count($this->find('all', array('conditions' => array('coordinate_x' => $coord['coordinate_x'], 'coordinate_y' => $coord['coordinate_y'])))) == 0)&&(array_search($coord, $surroundingBlocks) == false)) $freeSpot = true;
                 //Sinon la case est marquée comme testée
                 else array_push($tried, $coord);
             }
