@@ -207,7 +207,7 @@ if ($fighters != null) {
             <?php 
         
         if ($fighterToSight != "") {
-        echo $this->Form->create('FighterAction',array(
+        echo $this->Form->create('FighterMove',array(
                             'class' => 'form-horizontal',
                             'role' => 'form',
                             'inputDefaults' => array(
@@ -224,7 +224,6 @@ if ($fighters != null) {
         <legend><?php echo __('Choisissez une action.'); ?></legend>
                 <?php
             echo $this->Form->input('Combattant',array('default'=>$fighterToSight['Fighter']["name"], 'type'=>'hidden'));
-            echo $this->Form->input('Action',array('default'=>'attack', 'type'=>'hidden'));
             echo $this->Form->input('Action',array('default'=>'move', 'type'=>'hidden'));
             echo $this->Form->input('Direction',array('options' => array('north'=>'Nord','east'=>'Est','south'=>'Sud','west'=>'Ouest'), 'default' => 'north'));
             echo $this->Form->end(array(
@@ -232,7 +231,7 @@ if ($fighters != null) {
             'class'=>'btn btn-success col-md-offset-2 col-lg-offset-2 col-xs-12 col-sm-12 col-md-10 col-lg-10',
             'div'=>'form-actions'));
             
-            echo $this->Form->create('FighterAction',array(
+            echo $this->Form->create('FighterAttack',array(
                             'class' => 'form-horizontal',
                             'role' => 'form',
                             'inputDefaults' => array(
@@ -249,7 +248,6 @@ if ($fighters != null) {
                 <?php
             echo $this->Form->input('Combattant',array('default'=>$fighterToSight['Fighter']["name"], 'type'=>'hidden'));
             echo $this->Form->input('Action',array('default'=>'attack', 'type'=>'hidden'));
-            echo $this->Form->input('Action',array('default'=>'move', 'type'=>'hidden'));
             echo $this->Form->input('Direction',array('options' => array('north'=>'Nord','east'=>'Est','south'=>'Sud','west'=>'Ouest'), 'default' => 'north'));
             echo $this->Form->end(array(
             'label'=>__('A l\'attaque !'),

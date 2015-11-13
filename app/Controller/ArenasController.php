@@ -177,23 +177,23 @@ class ArenasController extends AppController
                 $range = $fighter['Fighter']['skill_sight'];
                 $this->set('manyEvents', $this->Event->getEventList($coord, $range));
                 $this->set('manyEnnemies', $this->Fighter->getEnnemiesInRange($coord, $range));
-            } else if ((array_key_exists('FighterAction', $this->request->data)) && ($this->request->data['FighterAction']['Action'] == 'move')) {
+            } else if ((array_key_exists('FighterMove', $this->request->data)) && ($this->request->data['FighterMove']['Action'] == 'move')) {
 
-                $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAction']['Combattant']);
-                $surroundings = $this->Surroundings->checkSurroundings($fighter, $this->request->data['FighterAction']['Direction']);
+                $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterMove']['Combattant']);
+                $surroundings = $this->Surroundings->checkSurroundings($fighter, $this->request->data['FighterMove']['Direction']);
                 $moved = false;
                 foreach ($surroundings as $element) {
                     switch ($element) {
 
                         case 0:    //Action de déplacement, création de l'Event correspondant
                             if (!$moved) {
-                                $this->Event->record($this->Fighter->doMove($fighter, $this->request->data['FighterAction']['Direction']));
+                                $this->Event->record($this->Fighter->doMove($fighter, $this->request->data['FighterMove']['Direction']));
                                 $moved = true;
                             }
                             break;
 
                         case 1:
-                            $event = $this->Fighter->doMove($fighter, $this->request->data['FighterAction']['Direction']);
+                            $event = $this->Fighter->doMove($fighter, $this->request->data['FighterMove']['Direction']);
                             $event['name'] .= 'sur un piège et meurt';
                             $this->Event->record($event);
                             $this->Fighter->kill($fighter);
@@ -212,20 +212,20 @@ class ArenasController extends AppController
 
                         case 4:
                             if (!$moved) {
-                                $this->Event->record($this->Fighter->doMove($fighter, $this->request->data['FighterAction']['Direction']));
+                                $this->Event->record($this->Fighter->doMove($fighter, $this->request->data['FighterMove']['Direction']));
                                 $moved = true;
                             }
-                            $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAction']['Combattant']);
+                            $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterMove']['Combattant']);
                             $event = array('name' => $fighter['Fighter']['name'] . ' sent une brise suspecte', 'coordinate_x' => $fighter['Fighter']['coordinate_x'], 'coordinate_y' => $fighter['Fighter']['coordinate_y']);
                             $this->Event->record($event);
                             break;
 
                         case 5:
                             if (!$moved) {
-                                $this->Event->record($this->Fighter->doMove($fighter, $this->request->data['FighterAction']['Direction']));
+                                $this->Event->record($this->Fighter->doMove($fighter, $this->request->data['FighterMove']['Direction']));
                                 $moved = true;
                             }
-                            $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAction']['Combattant']);
+                            $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterMove']['Combattant']);
                             $event = array('name' => $fighter['Fighter']['name'] . ' sent une odeur nauseabonde', 'coordinate_x' => $fighter['Fighter']['coordinate_x'], 'coordinate_y' => $fighter['Fighter']['coordinate_y']);
                             $this->Event->record($event);
                             break;
@@ -233,7 +233,7 @@ class ArenasController extends AppController
                             ;
                     }
                 }
-                if ($fighter2 = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAction']['Combattant'])) {
+                if ($fighter2 = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterMove']['Combattant'])) {
                     $this->set('fighterToSight', $fighter2);
                     $coord = array("coord_x" => $fighter2['Fighter']['coordinate_x'], "coord_y" => $fighter2['Fighter']['coordinate_y']);
                     $range = $fighter2['Fighter']['skill_sight'];
@@ -241,9 +241,9 @@ class ArenasController extends AppController
                     $this->set('manyEnnemies', $this->Fighter->getEnnemiesInRange($coord, $range));
                 }
 
-            } else if ((array_key_exists('FighterAction', $this->request->data)) && ($this->request->data['FighterAction']['Action'] == 'attack')) {
-                $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAction']['Combattant']);
-                $surroundings = $this->Surroundings->checkSurroundings($fighter, $this->request->data['FighterAction']['Direction']);
+            } else if ((array_key_exists('FighterAttack', $this->request->data)) && ($this->request->data['FighterAttack']['Action'] == 'attack')) {
+                $fighter = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAttack']['Combattant']);
+                $surroundings = $this->Surroundings->checkSurroundings($fighter, $this->request->data['FighterAttack']['Direction']);
                 switch ($surroundings[0]) {
 
                     case 0:
@@ -251,19 +251,19 @@ class ArenasController extends AppController
                     case 3:
                     case 4:    //Action d'attaque, création de l'Event correspondant
                     case 5:
-                        $this->Event->record($this->Fighter->doAttack($fighter, $this->request->data['FighterAction']['Direction']));
+                        $this->Event->record($this->Fighter->doAttack($fighter, $this->request->data['FighterAttack']['Direction']));
                         break;
 
                     case 2:
-                        $this->Event->record($this->Fighter->doAttack($fighter, $this->request->data['FighterAction']['Direction']));
-                        $this->Event->record($this->Fighter->killMob($fighter, $this->request->data['FighterAction']['Direction']));
+                        $this->Event->record($this->Fighter->doAttack($fighter, $this->request->data['FighterAttack']['Direction']));
+                        $this->Event->record($this->Fighter->killMob($fighter, $this->request->data['FighterAttack']['Direction']));
                         $this->Surroundings->mobMove();
                         break;
 
                     default:
                         ;
                 }
-                $fighter2 = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAction']['Combattant']);
+                $fighter2 = $this->Fighter->getFighterByUserAndName($this->Auth->user('id'), $this->request->data['FighterAttack']['Combattant']);
                 $this->set('fighterToSight', $fighter2);
                 $coord = array("coord_x" => $fighter2['Fighter']['coordinate_x'], "coord_y" => $fighter2['Fighter']['coordinate_y']);
                 $range = $fighter2['Fighter']['skill_sight'];
