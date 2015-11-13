@@ -4,6 +4,9 @@
 <script type="text/javascript">
     var mapLimitX = "<?php echo MAPLIMITX ?>";
     var mapLimitY = "<?php echo MAPLIMITY ?>";
+    
+    var lastClassClicked;
+    var lastClicked;
 
     var nbPilar = (mapLimitX*mapLimitY)/10;
     var arPilars = <?php echo json_encode($manyWalls) ?>;
@@ -68,8 +71,11 @@
     var champVision = Array();
     champVision = inSight(fSight,fCoordX,fCoordY);
     
+    function legendOnClick(el){
+        document.getElementById('legendDisplayTitle').innerHTML = el;
+    }
+    
 var grid = clickableGrid(mapLimitY,mapLimitX,function(el,row,col,i){
-    console.log(arEvents);
     var tableEntry = document.createElement('table');
     var headTableEntry = document.createElement('thead'); 
     var headTableEntryRow = document.createElement('tr'); 
@@ -113,7 +119,11 @@ var grid = clickableGrid(mapLimitY,mapLimitX,function(el,row,col,i){
     disEvent.innerHTML = '<h2>événements de la case ' + col +";"+ row + '</h2>';
     disEvent.appendChild(tableEntry);
 
-
+    if (lastClicked) lastClicked.className = lastClassClicked;
+    lastClassClicked = el.className;
+    el.className = el.className + ' clicked';
+    lastClicked = el;
+    
     $('#tableEntry').DataTable();
 });
 
@@ -131,7 +141,6 @@ function clickableGrid( rows, cols, callback ){
         var tr = grid.appendChild(document.createElement('tr'));
         for (var c=0;c<cols;++c){
             var cell = tr.appendChild(document.createElement('td'));
-            //cell.innerHTML = ++i;
             var ennemy = document.createElement('i');
             ennemy.innerHTML = '<i class="fa fa-dot-circle-o fa-2x"></i>';
             
@@ -144,7 +153,6 @@ function clickableGrid( rows, cols, callback ){
                                }
         
                 var title = String(c) +";"+ String(r); 
-                console.log(($.inArray( title, manyEnnemies)>= 0));
             if(($.inArray( title, manyEnnemies)>= 0) && title != (fCoordX+";"+fCoordY)) cell.appendChild(ennemy);
             if($.inArray( title, manyPillars)>=0)cell.className = ' pilar';
             else if($.inArray( title, manyEvents )>=0)cell.className = cell.className + ' events';
@@ -181,7 +189,7 @@ if ($fighters != null) {
                                 'class' => array('form-control'),
                                 'label' => array('class' => 'col-xs-2 col-md-2 col-lg-2 control-label'),
                                 'between' => '<div class="col-xs-12 col-md-10 col-lg-10">',
-                                'after' => '</div>',
+                                'after' => '</div><br />',
                                 'error' => array('attributes' => array('wrap' => 'span', 'class' => 'help-inline')),
                             ))); ?>
 
@@ -191,7 +199,9 @@ if ($fighters != null) {
          echo $this->Form->end(array(
             'label'=>__('Voir'),
             'class'=>'btn btn-primary col-md-offset-2 col-lg-offset-2 col-xs-12 col-sm-12 col-md-10 col-lg-10',
-            'div'=>'form-actions'));
+            'div'=>'form-actions',
+            'after' => '<br />',
+         ));
         ?>
     </fieldset>
             <?php 
@@ -214,26 +224,62 @@ if ($fighters != null) {
         <legend><?php echo __('Choisissez une action.'); ?></legend>
                 <?php
             echo $this->Form->input('Combattant',array('default'=>$fighterToSight['Fighter']["name"], 'type'=>'hidden'));
-            echo $this->Form->radio('Action',array('attack'=>'Attack'));
-            echo $this->Form->radio('Action',array('move'=>'Move'));
-            echo $this->Form->input('Direction',array('options' => array('north'=>'north','east'=>'east','south'=>'south','west'=>'west'), 'default' => 'east'));
+            echo $this->Form->input('Action',array('default'=>'attack', 'type'=>'hidden'));
+            echo $this->Form->input('Action',array('default'=>'move', 'type'=>'hidden'));
+            echo $this->Form->input('Direction',array('options' => array('north'=>'Nord','east'=>'Est','south'=>'Sud','west'=>'Ouest'), 'default' => 'north'));
             echo $this->Form->end(array(
-            'label'=>__('GO!'),
+            'label'=>__('Marchons !'),
             'class'=>'btn btn-success col-md-offset-2 col-lg-offset-2 col-xs-12 col-sm-12 col-md-10 col-lg-10',
+            'div'=>'form-actions'));
+            
+            echo $this->Form->create('FighterAction',array(
+                            'class' => 'form-horizontal',
+                            'role' => 'form',
+                            'inputDefaults' => array(
+                                'format' => array('before', 'label', 'between', 'input', 'error', 'after'),
+                                'div' => array('class' => 'form-group'),
+                                'before' => '<hr/>',
+                                'class' => array('form-control'),
+                                'label' => array('class' => 'col-xs-2 col-md-2 col-lg-2 control-label'),
+                                'between' => '<div class="col-xs-12 col-md-10 col-lg-10">',
+                                'after' => '</div>',
+                                'error' => array('attributes' => array('wrap' => 'span', 'class' => 'help-inline')),
+                            )));
+            ?>
+                <?php
+            echo $this->Form->input('Combattant',array('default'=>$fighterToSight['Fighter']["name"], 'type'=>'hidden'));
+            echo $this->Form->input('Action',array('default'=>'attack', 'type'=>'hidden'));
+            echo $this->Form->input('Action',array('default'=>'move', 'type'=>'hidden'));
+            echo $this->Form->input('Direction',array('options' => array('north'=>'Nord','east'=>'Est','south'=>'Sud','west'=>'Ouest'), 'default' => 'north'));
+            echo $this->Form->end(array(
+            'label'=>__('A l\'attaque !'),
+            'class'=>'btn btn-danger col-md-offset-2 col-lg-offset-2 col-xs-12 col-sm-12 col-md-10 col-lg-10',
             'div'=>'form-actions'));
         ?>
 
 </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 <?php
-    echo '<div id="gridContainer"></div>
-<div class="gridManipulator">';
+    echo '<div id="gridContainer">
+        <div> Légende (clique ci-dessous) : <span id="legendDisplayTitle"></span>
+        
+    <table id="tableLegends"  class="grid"><tr>
+        <td id="legUser" onclick="legendOnClick(\'Votre personnage\')" class="cellInSight"><i class="fa fa-user fa-2x"></i></td>
+        <td id="legInSight" onclick="legendOnClick(\'Dans le champ de vision\')" class="cellInSight"></td>
+        <td id="legNoSight" onclick="legendOnClick(\'En dehors du champ de vision\')" class="cellNoSight"></td>
+        <td id="legPilar" onclick="legendOnClick(\'Colonne (obstacle)\')" class="pilar"></td>
+        <td id="legEvent" onclick="legendOnClick(\'Evénement\')" class="events"></td>
+        <td id="legEnnemy" onclick="legendOnClick(\'Autre joueur\')" class="cellInSight"><i class="fa fa-dot-circle-o fa-2x"></i></td>
+    </tr>
+    </table>
+    </div>
+    </div>';
 ?>
+            </div>
 <script type="text/javascript">
    drawGrid();
 </script>
-            <div id="displayEvent" class="jumbotron hideDisplayEvent">
-                
-            </div>  
+            
 <?php }
 } else {
     ?>
@@ -254,8 +300,14 @@ if ($fighters != null) {
 <?php
     }
 ?>
+            
         </div>
     </div>
+    
+                <div id="displayEvent" class="jumbotron hideDisplayEvent">
+                
+                </div>  
+            
 
     
 
