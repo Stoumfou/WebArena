@@ -68,10 +68,10 @@ class UsersController extends AppController
     {
         if ($this->request->is('post')) {
             if ($this->request->data['User']['pass1'] == $this->request->data['User']['pass2']) {
-                $this->request->data['Users']['password'] = $this->request->data['User']['pass1'];
+                $this->request->data['User']['password'] = $this->request->data['User']['pass1'];
                 $this->User->create();
                 if ($this->User->save($this->request->data)) {
-                    //$this->Flash->success(__('Le joueur a été sauvegardé'));
+                    $this->Flash->success(__('Le joueur a été sauvegardé'));
                     $id = $this->User->id;
                     $this->request->data['User'] = array_merge(
                         $this->request->data['User'],
@@ -102,10 +102,10 @@ class UsersController extends AppController
                 );
                 pr($datas);
                 if ($this->User->save($datas)) {
-                    $this->Session->setFlash('Password has been changed.','default',array ('class' => 'alert alert-success'));
+                    $this->Session->setFlash('Le mot de passe a été changé.','default',array ('class' => 'alert alert-success'));
                     return $this->redirect(array('action' => '../Arenas/index'));
                 } else {
-                    $this->Session->setFlash('Password could not be changed.','default',array ('class' => 'alert alert-danger'));
+                    $this->Session->setFlash('Le mot de passe n\'a pas été changé.','default',array ('class' => 'alert alert-danger'));
                 }
             } else {
                 $this->data = $this->User->findById($this->Auth->user('id'));
