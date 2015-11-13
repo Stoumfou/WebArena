@@ -45,7 +45,7 @@ $this->Html->meta('description', 'Edition de compte', array('inline' => false));
                                                                              value="Edit"/>
                                 </div>
                                 <?php echo $this->Html->link('Suppression du compte',
-                                    array('controller' => 'Users', 'action' => 'delete', $idUser), array(
+                                    array('controller' => 'Arenas', 'action' => 'deleteFighter'), array(
                                         'class' => 'col-md-offset-2 col-md-6 col-lg-4 btn btn-danger')); ?>
                             </div>
                         </div>

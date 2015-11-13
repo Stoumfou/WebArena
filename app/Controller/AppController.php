@@ -37,11 +37,9 @@ class AppController extends Controller {
         $this->Auth->allow('index','register', 'login','forgotten');
         if($this->Auth->loggedIn()){
 			$this->set('myname', strtok($this->User->findById($this->Auth->user('id'))['User']['email'],'@'));
-			$this->set('idUser',$this->Auth->user('id'));
 		}
 		else {
 			$this->set('myname', "futur grand guerrier");
-			$this->set('idUser','');
 		}
     }
 

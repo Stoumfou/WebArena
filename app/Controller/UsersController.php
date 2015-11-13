@@ -90,6 +90,7 @@ class UsersController extends AppController
     public function edit()
     {
         if (!empty($this->data)) {
+            //var_dump($this->data);
             if ($this->request->data['User']['pass1'] == $this->request->data['User']['pass2']) {
                 $this->request->data['Users']['password'] = $this->request->data['User']['pass1'];
 
@@ -100,7 +101,7 @@ class UsersController extends AppController
                     'email' => $email,
                     'password' => $this->request->data['Users']['password'])
                 );
-                pr($datas);
+                //pr($datas);
                 if ($this->User->save($datas)) {
                     $this->Session->setFlash('Le mot de passe a été changé.','default',array ('class' => 'alert alert-success'));
                     return $this->redirect(array('action' => '../Arenas/index'));
@@ -109,6 +110,7 @@ class UsersController extends AppController
                 }
             } else {
                 $this->data = $this->User->findById($this->Auth->user('id'));
+                //var_dump($this->data);
             }
         }
     }
@@ -135,6 +137,7 @@ class UsersController extends AppController
             unset($this->request->data['User']['password']);
         }
     }
+	*/
 
     /*
      *Méthode de suppresion d'un utilisateur
@@ -142,7 +145,7 @@ class UsersController extends AppController
     public function delete($id = null)
     {
 
-        //$this->set('idDelete',$this->Auth->user('id'));
+       // $id = $this->Auth->user('id'));
 
         if ($this->request->is('get')) {
             $this->request->allowMethod('get');
