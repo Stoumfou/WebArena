@@ -90,7 +90,6 @@ class UsersController extends AppController
     public function edit()
     {
         if (!empty($this->data)) {
-            //var_dump($this->data);
             if ($this->request->data['User']['pass1'] == $this->request->data['User']['pass2']) {
                 $this->request->data['Users']['password'] = $this->request->data['User']['pass1'];
 
@@ -110,34 +109,9 @@ class UsersController extends AppController
                 }
             } else {
                 $this->data = $this->User->findById($this->Auth->user('id'));
-                //var_dump($this->data);
             }
         }
     }
-
-    /*
-     *Méthode de modification d'un utilisateur
-
-    public function edit($id = null) {
-        $this->set('idUser',$this->Auth->user('id'));
-        $this->User->id = $id;
-        if (!$this->User->exists()) {
-            throw new NotFoundException(__('Joueur Invalide'));
-        }
-        if ($this->request->is('post') || $this->request->is('put')) {
-            if ($this->User->save($this->request->data)) {
-
-                $this->Flash->success(__('Le joueur a été sauvegardé'));
-                return $this->redirect(array('action' => '../Arenas/index'));
-            } else {
-                $this->Flash->error(__('Le joueur n\'a pas été sauvegardé. Merci de réessayer.'));
-            }
-        } else {
-            $this->request->data = $this->User->findById($id);
-            unset($this->request->data['User']['password']);
-        }
-    }
-	*/
 
     /*
      *Méthode de suppresion d'un utilisateur
