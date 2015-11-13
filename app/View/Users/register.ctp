@@ -10,12 +10,6 @@ $this->Html->meta('description', 'Inscription', array('inline' => false));
                     <div class="panel-title">
                         <h1>Inscription</h1></div>
                 </div>
-                
-                
-                
-                
-                
-                
                 <div class="panel-body">
                     <?php echo $this->Form->create('User', array(
                         'class' => 'form-horizontal',
@@ -31,10 +25,10 @@ $this->Html->meta('description', 'Inscription', array('inline' => false));
                         ))); ?>
                     <fieldset>
                         <legend><?php echo __('Entrez un nom de compte et un mot de passe'); ?></legend>
-                        <?php 
-echo $this->Form->input('email', array('label' => '  Adresse email', 'type' => 'email')); 
-                         echo $this->Form->input('pass1', array('label' => 'Mot de passe', 'type' => 'password')); 
-                         echo $this->Form->input('pass2', array('label' => 'Confirmer le mot de passe', 'type' => 'password')); ?>
+                        <?php
+                        echo $this->Form->input('email', array('label' => '  Adresse email', 'type' => 'email'));
+                        echo $this->Form->input('pass1', array('label' => 'Mot de passe', 'type' => 'password'));
+                        echo $this->Form->input('pass2', array('label' => 'Confirmer le mot de passe', 'type' => 'password')); ?>
                     </fieldset>
                     <div class="col-md-offset-2 col-md-8"><input class="btn btn-success btn btn-success" type="submit"
                                                                  value="Register"/>

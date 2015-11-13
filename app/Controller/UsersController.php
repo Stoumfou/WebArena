@@ -103,10 +103,10 @@ class UsersController extends AppController
                 );
                 //pr($datas);
                 if ($this->User->save($datas)) {
-                    $this->Session->setFlash('Le mot de passe a été changé.','default',array ('class' => 'alert alert-success'));
+                    $this->Session->setFlash('Le mot de passe a été changé.', 'default', array('class' => 'alert alert-success'));
                     return $this->redirect(array('action' => '../Arenas/index'));
                 } else {
-                    $this->Session->setFlash('Le mot de passe n\'a pas été changé.','default',array ('class' => 'alert alert-danger'));
+                    $this->Session->setFlash('Le mot de passe n\'a pas été changé.', 'default', array('class' => 'alert alert-danger'));
                 }
             } else {
                 $this->data = $this->User->findById($this->Auth->user('id'));
@@ -145,7 +145,7 @@ class UsersController extends AppController
     public function delete($id = null)
     {
 
-       // $id = $this->Auth->user('id'));
+        // $id = $this->Auth->user('id'));
 
         if ($this->request->is('get')) {
             $this->request->allowMethod('get');

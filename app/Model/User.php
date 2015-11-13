@@ -11,12 +11,12 @@ class User extends AppModel
         'email' => array(
             'required' => array(
                 'rule' => 'email',
-                'allowEmpty'=>false,
+                'allowEmpty' => false,
                 'message' => 'Un e-mail est requis'
             ),
-            'unique'=>array(
-                'rule'=>'isUnique',
-                'message'=> "Ce mail est déjà pris"
+            'unique' => array(
+                'rule' => 'isUnique',
+                'message' => "Ce mail est déjà pris"
             )
 
         ),
