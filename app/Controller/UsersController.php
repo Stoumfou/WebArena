@@ -85,9 +85,8 @@ class UsersController extends AppController
                         $this->Flash->error(__('Le joueur n\'a pas été sauvegardé. Merci de réessayer.'));
                     }
                 }
-                $this->Session->setFlash('Les mots de passe ne correspondent pas, merci de réessayer', 'default', array('class' => 'alert alert-danger'));
             }
-            $this->Session->setFlash('Le catcha n\'a pas été coché, merci de réessayer', 'default', array('class' => 'alert alert-danger'));
+            $this->Session->setFlash('Vérifiez que les mots de passe correspondent et que le captcha est coché', 'default', array('class' => 'alert alert-danger'));
         }
     }
 

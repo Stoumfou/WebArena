@@ -22,7 +22,7 @@ $this->Html->meta('description', 'WebArena le site de jeu de combat d\'arène mu
 <p>
     Tu pourras déplacer ton combattant case par case dans l'arène sous forme d'un damier (pas de déplacement en diagonale).<br/>
     Ton combattant à 3 caractéristiques : la force (pour faire des dégâts), la vie (si elle tombe à 0 ton personnage est mort), la vue (pour voir les évènements autour de toi)<br/>
-    Les attaques se font vers une direction (droite, gauche, haut, bas).<br/>
+    Les attaques se font vers une direction (nord, sud, est, ouest).<br/>
     Tu gagnes de l'expérience en tuant les autres joueurs et pourras monter de tous les 4 points d'expériences et ainsi choisir une caractéristique à améliorer.<br/>
     3 types de pièges sont présents dans l'arène : le monstre, il te tue en un coup si tu marches sur sa case. Des indications te seront fournis si tu es près de lui. Les pièges te feront des dégâts si tu marches dessus, les colonnes te bloqueront le passage.
 </p>
