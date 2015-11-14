@@ -196,15 +196,8 @@ class Surroundings extends AppModel {
 			if(($coord['coordinate_x']+$i>=0)&&
 				($coord['coordinate_x']+$i<MAPLIMITX)&&
 				($coord['coordinate_y']+$j>=0)&&
-				($coord['coordinate_y']+$j<MAPLIMITY)&&
-				(count($this->find('all',array('conditions'=>array('type'=>'wall',
-																	'coordinate_x'=>$coord['coordinate_x'],
-																	'coordinate_y'=>$coord['coordinate_y']
-																	)
-												)
-									)
-						)
-				) == 0
+				($coord['coordinate_y']+$j<MAPLIMITY)
+				
 			){
 				$warning['Surroundings']['coordinate_x'] = $coord['coordinate_x']+$i;
 				$warning['Surroundings']['coordinate_y'] = $coord['coordinate_y']+$j;

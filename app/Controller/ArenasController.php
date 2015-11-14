@@ -210,6 +210,7 @@ class ArenasController extends AppController
                         case 3:
                             $event = array('name' => $fighter['Fighter']['name'] . ' est bloqué par un pilier', 'coordinate_x' => $fighter['Fighter']['coordinate_x'], 'coordinate_y' => $fighter['Fighter']['coordinate_y']);
                             $this->Event->record($event);
+							$moved = true;
                             break;
 
                         case 4:
